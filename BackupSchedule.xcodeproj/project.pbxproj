@@ -7,13 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */; };
+		C30A469229C78C4800B0AB32 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A469129C78C4800B0AB32 /* BackgroundView.swift */; };
+		C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30C20C829C7E7E0005F5D83 /* Regex.swift */; };
 		C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D629C61D9200DF624A /* AppDelegate.swift */; };
-		C32963D929C61D9200DF624A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D829C61D9200DF624A /* ViewController.swift */; };
+		C32963D929C61D9200DF624A /* ConfigureTimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D829C61D9200DF624A /* ConfigureTimeMachine.swift */; };
 		C32963DB29C61D9300DF624A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C32963DA29C61D9300DF624A /* Assets.xcassets */; };
 		C32963DE29C61D9300DF624A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32963DC29C61D9300DF624A /* Main.storyboard */; };
 		C32963E929C61D9300DF624A /* BackupScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963E829C61D9300DF624A /* BackupScheduleTests.swift */; };
 		C32963F329C61D9300DF624A /* BackupScheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963F229C61D9300DF624A /* BackupScheduleUITests.swift */; };
 		C32963F529C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */; };
+		C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329640129C61DFD00DF624A /* DefaultButton.swift */; };
+		C377E95E29C8C8AD00D98BC9 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377E95D29C8C8AD00D98BC9 /* DefaultTextField.swift */; };
+		C3A9389929C6395B00527264 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389829C6395B00527264 /* NSColor.swift */; };
+		C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389A29C652E500527264 /* TimeMachine.swift */; };
+		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleConfiguration.swift; sourceTree = "<group>"; };
+		C30A469129C78C4800B0AB32 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		C30C20C829C7E7E0005F5D83 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		C32963D329C61D9200DF624A /* BackupSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackupSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32963D629C61D9200DF624A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C32963D829C61D9200DF624A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C32963D829C61D9200DF624A /* ConfigureTimeMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTimeMachine.swift; sourceTree = "<group>"; };
 		C32963DA29C61D9300DF624A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C32963DD29C61D9300DF624A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C32963DF29C61D9300DF624A /* BackupSchedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BackupSchedule.entitlements; sourceTree = "<group>"; };
@@ -45,6 +56,11 @@
 		C32963EE29C61D9300DF624A /* BackupScheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackupScheduleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32963F229C61D9300DF624A /* BackupScheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleUITests.swift; sourceTree = "<group>"; };
 		C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C329640129C61DFD00DF624A /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
+		C377E95D29C8C8AD00D98BC9 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
+		C3A9389829C6395B00527264 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
+		C3A9389A29C652E500527264 /* TimeMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
+		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C30A469029C78C2F00B0AB32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C30A469129C78C4800B0AB32 /* BackgroundView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C32963CA29C61D9200DF624A = {
 			isa = PBXGroup;
 			children = (
@@ -96,9 +120,15 @@
 			isa = PBXGroup;
 			children = (
 				C32963D629C61D9200DF624A /* AppDelegate.swift */,
-				C32963D829C61D9200DF624A /* ViewController.swift */,
+				C30A469029C78C2F00B0AB32 /* Views */,
+				C3A9389E29C654AC00527264 /* VCs */,
 				C32963DA29C61D9300DF624A /* Assets.xcassets */,
 				C32963DC29C61D9300DF624A /* Main.storyboard */,
+				C329640129C61DFD00DF624A /* DefaultButton.swift */,
+				C377E95D29C8C8AD00D98BC9 /* DefaultTextField.swift */,
+				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
+				C3A9389A29C652E500527264 /* TimeMachine.swift */,
+				C3A9389729C6395000527264 /* Extentions */,
 				C32963DF29C61D9300DF624A /* BackupSchedule.entitlements */,
 			);
 			path = BackupSchedule;
@@ -119,6 +149,24 @@
 				C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */,
 			);
 			path = BackupScheduleUITests;
+			sourceTree = "<group>";
+		};
+		C3A9389729C6395000527264 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				C3A9389829C6395B00527264 /* NSColor.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		C3A9389E29C654AC00527264 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				C32963D829C61D9200DF624A /* ConfigureTimeMachine.swift */,
+				C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */,
+				C3A9389C29C654A300527264 /* DisableAutoBackup.swift */,
+			);
+			path = VCs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +299,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32963D929C61D9200DF624A /* ViewController.swift in Sources */,
+				C3A9389929C6395B00527264 /* NSColor.swift in Sources */,
+				C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */,
+				C30A469229C78C4800B0AB32 /* BackgroundView.swift in Sources */,
+				C377E95E29C8C8AD00D98BC9 /* DefaultTextField.swift in Sources */,
+				C32963D929C61D9200DF624A /* ConfigureTimeMachine.swift in Sources */,
+				C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */,
+				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
+				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
+				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
