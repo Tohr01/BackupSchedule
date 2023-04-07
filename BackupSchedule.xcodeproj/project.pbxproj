@@ -18,10 +18,12 @@
 		C32963F329C61D9300DF624A /* BackupScheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963F229C61D9300DF624A /* BackupScheduleUITests.swift */; };
 		C32963F529C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */; };
 		C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329640129C61DFD00DF624A /* DefaultButton.swift */; };
-		C377E95E29C8C8AD00D98BC9 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377E95D29C8C8AD00D98BC9 /* DefaultTextField.swift */; };
+		C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5CD4429DF48CB0031AC3B /* Schedule.swift */; };
+		C3A5CD4B29DF69CE0031AC3B /* SidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5CD4A29DF69CE0031AC3B /* SidebarTableCellView.swift */; };
 		C3A9389929C6395B00527264 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389829C6395B00527264 /* NSColor.swift */; };
 		C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389A29C652E500527264 /* TimeMachine.swift */; };
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
+		C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,10 +59,12 @@
 		C32963F229C61D9300DF624A /* BackupScheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleUITests.swift; sourceTree = "<group>"; };
 		C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C329640129C61DFD00DF624A /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
-		C377E95D29C8C8AD00D98BC9 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
+		C3A5CD4429DF48CB0031AC3B /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		C3A5CD4A29DF69CE0031AC3B /* SidebarTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTableCellView.swift; sourceTree = "<group>"; };
 		C3A9389829C6395B00527264 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		C3A9389A29C652E500527264 /* TimeMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
+		C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,12 +124,13 @@
 			isa = PBXGroup;
 			children = (
 				C32963D629C61D9200DF624A /* AppDelegate.swift */,
+				C3A5CD4929DF69B80031AC3B /* TableView */,
+				C3A5CD4329DF48B90031AC3B /* Schedules */,
 				C30A469029C78C2F00B0AB32 /* Views */,
 				C3A9389E29C654AC00527264 /* VCs */,
 				C32963DA29C61D9300DF624A /* Assets.xcassets */,
 				C32963DC29C61D9300DF624A /* Main.storyboard */,
 				C329640129C61DFD00DF624A /* DefaultButton.swift */,
-				C377E95D29C8C8AD00D98BC9 /* DefaultTextField.swift */,
 				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
 				C3A9389A29C652E500527264 /* TimeMachine.swift */,
 				C3A9389729C6395000527264 /* Extentions */,
@@ -149,6 +154,23 @@
 				C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */,
 			);
 			path = BackupScheduleUITests;
+			sourceTree = "<group>";
+		};
+		C3A5CD4329DF48B90031AC3B /* Schedules */ = {
+			isa = PBXGroup;
+			children = (
+				C3A5CD4429DF48CB0031AC3B /* Schedule.swift */,
+			);
+			path = Schedules;
+			sourceTree = "<group>";
+		};
+		C3A5CD4929DF69B80031AC3B /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				C3A5CD4A29DF69CE0031AC3B /* SidebarTableCellView.swift */,
+				C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		C3A9389729C6395000527264 /* Extentions */ = {
@@ -302,12 +324,14 @@
 				C3A9389929C6395B00527264 /* NSColor.swift in Sources */,
 				C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */,
 				C30A469229C78C4800B0AB32 /* BackgroundView.swift in Sources */,
-				C377E95E29C8C8AD00D98BC9 /* DefaultTextField.swift in Sources */,
+				C3A5CD4B29DF69CE0031AC3B /* SidebarTableCellView.swift in Sources */,
 				C32963D929C61D9200DF624A /* ConfigureTimeMachine.swift in Sources */,
 				C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */,
 				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
 				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
+				C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */,
+				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

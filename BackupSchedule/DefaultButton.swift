@@ -17,8 +17,9 @@ class DefaultButton: NSButton {
     @IBInspectable var cornerRadius: CGFloat = 7
     @IBInspectable var completeRoundWhenFocus: Bool = false
     
-    
+    @IBInspectable var canToggle: Bool = true
     @IBInspectable var isActive: Bool = false
+    @IBInspectable var toggleButtonOnly: Bool = true
     
     @IBInspectable var dropShadow: Bool = true
     @IBInspectable var shadowOffset: CGSize = CGSize(width: 0, height: 5)
@@ -43,6 +44,12 @@ class DefaultButton: NSButton {
         // Add button hover effect
         let hoverTrackingArea = NSTrackingArea.init(rect: self.bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
         self.addTrackingArea(hoverTrackingArea)
+        
+        // Add button selector action
+        if toggleButtonOnly {
+            self.target = self
+            self.action = #selector(buttonPressed(_:))
+        }
     }
     
     func setTitleColor(color: NSColor) {
@@ -59,15 +66,29 @@ class DefaultButton: NSButton {
         self.layer?.backgroundColor = color.cgColor
     }
     
+    func toggle() {
+        if isActive {
+            setInactive()
+        } else {
+            setActive()
+        }
+    }
     func setActive() {
         isActive = true
         setTitleColor(color: textColorActive)
         setBackgroundColor(color: bgColorActive)
     }
+    
     func setInactive() {
-        isActive = true
+        isActive = false
         setTitleColor(color: textColorInactive)
         setBackgroundColor(color: bgColorInactive)
+    }
+    
+    @objc func buttonPressed(_ sender: Any?) {
+        if canToggle {
+            toggle()
+        }
     }
     
 }
