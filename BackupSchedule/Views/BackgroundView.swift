@@ -13,13 +13,28 @@ class BackgroundView: NSView {
     @IBInspectable var alphaComponent: CGFloat = 0.07
     @IBInspectable var backgroundColor: NSColor = .quaternaryLabelColor
     @IBInspectable var hoverDarken: Bool = false
+    @IBInspectable var cornerRadius: CGFloat = 0.0
+    
+    @IBInspectable var dropShadow: Bool = false
+    @IBInspectable var shadowOffset: CGSize = CGSize(width: 0, height: 0)
+    @IBInspectable var shadowOpacity: Float = 0.1
     
     var defaultBackgroundColor: NSColor!
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-
+        
+        if dropShadow {
+            self.layer?.masksToBounds = false
+            self.wantsLayer = true
+            self.layer?.shadowColor = .black
+            self.layer?.shadowOffset = shadowOffset
+            self.layer?.shadowRadius = 5
+            self.layer?.shadowOpacity = shadowOpacity
+        }
+        
         defaultBackgroundColor = backgroundColor.withAlphaComponent(alphaComponent)
         self.layer?.backgroundColor = defaultBackgroundColor.cgColor
+        self.layer?.cornerRadius = cornerRadius
         
         if hoverDarken {
             let trackingArea = NSTrackingArea(rect: self.bounds, options: [.activeInKeyWindow, .mouseEnteredAndExited], owner: self, userInfo: nil)

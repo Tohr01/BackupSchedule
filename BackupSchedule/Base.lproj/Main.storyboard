@@ -927,6 +927,9 @@ disable automatic backups</string>
                                                                                     <real key="value" value="0.10000000000000001"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="hoverDarken" value="YES"/>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="7"/>
+                                                                                </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </customView>
                                                                     </subviews>
@@ -1011,6 +1014,8 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ann-a2-pXl" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1027,6 +1032,8 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="n4t-JU-KYL" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1043,6 +1050,8 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="OxA-KY-Ni8" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1059,6 +1068,8 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="oaC-RP-a2v" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1075,6 +1086,8 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="J1T-vJ-rdn" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1091,6 +1104,8 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" tag="6" translatesAutoresizingMaskIntoConstraints="NO" id="HMC-pb-ZAY" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1108,6 +1123,8 @@ disable automatic backups</string>
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="broadcastNotificationName" value="updatedSchedule"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3dc-wL-xeU" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1139,6 +1156,9 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="canToggle" value="NO"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="save:" target="YOy-JE-ZEq" id="84h-9U-bbN"/>
+                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43U-OD-GQk">
                                 <rect key="frame" x="374" y="177" width="346" height="18"/>
@@ -1203,7 +1223,7 @@ disable automatic backups</string>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i8i-kK-dw8">
-                                <rect key="frame" x="345" y="234" width="60" height="21"/>
+                                <rect key="frame" x="540" y="226" width="60" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Uah-y3-6kq">
                                     <font key="font" metaFont="system"/>
@@ -1211,17 +1231,8 @@ disable automatic backups</string>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0m-7S-pkp">
-                                <rect key="frame" x="442" y="234" width="60" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="saa-X1-neH">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
-                                <rect key="frame" x="418" y="236" width="9" height="18"/>
+                                <rect key="frame" x="618" y="209" width="55" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
                                     <font key="font" size="15" name="SFPro-Medium"/>
@@ -1229,16 +1240,53 @@ disable automatic backups</string>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4n-wA-qFi" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
+                                <rect key="frame" x="418" y="227" width="60" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0m-7S-pkp">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" drawsBackground="YES" id="saa-X1-neH">
+                                            <font key="font" size="15" name="SFPro-Bold"/>
+                                            <color key="textColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="backupDescriptionLabel" destination="6N1-1c-oay" id="emp-68-Cvo"/>
                         <outlet property="destCountMoreLabel" destination="rnF-5g-1Wl" id="INC-xp-tKu"/>
                         <outlet property="destNameLabel" destination="OyE-g2-9fA" id="gQ6-0x-7tb"/>
+                        <outlet property="disableWhenInBattery" destination="I0E-tB-KZJ" id="o4X-6A-C0H"/>
+                        <outlet property="friday" destination="oaC-RP-a2v" id="fZA-r9-qdb"/>
                         <outlet property="hoursTextField" destination="i8i-kK-dw8" id="Edv-EM-Wcf"/>
                         <outlet property="lastBackupLabel" destination="Qsx-Lt-cqm" id="fnL-lI-lr1"/>
                         <outlet property="minutesTextField" destination="t0m-7S-pkp" id="o8v-BX-TWM"/>
+                        <outlet property="monday" destination="QPi-FI-4zu" id="NNb-0J-HFJ"/>
+                        <outlet property="notifyBackup" destination="3dc-wL-xeU" id="mar-fy-hfZ"/>
+                        <outlet property="runUnderHighLoad" destination="uf3-76-qYe" id="4Nf-Mj-r2C"/>
+                        <outlet property="saturday" destination="J1T-vJ-rdn" id="hXg-Dg-nfo"/>
                         <outlet property="scheduleListTableView" destination="gXr-qK-QS3" id="oLc-PB-y7V"/>
+                        <outlet property="sunday" destination="HMC-pb-ZAY" id="7rq-L0-utf"/>
+                        <outlet property="thursday" destination="n4t-JU-KYL" id="mls-7n-bb9"/>
+                        <outlet property="tuesday" destination="Ann-a2-pXl" id="lGG-Pq-4lF"/>
+                        <outlet property="wednesday" destination="OxA-KY-Ni8" id="hBL-PL-eXU"/>
                     </connections>
                 </viewController>
                 <customObject id="gra-jc-UzV" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

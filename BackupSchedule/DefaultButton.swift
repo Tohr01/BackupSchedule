@@ -20,6 +20,8 @@ class DefaultButton: NSButton {
     @IBInspectable var canToggle: Bool = true
     @IBInspectable var isActive: Bool = false
     @IBInspectable var toggleButtonOnly: Bool = true
+    @IBInspectable var broadcastNotificationWhenClicked: Bool = false
+    @IBInspectable var broadcastNotificationName: String = ""
     
     @IBInspectable var dropShadow: Bool = true
     @IBInspectable var shadowOffset: CGSize = CGSize(width: 0, height: 5)
@@ -89,8 +91,10 @@ class DefaultButton: NSButton {
         if canToggle {
             toggle()
         }
+        if broadcastNotificationWhenClicked {
+            NotificationCenter.default.post(name: Notification.Name(broadcastNotificationName), object: nil)
+        }
     }
-    
 }
 
 // MARK: -

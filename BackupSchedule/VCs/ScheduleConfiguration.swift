@@ -9,40 +9,91 @@
 
 import Cocoa
 
-class ScheduleConfiguration: NSViewController, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate {
+class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     
     @IBOutlet weak var destNameLabel: NSTextField!
     @IBOutlet weak var destCountMoreLabel: NSTextField!
     @IBOutlet weak var lastBackupLabel: NSTextField!
     
-    @IBOutlet var scheduleListTableView: NSTableView!
+    @IBOutlet weak var scheduleListTableView: NSTableView!
     
     // Right main view
     @IBOutlet weak var backupDescriptionLabel: NSTextField!
     @IBOutlet weak var hoursTextField: NSTextField!
     @IBOutlet weak var minutesTextField: NSTextField!
     
+    // Day selection buttons
+    @IBOutlet weak var monday: DefaultButton!
+    @IBOutlet weak var tuesday: DefaultButton!
+    @IBOutlet weak var wednesday: DefaultButton!
+    @IBOutlet weak var thursday: DefaultButton!
+    @IBOutlet weak var friday: DefaultButton!
+    @IBOutlet weak var saturday: DefaultButton!
+    @IBOutlet weak var sunday: DefaultButton!
+    var dayButtons: [DefaultButton : String]!
+    
+    // Backup settings
+    @IBOutlet weak var notifyBackup: DefaultButton!
+    @IBOutlet weak var disableWhenInBattery: DefaultButton!
+    @IBOutlet weak var runUnderHighLoad: DefaultButton!
+    
     var schedules: [BackupSchedule] = []
+    var newSchedule: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        dayButtons = [monday : "Monday", tuesday : "Tuesday", wednesday : "Wednesday", thursday : "Thursday", friday : "Friday", saturday : "Saturday", sunday : "Sunday"]
         
         configureSidebar()
-        configureTextFields()
         configureTableView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSchedule(_:)), name: Notification.Name("updatedschedule"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSchedule(_:)), name: Notification.Name("updatedSchedule"), object: nil)
     }
     
     // Deinitilizer
     deinit {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedschedule"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedSchedule"), object: nil)
     }
 
-    @objc func updateSchedule(_ aNotification: Notification) {
-        backupDescriptionLabel.stringValue = ""
+    @IBAction func save(_ sender: Any) {
+        // If new schedule has been created add to arr and activate
+        if newSchedule {
+            
+        } else {
+            
+        }
     }
+    
+    @objc func updateSchedule(_ aNotification: Notification) {
+        var dayText = ""
+        // Reformat days
+        // Check for week only active
+        if monday.isActive && tuesday.isActive && wednesday.isActive && thursday.isActive && friday.isActive && !sunday.isActive && !saturday.isActive {
+            dayText = "Weekdays"
+        } else if !monday.isActive && !tuesday.isActive && !wednesday.isActive && !thursday.isActive && !friday.isActive && sunday.isActive && saturday.isActive {
+            dayText = "Weekends"
+        } else if dayButtons.filter({$0.key.isActive}).count == dayButtons.count {
+            dayText = "Every day"
+        } else {
+            let activeDays = dayButtons.filter({$0.key.isActive}).map({$0.value})
+            if activeDays.isEmpty {
+                backupDescriptionLabel.stringValue = "\"Never\""
+                return
+            }
+            dayText = activeDays.joined(separator: ", ")
+        }
+        
+        var timeText = ""
+        
+        if let minutes = Int(minutesTextField.stringValue), minutes == 0 {
+            timeText = "\(hoursTextField.stringValue) o'clock)"
+        } else {
+            timeText = "\(hoursTextField.stringValue):\(minutesTextField.stringValue)"
+        }
+        
+        backupDescriptionLabel.stringValue = "\"\(dayText) at \(timeText)\""
+    }
+    
 }
 
 // MARK: -
@@ -52,6 +103,25 @@ extension ScheduleConfiguration {
     
     func configureSidebar() {
         configureDiskNames()
+    }
+    
+    #warning("todo")
+    func loadScheduleUI(_ schedule: BackupSchedule) {
+        
+    }
+    
+    func loadTemplateSchedule() {
+        // Turn all dayButtons off
+        _ = dayButtons.keys.map{$0.setInactive()}
+        
+        // Set time fields
+        hoursTextField.stringValue = "00"
+        minutesTextField.stringValue = "00"
+        
+        // Set default settings
+        notifyBackup.setActive()
+        disableWhenInBattery.setActive()
+        runUnderHighLoad.setInactive()
     }
     
     func configureDiskNames() {
@@ -71,36 +141,8 @@ extension ScheduleConfiguration {
         }
     }
     
-    // CONFIGURE TEXT FIELDS
-    
-    func configureTextFields() {
-        hoursTextField.delegate = self
-        let formatter = NumberFormatter()
-        formatter.allowsFloats = false
-        formatter.minimum = 0
-        formatter.maximum = 23
-        
-        hoursTextField.formatter = formatter
-    }
 }
 
-// MARK: -
-// MARK: TextFieldDelegate
-extension ScheduleConfiguration {
-    func controlTextDidChange(_ obj: Notification) {
-        if let textField = obj.object as? NSTextField {
-            let isValid = self.control(textField, isValidObject: textField.objectValue)
-            print(isValid)
-        }
-    }
-        func control(_ control: NSControl, isValidObject obj: Any?) -> Bool {
-            // Ensure the input value is valid
-            guard let number = obj as? Int else {
-                return false
-            }
-            return (number >= 0 && number < 23)
-        }
-}
 
 // MARK: -
 // MARK: TextFieldDelegate
@@ -108,6 +150,7 @@ extension ScheduleConfiguration {
     
     func configureTableView() {
         scheduleListTableView.selectionHighlightStyle = .none
+        scheduleListTableView.allowsMultipleSelection = false
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -132,5 +175,14 @@ extension ScheduleConfiguration {
         return scheduleCell
     }
         
-    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let selectedRow = scheduleListTableView.selectedRow
+        if selectedRow >= 0 {
+            // User clicked "Add schedule button"
+            if selectedRow == schedules.count {
+                loadTemplateSchedule()
+                return
+            }
+        }
+    }
 }
