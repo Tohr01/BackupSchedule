@@ -33,8 +33,8 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     var dayButtons: [DefaultButton : String]!
     
     // Destination selection
-    @IBOutlet weak var searchDestionations: DefaultButton!
-    
+    @IBOutlet weak var rotateDests: DefaultButton!
+    @IBOutlet weak var searchDestinations: DefaultButton!
     
     // Backup settings
     @IBOutlet weak var notifyBackup: DefaultButton!
@@ -44,20 +44,26 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     var schedules: [BackupSchedule] = []
     var newSchedule: Bool = true
     
+    var tmTargets: [TMDestination] = []
+    var selectedDrive: TMDestination?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dayButtons = [monday : "Monday", tuesday : "Tuesday", wednesday : "Wednesday", thursday : "Thursday", friday : "Friday", saturday : "Saturday", sunday : "Sunday"]
+        tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
         
         configureSidebar()
         configureTableView()
         loadTemplateSchedule()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(selectedDestDrive(_:)), name: Notification.Name("selectedDestDrive"), object: nil)
     }
     
     // Deinitilizer
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedSchedule"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("selectedDestDrive"), object: nil)
     }
 
     @IBAction func save(_ sender: Any) {
@@ -78,33 +84,52 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             var activeTime = DateComponents()
             activeTime.hour = hours
             activeTime.minute = minutes
-            schedules.append(BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrives: [], settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive)))
+            schedules.append(BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive)))
             
             #warning("todo implement safe to user defaults")
         } else {
             
         }
-        scheduleListTableView.beginUpdates()
         scheduleListTableView.reloadData()
-        scheduleListTableView.endUpdates()
     }
     
     @IBAction func selectDestinationDrive(_ sender: Any) {
         let popover = NSPopover()
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         if let vc = storyboard.instantiateController(withIdentifier: "diskSelectVC") as? DiskSelection {
+            vc.selectedDrive = selectedDrive
+            vc.tmTargets = tmTargets
             popover.contentViewController = vc
             popover.behavior = .transient
             popover.animates = true
             
-            popover.show(relativeTo: view.bounds, of: searchDestionations, preferredEdge: .maxX)
+            popover.show(relativeTo: view.bounds, of: searchDestinations, preferredEdge: .maxX)
         }
     }
     
+    @IBAction func rotateDests(_ sender: Any) {
+        if !rotateDests.isActive {
+            rotateDests.setActive()
+            selectedDrive = nil
+            searchDestinations.setInactive()
+        }
+    }
     @objc func updateScheduleText(_ aNotification: Notification) {
         backupDescriptionLabel.stringValue = getDisplayText()
     }
     
+    @objc func selectedDestDrive(_ aNotification: Notification) {
+        // Get selected drive from notification
+        if let selectedDrive = aNotification.object as? TMDestination {
+            self.selectedDrive = selectedDrive
+            searchDestinations.setActive()
+            rotateDests.setInactive()
+        } else {
+            // if empty no drive has been selected
+            selectedDrive = nil
+            rotateDests.setActive()
+        }
+    }
 }
 
 // MARK: -

@@ -19,27 +19,25 @@ class DiskSelection: NSViewController, NSTableViewDelegate, NSTableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layer?.backgroundColor = .clear
-        
-        tmTargets = (try? AppDelegate.tm?.getDestinations()) ?? []
+        print(selectedDrive)
+        configureTableView()
     }
-    override func viewWillAppear() {
-        guard let frameView = view.window?.contentView?.superview else {
-            return
-        }
-        
-        let backgroundView = NSView(frame: frameView.bounds)
-        backgroundView.wantsLayer = true
-        backgroundView.layer?.backgroundColor = .white // colour of your choice
-        backgroundView.autoresizingMask = [.maxXMargin, .maxYMargin]
-        
-        frameView.addSubview(backgroundView, positioned: .below, relativeTo: frameView)
-
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectedDestDrive"), object: selectedDrive)
     }
 }
 
 // MARK: -
 // MARK: TableView
 extension DiskSelection {
+    
+    func configureTableView() {
+        diskSelectionTableView.allowsMultipleSelection = false
+        diskSelectionTableView.selectionHighlightStyle = .none
+    }
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return tmTargets.count
     }
@@ -49,12 +47,28 @@ extension DiskSelection {
             return nil
         }
         cell.driveTitle.stringValue = tmTargets[row].name
-        if let selectedDrive = selectedDrive, selectedDrive == tmTargets[row] {
-            cell.checkboxButton.setActive()
+        if selectedDrive == tmTargets[row] {
+            cell.setIndicatorActive()
         } else {
-            cell.checkboxButton.setInactive()
+            cell.setIndicatorInactive()
         }
-        
         return cell
     }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let selectedRow = diskSelectionTableView.selectedRow
+        guard selectedRow >= 0 else { return }
+        selectedDrive = tmTargets[selectedRow]
+        for row in 0..<diskSelectionTableView.numberOfRows {
+            if row == selectedRow, let cell = diskSelectionTableView.view(atColumn: 0, row: selectedRow, makeIfNecessary: false) as? DiskSelectionCell {
+                print(row)
+                cell.setIndicatorActive()
+            } else {
+                if let cell = diskSelectionTableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? DiskSelectionCell {
+                    cell.setIndicatorInactive()
+                }
+            }
+        }
+    }
+    
 }

@@ -29,11 +29,16 @@ class DefaultButton: NSButton {
     
     @IBInspectable var imageScale: CGFloat = 1.0
     
+    var imageScaledSize: NSSize?
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
         if let image = image {
-            image.size = NSSize(width: image.size.width*imageScale, height: image.size.height*imageScale)
+            if imageScaledSize == nil {
+                imageScaledSize = NSSize(width: image.size.width*imageScale, height: image.size.height*imageScale)
+            }
+            image.size = imageScaledSize!
             self.image = image
         }
         

@@ -14,10 +14,15 @@ class BackgroundView: NSView {
     @IBInspectable var backgroundColor: NSColor = .quaternaryLabelColor
     @IBInspectable var hoverDarken: Bool = false
     @IBInspectable var cornerRadius: CGFloat = 0.0
+    @IBInspectable var onlyVisibleOnHover: Bool = false
     
     @IBInspectable var dropShadow: Bool = false
     @IBInspectable var shadowOffset: CGSize = CGSize(width: 0, height: 0)
     @IBInspectable var shadowOpacity: Float = 0.1
+    
+    @IBInspectable var darkenModifier: CGFloat = 0.2
+    @IBInspectable var alphaAddDarkenModifier: CGFloat = 0.1
+    
     
     var defaultBackgroundColor: NSColor!
     override func draw(_ dirtyRect: NSRect) {
@@ -34,7 +39,7 @@ class BackgroundView: NSView {
         
         defaultBackgroundColor = backgroundColor.withAlphaComponent(alphaComponent)
         
-        self.layer?.backgroundColor = defaultBackgroundColor.cgColor
+        self.layer?.backgroundColor = onlyVisibleOnHover ? .clear : defaultBackgroundColor.cgColor
         self.layer?.cornerRadius = cornerRadius
         
         if hoverDarken {
@@ -48,7 +53,7 @@ class BackgroundView: NSView {
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
-            self.animator().layer?.backgroundColor = defaultBackgroundColor.darken(by: 0.2, addAlphaWhenZero: 0.07).cgColor
+            self.animator().layer?.backgroundColor = defaultBackgroundColor.darken(by: darkenModifier, addAlphaWhenZero: alphaAddDarkenModifier).cgColor
         }
     }
     
@@ -57,7 +62,7 @@ class BackgroundView: NSView {
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
-            self.animator().layer?.backgroundColor = defaultBackgroundColor.cgColor
+            self.animator().layer?.backgroundColor = onlyVisibleOnHover ? .clear : defaultBackgroundColor.cgColor
         }
     }
     
