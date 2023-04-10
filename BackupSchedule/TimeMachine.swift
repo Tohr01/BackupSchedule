@@ -21,9 +21,13 @@ enum AppleScriptExecutionResult {
     case success
 }
 
-struct TimeMachineStatus {
+struct TMDestination: Equatable {
+    var name: String
+    var id: String
+    var mounted: Bool
+    
+    
 }
-
 class TimeMachine {
     public static var tmutilPath = "/usr/bin/tmutil"
     
@@ -64,9 +68,13 @@ class TimeMachine {
         return .canceled
     }
     
-    func startBackup() throws {
+    func startBackup(destID: String? = nil) throws {
         do {
-            try tmutilRequest(args: "startbackup")
+            if let destID = destID {
+                try tmutilRequest(args: "startbackup -d \(destID)")
+            } else {
+                try tmutilRequest(args: "startbackup")
+            }
         } catch {
             throw error
         }
@@ -93,107 +101,118 @@ class TimeMachine {
             let dateArrInt = dateArr.map({Int($0)}).compactMap({$0})
             print(dateArrInt)
             if dateArrInt.count != 3 { return nil }
-                var dateComp = DateComponents()
-                dateComp.month = dateArrInt[0]
-                dateComp.day = dateArrInt[1]
-                dateComp.year = dateArrInt[2]
-                return Calendar.current.date(from: dateComp)
-            }
+            var dateComp = DateComponents()
+            dateComp.month = dateArrInt[0]
+            dateComp.day = dateArrInt[1]
+            dateComp.year = dateArrInt[2]
+            return Calendar.current.date(from: dateComp)
+        }
         return nil
     }
-
-
-func getPrimaryVolumeName() throws -> String? {
-    do {
-        if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
-           let destInfoData = destinationInfo.data(using: .utf8) {
-            
-            let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
-            if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] , let destination = destinations.first {
-                
-                return destination["Name"] as? String
-            }
-        }
-    } catch {
-        throw error
-    }
-    return nil
-}
-
-func isBackupRunning() throws -> Bool {
-    do {
-        if let statusStr = try tmutilRequest(args: "status", "-X"),
-           let statusData = statusStr.data(using: .utf8) {
-            
-            let statusPlist = try PropertyListSerialization.propertyList(from: statusData, format: nil)
-            if let statusDict = statusPlist as? [String : Any], let running = statusDict["Running"] as? Bool {
-                return running
-            } else {
-                return false
-            }
-        }
-    } catch {
-        throw error
-    }
-    return false
-}
-
-func getBackupVolumeCount() throws -> Int? {
-    do {
-        if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
-           let destInfoData = destinationInfo.data(using: .utf8) {
-            
-            let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
-            if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
-                return destinations.count
-            }
-        }
-    } catch {
-        throw error
-    }
-    return nil
-}
     
-@discardableResult
-private func tmutilRequest(args: String...) throws -> String? {
-    let process = Process()
-    if #available(macOS 10.13, *) {
-        process.executableURL = URL(fileURLWithPath: TimeMachine.tmutilPath)
-    } else {
-        // Fallback on earlier versions
-        process.launchPath = TimeMachine.tmutilPath
-    }
-    process.arguments = Array(args)
     
-    let pipe = Pipe()
-    process.standardOutput = pipe
-    
-    if #available(macOS 10.13, *) {
+    func getPrimaryVolume() throws -> TMDestination? {
         do {
-            try process.run()
+            if let destinations = try getDestinations() {
+                return destinations.first
+            }
         } catch {
-            throw TimeMachineError.tmutilRequestError
+            throw error
         }
-    } else {
-        process.launch()
+        return nil
     }
     
-    var output: String?
+    func getDestinations() throws -> [TMDestination]? {
+        do {
+            if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
+               let destInfoData = destinationInfo.data(using: .utf8) {
+                
+                let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
+                if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
+                    
+                    return destinations.map{TMDestination(name: $0["Name"] as! String, id: $0["ID"] as! String, mounted: $0["MountPoint"] != nil)}
+                }
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
     
-    pipe.fileHandleForReading.readabilityHandler = { fileHandle in
-        let data = fileHandle.availableData
-        if (data.count == 0) {
-            return
+    func isBackupRunning() throws -> Bool {
+        do {
+            if let statusStr = try tmutilRequest(args: "status", "-X"),
+               let statusData = statusStr.data(using: .utf8) {
+                
+                let statusPlist = try PropertyListSerialization.propertyList(from: statusData, format: nil)
+                if let statusDict = statusPlist as? [String : Any], let running = statusDict["Running"] as? Bool {
+                    return running
+                } else {
+                    return false
+                }
+            }
+        } catch {
+            throw error
+        }
+        return false
+    }
+    
+    func getBackupVolumeCount() throws -> Int? {
+        do {
+            if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
+               let destInfoData = destinationInfo.data(using: .utf8) {
+                
+                let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
+                if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
+                    return destinations.count
+                }
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
+    
+    @discardableResult
+    private func tmutilRequest(args: String...) throws -> String? {
+        let process = Process()
+        if #available(macOS 10.13, *) {
+            process.executableURL = URL(fileURLWithPath: TimeMachine.tmutilPath)
+        } else {
+            // Fallback on earlier versions
+            process.launchPath = TimeMachine.tmutilPath
+        }
+        process.arguments = Array(args)
+        
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        
+        if #available(macOS 10.13, *) {
+            do {
+                try process.run()
+            } catch {
+                throw TimeMachineError.tmutilRequestError
+            }
+        } else {
+            process.launch()
         }
         
-        if let str = String(bytes: data, encoding: .utf8) {
-            if output == nil {
-                output = ""
+        var output: String?
+        
+        pipe.fileHandleForReading.readabilityHandler = { fileHandle in
+            let data = fileHandle.availableData
+            if (data.count == 0) {
+                return
             }
-            output?.append(str)
+            
+            if let str = String(bytes: data, encoding: .utf8) {
+                if output == nil {
+                    output = ""
+                }
+                output?.append(str)
+            }
         }
+        process.waitUntilExit()
+        return output
     }
-    process.waitUntilExit()
-    return output
-}
 }

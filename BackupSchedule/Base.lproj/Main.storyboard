@@ -708,6 +708,7 @@
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="deactivateAB:" target="XfG-lQ-9wD" id="xrg-Tr-1KI"/>
@@ -748,6 +749,7 @@ disable automatic backups</string>
                                 </buttonCell>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="configureTM:" target="ooT-lN-BHG" id="8aW-Ja-Yri"/>
@@ -859,7 +861,7 @@ disable automatic backups</string>
                                                                     <rect key="frame" x="18" y="0.0" width="262" height="79"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rix-2v-hB4">
+                                                                        <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rix-2v-hB4" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
                                                                             <rect key="frame" x="3" y="12" width="256" height="64"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <subviews>
@@ -877,21 +879,33 @@ disable automatic backups</string>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="clock.arrow.circlepath" id="SEF-zq-fkS"/>
                                                                                 </imageView>
-                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmG-vy-iAD">
-                                                                                    <rect key="frame" x="43" y="11" width="75" height="18"/>
-                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="00:00" id="za9-Ya-iIg">
-                                                                                        <font key="font" size="15" name="SFPro-Medium"/>
-                                                                                        <color key="textColor" name="defaultTextColorHD"/>
-                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                                    </textFieldCell>
-                                                                                </textField>
                                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjh-hH-TOZ">
                                                                                     <rect key="frame" x="224" y="17" width="21" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="trash" id="gWs-8C-C2j"/>
                                                                                 </imageView>
+                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmG-vy-iAD">
+                                                                                    <rect key="frame" x="40" y="11" width="75" height="18"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="00:00" id="za9-Ya-iIg">
+                                                                                        <font key="font" size="16" name="SFPro-Medium"/>
+                                                                                        <color key="textColor" name="defaultTextColorHD"/>
+                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
                                                                             </subviews>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                                                    <color key="value" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
+                                                                                    <real key="value" value="0.080000000000000002"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="hoverDarken" value="YES"/>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                    <real key="value" value="7"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
                                                                         </customView>
                                                                     </subviews>
                                                                     <connections>
@@ -902,15 +916,15 @@ disable automatic backups</string>
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <customView identifier="addSchedule" id="9lo-sa-d3T" customClass="AddScheduleCellView" customModule="BackupSchedule" customModuleProvider="target">
-                                                                    <rect key="frame" x="18" y="79" width="262" height="79"/>
+                                                                    <rect key="frame" x="18" y="79" width="262" height="41"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbl-b8-fOU" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                                                            <rect key="frame" x="3" y="15" width="256" height="64"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="256" height="41"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <subviews>
                                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYR-TB-KHK">
-                                                                                    <rect key="frame" x="-5" y="23" width="266" height="18"/>
+                                                                                    <rect key="frame" x="-2" y="12" width="260" height="18"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Add schedule" id="bbi-Ub-dDg">
                                                                                         <font key="font" size="15" name="SFPro-Medium"/>
@@ -924,7 +938,7 @@ disable automatic backups</string>
                                                                                     <color key="value" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
-                                                                                    <real key="value" value="0.10000000000000001"/>
+                                                                                    <real key="value" value="0.050000000000000003"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="hoverDarken" value="YES"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1222,30 +1236,12 @@ disable automatic backups</string>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i8i-kK-dw8">
-                                <rect key="frame" x="540" y="226" width="60" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Uah-y3-6kq">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
-                                <rect key="frame" x="618" y="209" width="55" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
-                                    <font key="font" size="15" name="SFPro-Medium"/>
-                                    <color key="textColor" name="defaultTextColorHD"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4n-wA-qFi" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                <rect key="frame" x="418" y="227" width="60" height="35"/>
+                                <rect key="frame" x="442" y="227" width="60" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0m-7S-pkp">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="35"/>
+                                        <rect key="frame" x="4" y="3" width="53" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" drawsBackground="YES" id="saa-X1-neH">
                                             <font key="font" size="15" name="SFPro-Bold"/>
@@ -1267,6 +1263,83 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ix-fK-WGd" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
+                                <rect key="frame" x="345" y="227" width="60" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghl-Ml-vQ7">
+                                        <rect key="frame" x="7" y="4" width="46" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" drawsBackground="YES" id="rg1-tx-Hzl">
+                                            <font key="font" size="15" name="SFPro-Bold"/>
+                                            <color key="textColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </customView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
+                                <rect key="frame" x="411" y="236" width="55" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
+                                    <font key="font" size="15" name="SFPro-Medium"/>
+                                    <color key="textColor" name="defaultTextColorHD"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0gf-8z-Few">
+                                <rect key="frame" x="539" y="267" width="201" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" alignment="left" title="Destination drive" id="dtL-AT-ahe">
+                                    <font key="font" size="16" name="SFPro-Semibold"/>
+                                    <color key="textColor" name="defaultTextColorHD"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n1F-xG-edp" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
+                                <rect key="frame" x="541" y="227" width="45" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="All" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Uym-zi-sQg">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="14" name="SFPro-Bold"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="canToggle" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9uq-za-pNF" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
+                                <rect key="frame" x="610" y="227" width="56" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="magnifyingglass" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="2nv-sQ-cg2">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="14" name="SFPro-Bold"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="canToggle" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="imageScale">
+                                        <real key="value" value="0.69999999999999996"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="selectDestinationDrive:" target="YOy-JE-ZEq" id="P0j-lS-pQO"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -1275,7 +1348,7 @@ disable automatic backups</string>
                         <outlet property="destNameLabel" destination="OyE-g2-9fA" id="gQ6-0x-7tb"/>
                         <outlet property="disableWhenInBattery" destination="I0E-tB-KZJ" id="o4X-6A-C0H"/>
                         <outlet property="friday" destination="oaC-RP-a2v" id="fZA-r9-qdb"/>
-                        <outlet property="hoursTextField" destination="i8i-kK-dw8" id="Edv-EM-Wcf"/>
+                        <outlet property="hoursTextField" destination="Ghl-Ml-vQ7" id="Pox-cL-Fif"/>
                         <outlet property="lastBackupLabel" destination="Qsx-Lt-cqm" id="fnL-lI-lr1"/>
                         <outlet property="minutesTextField" destination="t0m-7S-pkp" id="o8v-BX-TWM"/>
                         <outlet property="monday" destination="QPi-FI-4zu" id="NNb-0J-HFJ"/>
@@ -1283,6 +1356,7 @@ disable automatic backups</string>
                         <outlet property="runUnderHighLoad" destination="uf3-76-qYe" id="4Nf-Mj-r2C"/>
                         <outlet property="saturday" destination="J1T-vJ-rdn" id="hXg-Dg-nfo"/>
                         <outlet property="scheduleListTableView" destination="gXr-qK-QS3" id="oLc-PB-y7V"/>
+                        <outlet property="searchDestionations" destination="9uq-za-pNF" id="PFc-EQ-lWO"/>
                         <outlet property="sunday" destination="HMC-pb-ZAY" id="7rq-L0-utf"/>
                         <outlet property="thursday" destination="n4t-JU-KYL" id="mls-7n-bb9"/>
                         <outlet property="tuesday" destination="Ann-a2-pXl" id="lGG-Pq-4lF"/>
@@ -1293,9 +1367,116 @@ disable automatic backups</string>
             </objects>
             <point key="canvasLocation" x="1481" y="568"/>
         </scene>
+        <!--Disk Selection-->
+        <scene sceneID="IMn-0B-n5Q">
+            <objects>
+                <viewController storyboardIdentifier="diskSelectVC" id="DaM-rg-FRk" customClass="DiskSelection" customModule="BackupSchedule" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="B5c-C7-8JZ">
+                        <rect key="frame" x="0.0" y="0.0" width="203" height="292"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="51" horizontalPageScroll="10" verticalLineScroll="51" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0U-eC-Nxq">
+                                <rect key="frame" x="0.0" y="-1" width="203" height="293"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <clipView key="contentView" drawsBackground="NO" id="6lD-LT-VPP">
+                                    <rect key="frame" x="1" y="1" width="201" height="291"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="51" rowSizeStyle="automatic" viewBased="YES" id="mIc-21-RyU">
+                                            <rect key="frame" x="0.0" y="0.0" width="201" height="291"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <size key="intercellSpacing" width="17" height="0.0"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="189" minWidth="40" maxWidth="1000" id="0AJ-hZ-qzt">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="8YQ-Gs-u4j">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView identifier="diskcell" id="4uM-lw-10U" customClass="DiskSelectionCell" customModule="BackupSchedule" customModuleProvider="target">
+                                                            <rect key="frame" x="8" y="0.0" width="184" height="51"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gYP-xf-qCK">
+                                                                    <rect key="frame" x="31" y="7" width="37" height="37"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="timemachine_icon" id="opx-dg-WJd"/>
+                                                                </imageView>
+                                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NWR-Ii-xSu" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
+                                                                    <rect key="frame" x="3" y="16" width="20" height="20"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="5YX-Wc-kXJ">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" size="15" name="SFPro-Bold"/>
+                                                                    </buttonCell>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                                            <size key="value" width="0.0" height="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                                            <real key="value" value="0.070000000000000007"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="YES"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </button>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yM2-nF-bEI">
+                                                                    <rect key="frame" x="74" y="18" width="109" height="16"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="4AV-VW-NtL">
+                                                                        <font key="font" size="14" name="SFPro-Medium"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="checkboxButton" destination="NWR-Ii-xSu" id="xB2-5t-dzW"/>
+                                                                <outlet property="driveTitle" destination="yM2-nF-bEI" id="4nK-bk-nkP"/>
+                                                                <outlet property="textField" destination="yM2-nF-bEI" id="bgb-Ee-dAR"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="DaM-rg-FRk" id="vtO-NH-S3p"/>
+                                                <outlet property="delegate" destination="DaM-rg-FRk" id="x5h-XK-8oD"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <nil key="backgroundColor"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="p1B-C6-qIK">
+                                    <rect key="frame" x="1" y="276" width="201" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="jSt-Lf-w7p">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="diskSelectionTableView" destination="mIc-21-RyU" id="Xlw-R5-bFY"/>
+                    </connections>
+                </viewController>
+                <customObject id="RDE-7s-cR6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1513.5" y="1018"/>
+        </scene>
     </scenes>
     <resources>
         <image name="clock.arrow.circlepath" width="12" height="12"/>
+        <image name="magnifyingglass" width="25" height="25"/>
         <image name="timemachine_icon" width="139" height="132"/>
         <image name="trash" width="32" height="32"/>
         <namedColor name="defaultColor">

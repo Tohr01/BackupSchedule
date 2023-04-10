@@ -13,7 +13,7 @@ struct BackupSchedule {
     var id: UUID = UUID()
     var displayName: String
     var activeDays: ActiveDays
-    var timeActive: ActiveTime
+    var timeActive: DateComponents
     var selectedDrives: [UUID]?
     var settings: BackupScheduleSettings
 }
@@ -28,10 +28,6 @@ struct ActiveDays {
     var sunday: Bool = false
 }
 
-struct ActiveTime {
-    var hour: Int
-    var minute: Int
-}
 
 
 struct BackupScheduleSettings {

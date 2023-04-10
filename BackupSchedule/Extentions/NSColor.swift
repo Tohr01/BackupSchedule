@@ -10,7 +10,7 @@ import AppKit
 
 extension NSColor {
     
-    func darken(by amount: CGFloat) -> NSColor {
+    func darken(by amount: CGFloat, addAlphaWhenZero: CGFloat = 0.0) -> NSColor {
         var r1: CGFloat = CGFloat()
         var g1: CGFloat = CGFloat()
         var b1: CGFloat = CGFloat()
@@ -18,7 +18,12 @@ extension NSColor {
         
         self.usingColorSpace(NSColorSpace.sRGB)!.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
         
-        let new_color: NSColor = NSColor.init(red: r1 - amount, green: g1 - amount, blue: b1 - amount, alpha: a1)
-        return new_color
+        var newColor: NSColor
+        if r1 == 0 && g1 == 0 && b1 == 0 {
+            newColor = NSColor.init(red: r1, green: g1, blue: b1, alpha: a1+addAlphaWhenZero)
+        } else {
+            newColor = NSColor.init(red: r1 - amount, green: g1 - amount, blue: b1 - amount, alpha: a1)
+        }
+        return newColor
     }
 }

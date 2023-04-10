@@ -32,13 +32,17 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBOutlet weak var sunday: DefaultButton!
     var dayButtons: [DefaultButton : String]!
     
+    // Destination selection
+    @IBOutlet weak var searchDestionations: DefaultButton!
+    
+    
     // Backup settings
     @IBOutlet weak var notifyBackup: DefaultButton!
     @IBOutlet weak var disableWhenInBattery: DefaultButton!
     @IBOutlet weak var runUnderHighLoad: DefaultButton!
     
     var schedules: [BackupSchedule] = []
-    var newSchedule: Bool = false
+    var newSchedule: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +50,9 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         
         configureSidebar()
         configureTableView()
+        loadTemplateSchedule()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSchedule(_:)), name: Notification.Name("updatedSchedule"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
     }
     
     // Deinitilizer
@@ -58,40 +63,46 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBAction func save(_ sender: Any) {
         // If new schedule has been created add to arr and activate
         if newSchedule {
+            guard let days = getSelectedDaysStr() else {
+                defaultAlert(message: "You have to select at least one day for the schedule to run.")
+                return
+            }
+            #warning("todo handle time not set")
             
+            let activeDays = ActiveDays(monday: monday.isActive, tuesday: tuesday.isActive, wednesday: wednesday.isActive, thursday: thursday.isActive, friday: friday.isActive, saturday: saturday.isActive, sunday: sunday.isActive)
+            
+            guard let hours = Int(hoursTextField.stringValue), let minutes = Int(minutesTextField.stringValue) else {
+                defaultAlert(message: "You have to set a time for the schedule to run.")
+                return
+            }
+            var activeTime = DateComponents()
+            activeTime.hour = hours
+            activeTime.minute = minutes
+            schedules.append(BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrives: [], settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive)))
+            
+            #warning("todo implement safe to user defaults")
         } else {
             
+        }
+        scheduleListTableView.beginUpdates()
+        scheduleListTableView.reloadData()
+        scheduleListTableView.endUpdates()
+    }
+    
+    @IBAction func selectDestinationDrive(_ sender: Any) {
+        let popover = NSPopover()
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+        if let vc = storyboard.instantiateController(withIdentifier: "diskSelectVC") as? DiskSelection {
+            popover.contentViewController = vc
+            popover.behavior = .transient
+            popover.animates = true
+            
+            popover.show(relativeTo: view.bounds, of: searchDestionations, preferredEdge: .maxX)
         }
     }
     
-    @objc func updateSchedule(_ aNotification: Notification) {
-        var dayText = ""
-        // Reformat days
-        // Check for week only active
-        if monday.isActive && tuesday.isActive && wednesday.isActive && thursday.isActive && friday.isActive && !sunday.isActive && !saturday.isActive {
-            dayText = "Weekdays"
-        } else if !monday.isActive && !tuesday.isActive && !wednesday.isActive && !thursday.isActive && !friday.isActive && sunday.isActive && saturday.isActive {
-            dayText = "Weekends"
-        } else if dayButtons.filter({$0.key.isActive}).count == dayButtons.count {
-            dayText = "Every day"
-        } else {
-            let activeDays = dayButtons.filter({$0.key.isActive}).map({$0.value})
-            if activeDays.isEmpty {
-                backupDescriptionLabel.stringValue = "\"Never\""
-                return
-            }
-            dayText = activeDays.joined(separator: ", ")
-        }
-        
-        var timeText = ""
-        
-        if let minutes = Int(minutesTextField.stringValue), minutes == 0 {
-            timeText = "\(hoursTextField.stringValue) o'clock)"
-        } else {
-            timeText = "\(hoursTextField.stringValue):\(minutesTextField.stringValue)"
-        }
-        
-        backupDescriptionLabel.stringValue = "\"\(dayText) at \(timeText)\""
+    @objc func updateScheduleText(_ aNotification: Notification) {
+        backupDescriptionLabel.stringValue = getDisplayText()
     }
     
 }
@@ -122,10 +133,12 @@ extension ScheduleConfiguration {
         notifyBackup.setActive()
         disableWhenInBattery.setActive()
         runUnderHighLoad.setInactive()
+        
+        backupDescriptionLabel.stringValue = getDisplayText()
     }
     
     func configureDiskNames() {
-        destNameLabel.stringValue = (try? AppDelegate.tm?.getPrimaryVolumeName()) ?? "# Error #"
+        destNameLabel.stringValue = (try? AppDelegate.tm?.getPrimaryVolume()?.name) ?? "# Error #"
         var volumeCount = (try? AppDelegate.tm?.getBackupVolumeCount()) ?? 1
         volumeCount -= 1;
         
@@ -141,6 +154,47 @@ extension ScheduleConfiguration {
         }
     }
     
+}
+
+// MARK: -
+// MARK: Schedule Handle
+extension ScheduleConfiguration {
+    func getDisplayText() -> String {
+        let dayText = getSelectedDaysStr()
+        guard let dayText = dayText else {
+            return "\"Never\""
+        }
+        
+        var timeText = ""
+        
+        if let minutes = Int(minutesTextField.stringValue), minutes == 0 {
+            timeText = "\(hoursTextField.stringValue) o'clock)"
+        } else {
+            timeText = "\(hoursTextField.stringValue):\(minutesTextField.stringValue)"
+        }
+        
+        return"\"\(dayText) at \(timeText)\""
+    }
+    
+    func getSelectedDaysStr() -> String? {
+        var dayText = ""
+        // Reformat days
+        // Check for week only active
+        if monday.isActive && tuesday.isActive && wednesday.isActive && thursday.isActive && friday.isActive && !sunday.isActive && !saturday.isActive {
+            dayText = "Weekdays"
+        } else if !monday.isActive && !tuesday.isActive && !wednesday.isActive && !thursday.isActive && !friday.isActive && sunday.isActive && saturday.isActive {
+            dayText = "Weekends"
+        } else if dayButtons.filter({$0.key.isActive}).count == dayButtons.count {
+            dayText = "Every day"
+        } else {
+            let activeDays = dayButtons.filter({$0.key.isActive}).map({$0.value})
+            if activeDays.isEmpty {
+                return nil
+            }
+            dayText = activeDays.joined(separator: ", ")
+        }
+        return dayText
+    }
 }
 
 
@@ -171,7 +225,7 @@ extension ScheduleConfiguration {
         
         scheduleCell.runDaysTitle.stringValue = schedules[row].displayName
         let activeTime = schedules[row].timeActive
-        scheduleCell.runTime.stringValue = "\(activeTime.hour):\(activeTime.minute)"
+        scheduleCell.runTime.stringValue = "\(activeTime.hour!):\(activeTime.minute!)"
         return scheduleCell
     }
         
@@ -181,8 +235,20 @@ extension ScheduleConfiguration {
             // User clicked "Add schedule button"
             if selectedRow == schedules.count {
                 loadTemplateSchedule()
+                newSchedule = true
                 return
             }
         }
+    }
+}
+
+// MARK: -
+// MARK: Error handling
+extension ScheduleConfiguration {
+    func defaultAlert(message: String) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.alertStyle = .informational
+        alert.beginSheetModal(for: self.view.window!)
     }
 }

@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         do {
             AppDelegate.tm = try TimeMachine.init()
-            print(try AppDelegate.tm!.isConfigured())
+            
             if !(try AppDelegate.tm!.isConfigured()) {
                 openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
             } else if AppDelegate.tm!.isAutoBackupEnabled() {
@@ -66,7 +66,7 @@ extension AppDelegate {
             window.title = title
             window.orderFrontRegardless()
             
-            let storyboard: NSStoryboard = NSStoryboard.init(name: "Main", bundle: nil)
+            let storyboard = NSStoryboard.init(name: "Main", bundle: nil)
             
             if let vc = storyboard.instantiateController(withIdentifier: storyboardID) as? NSViewController {
                 window.contentViewController = vc

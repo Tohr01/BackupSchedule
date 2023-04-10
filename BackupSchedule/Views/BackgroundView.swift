@@ -22,10 +22,10 @@ class BackgroundView: NSView {
     var defaultBackgroundColor: NSColor!
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
+        self.wantsLayer = true
         
         if dropShadow {
             self.layer?.masksToBounds = false
-            self.wantsLayer = true
             self.layer?.shadowColor = .black
             self.layer?.shadowOffset = shadowOffset
             self.layer?.shadowRadius = 5
@@ -33,6 +33,7 @@ class BackgroundView: NSView {
         }
         
         defaultBackgroundColor = backgroundColor.withAlphaComponent(alphaComponent)
+        
         self.layer?.backgroundColor = defaultBackgroundColor.cgColor
         self.layer?.cornerRadius = cornerRadius
         
@@ -42,11 +43,12 @@ class BackgroundView: NSView {
         }
     }
     
+    /// On mouse Enter
     override func mouseEntered(with event: NSEvent) {
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.3
             context.allowsImplicitAnimation = true
-            self.animator().layer?.backgroundColor = defaultBackgroundColor.darken(by: 0.2).cgColor
+            self.animator().layer?.backgroundColor = defaultBackgroundColor.darken(by: 0.2, addAlphaWhenZero: 0.07).cgColor
         }
     }
     

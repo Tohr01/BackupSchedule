@@ -27,8 +27,15 @@ class DefaultButton: NSButton {
     @IBInspectable var shadowOffset: CGSize = CGSize(width: 0, height: 5)
     @IBInspectable var shadowOpacity: Float = 0.2
     
+    @IBInspectable var imageScale: CGFloat = 1.0
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
+        
+        if let image = image {
+            image.size = NSSize(width: image.size.width*imageScale, height: image.size.height*imageScale)
+            self.image = image
+        }
         
         if dropShadow {
             self.layer?.masksToBounds = false
