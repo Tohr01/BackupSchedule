@@ -21,12 +21,10 @@ enum AppleScriptExecutionResult {
     case success
 }
 
-struct TMDestination: Equatable {
+struct TMDestination: Equatable, Hashable {
     var name: String
     var id: String
-    var mounted: Bool
-    
-    
+    var mounted: Bool    
 }
 class TimeMachine {
     public static var tmutilPath = "/usr/bin/tmutil"
@@ -99,7 +97,6 @@ class TimeMachine {
     func getLatestBackup() -> Date? {
         if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-\d*\.backup"#, capture_group: [2,3,1]) {
             let dateArrInt = dateArr.map({Int($0)}).compactMap({$0})
-            print(dateArrInt)
             if dateArrInt.count != 3 { return nil }
             var dateComp = DateComponents()
             dateComp.month = dateArrInt[0]
@@ -128,8 +125,8 @@ class TimeMachine {
                let destInfoData = destinationInfo.data(using: .utf8) {
                 
                 let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
+                
                 if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
-                    
                     return destinations.map{TMDestination(name: $0["Name"] as! String, id: $0["ID"] as! String, mounted: $0["MountPoint"] != nil)}
                 }
             }

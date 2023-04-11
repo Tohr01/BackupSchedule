@@ -25,6 +25,7 @@
 		C3A9389929C6395B00527264 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389829C6395B00527264 /* NSColor.swift */; };
 		C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389A29C652E500527264 /* TimeMachine.swift */; };
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
+		C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */; };
 		C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		C3A9389829C6395B00527264 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		C3A9389A29C652E500527264 /* TimeMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
+		C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCoordinator.swift; sourceTree = "<group>"; };
 		C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				C3A5CD4429DF48CB0031AC3B /* Schedule.swift */,
+				C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */,
 				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
 				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
+				C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
 				C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,

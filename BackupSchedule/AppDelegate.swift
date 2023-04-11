@@ -8,6 +8,7 @@
 
 
 import Cocoa
+import UserNotifications
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,6 +21,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         do {
             AppDelegate.tm = try TimeMachine.init()
             
+            Task {
+                await requestNotificationAuth()
+            }
             if !(try AppDelegate.tm!.isConfigured()) {
                 openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
             } else if AppDelegate.tm!.isAutoBackupEnabled() {
@@ -81,6 +85,15 @@ extension AppDelegate {
             }
             window.orderFrontRegardless()
         }
+    }
+}
+
+// MARK: -
+// MARK: Notification handling
+extension AppDelegate {
+    func requestNotificationAuth() async {
+        let notificationCenter = UNUserNotificationCenter.current()
+        _ = try? await notificationCenter.requestAuthorization(options: [.alert, .sound])
     }
 }
 

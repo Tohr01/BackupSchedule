@@ -21,6 +21,7 @@ class ConfigureTimeMachine: NSViewController {
         timer = Timer(timeInterval: TimeInterval(2), repeats: true, block: { _ in
             // Check permission
             let configured = try? AppDelegate.tm?.isConfigured()
+            
             if let configured = configured, configured {
                 self.timer?.invalidate()
                 NotificationCenter.default.post(name: NSNotification.Name("tmconfigured"), object: nil)

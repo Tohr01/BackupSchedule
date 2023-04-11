@@ -73,9 +73,10 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
                 defaultAlert(message: "You have to select at least one day for the schedule to run.")
                 return
             }
-            #warning("todo handle time not set")
+#warning("todo handle time not set")
             
-            let activeDays = ActiveDays(monday: monday.isActive, tuesday: tuesday.isActive, wednesday: wednesday.isActive, thursday: thursday.isActive, friday: friday.isActive, saturday: saturday.isActive, sunday: sunday.isActive)
+            let activeDaysStr = dayButtons.filter({$0.key.isActive}).map({$0.value.lowercased()})
+            let activeDays: [ActiveDays] = activeDaysStr.map({ActiveDays(rawValue: $0)}).compactMap({$0})
             
             guard let hours = Int(hoursTextField.stringValue), let minutes = Int(minutesTextField.stringValue) else {
                 defaultAlert(message: "You have to set a time for the schedule to run.")
@@ -85,7 +86,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             activeTime.hour = hours
             activeTime.minute = minutes
             schedules.append(BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive)))
-            
+            ScheduleCoordinator.default.addToRunLoop(schedules[0])
             #warning("todo implement safe to user defaults")
         } else {
             
@@ -263,6 +264,7 @@ extension ScheduleConfiguration {
                 newSchedule = true
                 return
             }
+            scheduleListTableView.deselectRow(selectedRow)
         }
     }
 }
