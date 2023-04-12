@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */; };
 		C30A469229C78C4800B0AB32 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A469129C78C4800B0AB32 /* BackgroundView.swift */; };
+		C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B4EC829E7685D002BB568 /* SystemInformation.swift */; };
 		C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30C20C829C7E7E0005F5D83 /* Regex.swift */; };
 		C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D629C61D9200DF624A /* AppDelegate.swift */; };
 		C32963D929C61D9200DF624A /* ConfigureTimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D829C61D9200DF624A /* ConfigureTimeMachine.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleConfiguration.swift; sourceTree = "<group>"; };
 		C30A469129C78C4800B0AB32 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		C30B4EC829E7685D002BB568 /* SystemInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemInformation.swift; sourceTree = "<group>"; };
 		C30C20C829C7E7E0005F5D83 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		C32963D329C61D9200DF624A /* BackupSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackupSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32963D629C61D9200DF624A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				C3A5CD4429DF48CB0031AC3B /* Schedule.swift */,
 				C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */,
+				C30B4EC829E7685D002BB568 /* SystemInformation.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
 				C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */,
+				C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
 			);

@@ -8,6 +8,7 @@
         
 
 import Foundation
+import UserNotifications
 
 class ScheduleCoordinator {
     public static var schedules: [BackupSchedule : Timer] = [:]
@@ -24,20 +25,35 @@ class ScheduleCoordinator {
         if let hour = schedule.timeActive.hour, let minute = schedule.timeActive.minute {
             let dateComponents = DateComponents(hour: hour, minute: minute)
             let date = Calendar.current.nextDate(after: Date(), matching: dateComponents, matchingPolicy: .nextTime)
-            #warning("fix wrong date calc")
+            
             guard let date = date else {
                 return
             }
-            print(date)
-            var timer = Timer(fire: date, interval: 60*60*24, repeats: true) { timer in
+            print(date.formatted(date: .abbreviated, time: .standard))
+            let timer = Timer(fire: date, interval: 60*60*24, repeats: true) { timer in
                 let currentDay = Calendar.current.component(.weekday, from: Date())
                 let validRunDays = schedule.activeDays.map({$0.rawValue.1})
+                // Check if schedule should run today
                 if validRunDays.contains(currentDay) {
-                    print("RUN")
+                    print("Test")
+                    let notification = UNMutableNotificationContent()
+                    
+                    
+                    if schedule.settings.disableWhenBattery && SystemInformation.isInBatteryMode() {
+                        notification.title = "Backup will not run."
+                        notification.subtitle = "Your Mac currently is in battery mode."
+                    }
+                    let request = UNNotificationRequest(identifier: "scheduleWillNotRunBatter", content: notification, trigger: nil)
+                    UNUserNotificationCenter.current().add(request)
                 }
             }
             ScheduleCoordinator.schedules[schedule] = timer
             RunLoop.main.add(timer, forMode: .common)
         }
+    }
+    
+    func removeScheduleFromRunLoop(id: UUID) {
+        _ = ScheduleCoordinator.schedules.filter({$0.key.id == id}).map{$0.value.invalidate()}
+        ScheduleCoordinator.schedules = ScheduleCoordinator.schedules.filter({!($0.key.id == id)})
     }
 }
