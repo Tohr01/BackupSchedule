@@ -20,7 +20,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         do {
             AppDelegate.tm = try TimeMachine.init()
-            
             Task {
                 await requestNotificationAuth()
             }

@@ -157,8 +157,8 @@ extension ScheduleConfiguration {
         
         // Set default settings
         notifyBackup.setActive()
-        disableWhenInBattery.setActive()
-        runUnderHighLoad.setInactive()
+        disableWhenInBattery.setInactive()
+        runUnderHighLoad.setActive()
         
         backupDescriptionLabel.stringValue = getDisplayText()
     }

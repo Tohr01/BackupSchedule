@@ -10,6 +10,9 @@
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
+                <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="BackupSchedule" customModuleProvider="target"/>
+                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
@@ -676,9 +679,6 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="BackupSchedule" customModuleProvider="target"/>
-                <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-                <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
@@ -1198,7 +1198,7 @@ disable automatic backups</string>
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOa-JR-Guk">
@@ -1225,6 +1225,7 @@ disable automatic backups</string>
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qno-RB-Sgb">

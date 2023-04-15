@@ -27,7 +27,7 @@ struct TMDestination: Equatable, Hashable {
     var mounted: Bool    
 }
 class TimeMachine {
-    public static var tmutilPath = "/usr/bin/tmutil"
+    private static var tmutilPath = "/usr/bin/tmutil"
     
     init() throws {
         // Check if tmutil binary exists

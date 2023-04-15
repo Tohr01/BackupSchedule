@@ -35,16 +35,28 @@ class ScheduleCoordinator {
                 let validRunDays = schedule.activeDays.map({$0.rawValue.1})
                 // Check if schedule should run today
                 if validRunDays.contains(currentDay) {
-                    print("Test")
+                    let highLoad = SystemInformation.isUnderHighLoad()
                     let notification = UNMutableNotificationContent()
-                    
-                    
+                    var shouldRun = true
                     if schedule.settings.disableWhenBattery && SystemInformation.isInBatteryMode() {
                         notification.title = "Backup will not run."
                         notification.subtitle = "Your Mac currently is in battery mode."
+                        shouldRun = false
+                    } else if schedule.settings.runWhenUnderHighLoad && highLoad {
+                        notification.title = "Backup will not run."
+                        notification.subtitle = "Your Mac is currently under high load."
+                        shouldRun = false
                     }
-                    let request = UNNotificationRequest(identifier: "scheduleWillNotRunBatter", content: notification, trigger: nil)
-                    UNUserNotificationCenter.current().add(request)
+                    if shouldRun {
+                        notification.title = "Started Backup"
+                        notification.subtitle = ""
+                        try? AppDelegate.tm!.startBackup(destID: schedule.selectedDrive?.id)
+                    }
+                    print(schedule.settings.startNotification)
+                    if schedule.settings.startNotification {
+                        let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
+                        UNUserNotificationCenter.current().add(request)
+                    }
                 }
             }
             ScheduleCoordinator.schedules[schedule] = timer
