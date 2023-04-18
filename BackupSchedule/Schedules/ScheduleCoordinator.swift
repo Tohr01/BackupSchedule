@@ -52,7 +52,6 @@ class ScheduleCoordinator {
                         notification.subtitle = ""
                         try? AppDelegate.tm!.startBackup(destID: schedule.selectedDrive?.id)
                     }
-                    print(schedule.settings.startNotification)
                     if schedule.settings.startNotification {
                         let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
                         UNUserNotificationCenter.current().add(request)

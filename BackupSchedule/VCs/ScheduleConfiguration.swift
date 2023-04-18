@@ -142,9 +142,23 @@ extension ScheduleConfiguration {
         configureDiskNames()
     }
     
-    #warning("todo")
     func loadScheduleUI(_ schedule: BackupSchedule) {
+        newSchedule = false
+        _ = dayButtons.keys.map{$0.setInactive()}
+        for activeDay in schedule.activeDays {
+            _ = dayButtons.filter({$0.value.lowercased() == activeDay.rawValue.0}).map({$0.key.setActive()})
+        }
         
+        // Set time fields
+        hoursTextField.stringValue = "\(schedule.timeActive.hour ?? 00)"
+        minutesTextField.stringValue = "\(schedule.timeActive.minute ?? 00)"
+        
+        // Set settings
+        if schedule.settings.startNotification { notifyBackup.setActive() } else { notifyBackup.setInactive() }
+        if schedule.settings.disableWhenBattery { disableWhenInBattery.setActive() } else { disableWhenInBattery.setInactive() }
+        if schedule.settings.runWhenUnderHighLoad { runUnderHighLoad.setActive() } else { runUnderHighLoad.setInactive() }
+        
+        backupDescriptionLabel.stringValue = getDisplayText()
     }
     
     func loadTemplateSchedule() {
@@ -263,6 +277,9 @@ extension ScheduleConfiguration {
                 loadTemplateSchedule()
                 newSchedule = true
                 return
+            } else {
+                let schedule = schedules[selectedRow]
+                loadScheduleUI(schedule)
             }
             scheduleListTableView.deselectRow(selectedRow)
         }

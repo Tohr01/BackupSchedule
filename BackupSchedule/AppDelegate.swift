@@ -97,6 +97,12 @@ extension AppDelegate {
 }
 
 // MARK: -
+// MARK: Notification handling
+extension AppDelegate {
+    #warning("todo menu creation")
+}
+
+// MARK: -
 // MARK: Error handling
 extension AppDelegate {
     func communicationError() {
