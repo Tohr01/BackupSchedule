@@ -96,13 +96,15 @@ class TimeMachine {
     }
     
     func getLatestBackup() -> Date? {
-        if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-\d*\.backup"#, capture_group: [2,3,1]) {
+        if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2,3,1,4,5]) {
             let dateArrInt = dateArr.map({Int($0)}).compactMap({$0})
-            if dateArrInt.count != 3 { return nil }
+            if dateArrInt.count != 5 { return nil }
             var dateComp = DateComponents()
             dateComp.month = dateArrInt[0]
             dateComp.day = dateArrInt[1]
             dateComp.year = dateArrInt[2]
+            dateComp.hour = dateArrInt[3]
+            dateComp.minute = dateArrInt[4]
             return Calendar.current.date(from: dateComp)
         }
         return nil
@@ -159,9 +161,8 @@ class TimeMachine {
         do {
             if let progressStr = try tmutilRequest(args: "status", "-X"), let progressData = progressStr.data(using: .utf8) {
                 let progressPlist = try PropertyListSerialization.propertyList(from: progressData, format: nil)
-                if let statusDict = progressPlist as? [String : Any], let progressDict = statusDict["Progress"] as? [String : Any], let percent = progressDict["Percent"] {
-                   
-                    return percent as? Float
+                if let statusDict = progressPlist as? [String : Any], let progressDict = statusDict["Progress"] as? [String : Any], let percent = progressDict["Percent"] as? Double {
+                    return Float(percent)
                 }
                 
             }

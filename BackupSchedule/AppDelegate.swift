@@ -32,13 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Task {
                 await requestNotificationAuth()
             }
-            if !(try AppDelegate.tm!.isConfigured()) {
-                openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
-            } else if AppDelegate.tm!.isAutoBackupEnabled() {
-                openVC(title: "Disable AutoBackup", storyboardID: "disableab")
-            } else {
-                openMainVC(nil)
-            }
+            
+            initUserInterface()
         } catch {
             communicationError()
             return
@@ -49,9 +44,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: NSNotification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
     }
     
-    @objc func test(_ aNotification: Notification) {
-        print(aNotification)
-    }
     func applicationWillTerminate(_ aNotification: Notification) {
         let workspaceNC = NSWorkspace.shared.notificationCenter
         workspaceNC.removeObserver(self, name: NSWorkspace.didLaunchApplicationNotification, object: nil)
@@ -101,6 +93,21 @@ extension AppDelegate {
             window.orderFrontRegardless()
         }
     }
+    
+    @objc func initUserInterface() {
+        do {
+            if !(try AppDelegate.tm!.isConfigured()) {
+                openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
+            } else if AppDelegate.tm!.isAutoBackupEnabled() {
+                openVC(title: "Disable AutoBackup", storyboardID: "disableab")
+            } else {
+                openMainVC(nil)
+            }
+        } catch {
+            communicationError()
+            return
+        }
+    }
 }
 
 // MARK: -
@@ -126,30 +133,39 @@ extension AppDelegate {
                 menu.addItem(notConfiguredItem)
                 
             } else {
-                let topMenuItem: NSMenuItem?
+                let topMenuItem: NSMenuItem = NSMenuItem(title: "Running backup...", action: nil, keyEquivalent: "")
+                topMenuItem.isEnabled = false
+                topMenuItem.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
                 if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
                     backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
-                    #warning("todo")
+                    topMenuItem.title = "Running backup..."
+                    menu.addItem(topMenuItem)
                     menu.addItem(NSMenuItem.separator())
                 } else if let lastBackupDate = AppDelegate.tm!.getLatestBackup() {
-                    topMenuItem = NSMenuItem(title: "Last Backup \(lastBackupDate.getLatestBackupString())", action: nil, keyEquivalent: "")
-                    topMenuItem!.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
-                    topMenuItem!.isEnabled = false
-                    menu.addItem(topMenuItem!)
+                    topMenuItem.title = lastBackupDate.getLatestBackupString().capitalizeFirst
+                    menu.addItem(topMenuItem)
                     menu.addItem(NSMenuItem.separator())
                 }
                 
                 let backupNowItem = NSMenuItem(title: "Start Backup", action: #selector(AppDelegate.startBackupWrapper), keyEquivalent: "")
                 menu.addItem(backupNowItem)
+                menu.addItem(NSMenuItem.separator())
             }
         } catch {
             throw error
         }
+        let preferences = NSMenuItem(title: "Preferences...", action: #selector(initUserInterface), keyEquivalent: "")
+        menu.addItem(preferences)
         
         let quitNowitem = NSMenuItem(title: "Quit", action: #selector(quitApplication), keyEquivalent: "")
         menu.addItem(quitNowitem)
         statusItem.menu = menu
     }
+    
+    func changeTitleForMenuItem(with identifier: NSUserInterfaceItemIdentifier, to title: String) {
+        _ = menu.items.filter({$0.identifier == identifier}).map{$0.title = title}
+    }
+    
 }
 
 // MARK: -
@@ -159,26 +175,27 @@ extension AppDelegate {
         // test if backup is running
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning { return }
         
-        
+        changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
         RunLoop.main.add(backupTimer!, forMode: .common)
     }
     
     @objc func updateTMProgressMenu() {
+        // Checks if backup finished
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
             backupTimer?.invalidate()
-            if let menuItem = menu.item(at: 0) {
-                menuItem.title = "Last backup \(AppDelegate.tm!.getLatestBackup().getLatestBackupString() ?? "No latest Backup found")"
-            }
+            backupTimer = nil
+            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "\(AppDelegate.tm!.getLatestBackup().getLatestBackupString()?.capitalizeFirst ?? "No latest Backup found")")
             return
         }
-        if let menuItem = menu.item(at: 0) {
-            if let menuItem = menu.item(at: 0) {
-                menuItem.title = "Running Backup"
-            }
+        
+        if let percent = (try? AppDelegate.tm!.getBackupProgess()) {
+            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Backup: \(Int(percent*100))%")
+        } else {
+            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Running backup...")
         }
-           
     }
+    
 }
 
 // MARK: -
@@ -191,6 +208,7 @@ extension AppDelegate {
     @objc func quitApplication() {
         NSApplication.shared.terminate(self)
     }
+    
 }
 
 // MARK: -

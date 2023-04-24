@@ -12,9 +12,7 @@ import Foundation
 extension Optional where Wrapped == Date {
     func getLatestBackupString() -> String? {
         if let date = self {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            return formatter.string(from: date)
+            return date.getLatestBackupString()
         } else {
             return nil
         }
@@ -24,7 +22,13 @@ extension Optional where Wrapped == Date {
 extension Date {
     func getLatestBackupString() -> String {
         let formatter = DateFormatter()
+        if Calendar.current.isDateInToday(self) {
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            return "today at \(formatter.string(from: self))"
+        }
         formatter.dateStyle = .medium
-        return formatter.string(from: date)
+        formatter.timeStyle = .medium
+        return formatter.string(from: self)
     }
 }
