@@ -180,18 +180,14 @@ extension ScheduleConfiguration {
     func configureDiskNames() {
         destNameLabel.stringValue = (try? AppDelegate.tm?.getPrimaryVolume()?.name) ?? "# Error #"
         var volumeCount = (try? AppDelegate.tm?.getBackupVolumeCount()) ?? 1
-        volumeCount -= 1;
+        volumeCount -= 1
         
         if volumeCount == 0 {
             destCountMoreLabel.isHidden = true
         } else {
             destCountMoreLabel.stringValue = "\(volumeCount) more"
         }
-        if let latestBackup = AppDelegate.tm?.getLatestBackup() {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            lastBackupLabel.stringValue = "Last backup on \(formatter.string(from: latestBackup))"
-        }
+        lastBackupLabel.stringValue = "Last backup on \(AppDelegate.tm!.getLatestBackup().getLatestBackupString() ?? ""))"
     }
     
 }

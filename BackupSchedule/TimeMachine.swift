@@ -76,6 +76,7 @@ class TimeMachine {
         } catch {
             throw error
         }
+        NotificationCenter.default.post(name: Notification.Name("startedbackup"), object: nil)
     }
     
     func isConfigured() throws -> Bool {
@@ -152,6 +153,22 @@ class TimeMachine {
             throw error
         }
         return false
+    }
+    
+    func getBackupProgess() throws -> Float? {
+        do {
+            if let progressStr = try tmutilRequest(args: "status", "-X"), let progressData = progressStr.data(using: .utf8) {
+                let progressPlist = try PropertyListSerialization.propertyList(from: progressData, format: nil)
+                if let statusDict = progressPlist as? [String : Any], let progressDict = statusDict["Progress"] as? [String : Any], let percent = progressDict["Percent"] {
+                   
+                    return percent as? Float
+                }
+                
+            }
+            return nil
+        } catch {
+            throw error
+        }
     }
     
     func getBackupVolumeCount() throws -> Int? {

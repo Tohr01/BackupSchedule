@@ -12,14 +12,23 @@ import UserNotifications
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
     static var tm: TimeMachine?
     var window: NSWindow!
+    private var menu: NSMenu!
+    private var statusItem: NSStatusItem!
+    private var backupTimer: Timer?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
         do {
             AppDelegate.tm = try TimeMachine.init()
+            
+            // Construct menubar appearance
+            statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+            if let button = statusItem.button {
+                button.image = NSImage(named: "tmicon")
+                try constructMenu()
+            }
+            
             Task {
                 await requestNotificationAuth()
             }
@@ -36,10 +45,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("disabledautobackup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
+        
+        DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: NSNotification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
     }
     
+    @objc func test(_ aNotification: Notification) {
+        print(aNotification)
+    }
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        let workspaceNC = NSWorkspace.shared.notificationCenter
+        workspaceNC.removeObserver(self, name: NSWorkspace.didLaunchApplicationNotification, object: nil)
+        workspaceNC.removeObserver(self, name: NSWorkspace.didTerminateApplicationNotification, object: nil)
     }
     
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
@@ -97,9 +113,84 @@ extension AppDelegate {
 }
 
 // MARK: -
-// MARK: Notification handling
+// MARK: Menu construction
 extension AppDelegate {
-    #warning("todo menu creation")
+#warning("todo menu creation")
+    func constructMenu() throws {
+        menu = NSMenu()
+        
+        do {
+            if !(try AppDelegate.tm!.isConfigured()) {
+                let notConfiguredItem = NSMenuItem(title: "TimeMachine not configured", action: nil, keyEquivalent: "")
+                notConfiguredItem.isEnabled = false
+                menu.addItem(notConfiguredItem)
+                
+            } else {
+                let topMenuItem: NSMenuItem?
+                if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
+                    backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
+                    #warning("todo")
+                    menu.addItem(NSMenuItem.separator())
+                } else if let lastBackupDate = AppDelegate.tm!.getLatestBackup() {
+                    topMenuItem = NSMenuItem(title: "Last Backup \(lastBackupDate.getLatestBackupString())", action: nil, keyEquivalent: "")
+                    topMenuItem!.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
+                    topMenuItem!.isEnabled = false
+                    menu.addItem(topMenuItem!)
+                    menu.addItem(NSMenuItem.separator())
+                }
+                
+                let backupNowItem = NSMenuItem(title: "Start Backup", action: #selector(AppDelegate.startBackupWrapper), keyEquivalent: "")
+                menu.addItem(backupNowItem)
+            }
+        } catch {
+            throw error
+        }
+        
+        let quitNowitem = NSMenuItem(title: "Quit", action: #selector(quitApplication), keyEquivalent: "")
+        menu.addItem(quitNowitem)
+        statusItem.menu = menu
+    }
+}
+
+// MARK: -
+// MARK: TM Listeners
+extension AppDelegate {
+    @objc func backupStarted(_ aNotification: Notification) {
+        // test if backup is running
+        if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning { return }
+        
+        
+        backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
+        RunLoop.main.add(backupTimer!, forMode: .common)
+    }
+    
+    @objc func updateTMProgressMenu() {
+        if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
+            backupTimer?.invalidate()
+            if let menuItem = menu.item(at: 0) {
+                menuItem.title = "Last backup \(AppDelegate.tm!.getLatestBackup().getLatestBackupString() ?? "No latest Backup found")"
+            }
+            return
+        }
+        if let menuItem = menu.item(at: 0) {
+            if let menuItem = menu.item(at: 0) {
+                menuItem.title = "Running Backup"
+            }
+        }
+           
+    }
+}
+
+// MARK: -
+// MARK: TM Wrapper for menu
+extension AppDelegate {
+    @objc func startBackupWrapper() {
+        try? AppDelegate.tm!.startBackup()
+    }
+    
+    @objc func quitApplication() {
+        NSApplication.shared.terminate(self)
+    }
 }
 
 // MARK: -
