@@ -27,8 +27,8 @@ extension Date {
             formatter.timeStyle = .short
             return "today at \(formatter.string(from: self))"
         }
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
         return formatter.string(from: self)
     }
 }

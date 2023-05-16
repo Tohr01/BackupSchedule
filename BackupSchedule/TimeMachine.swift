@@ -21,11 +21,12 @@ enum AppleScriptExecutionResult {
     case success
 }
 
-struct TMDestination: Equatable, Hashable {
+struct TMDestination: Codable, Equatable, Hashable {
     var name: String
     var id: String
     var mounted: Bool    
 }
+
 class TimeMachine {
     private static var tmutilPath = "/usr/bin/tmutil"
     
@@ -77,6 +78,13 @@ class TimeMachine {
             throw error
         }
         NotificationCenter.default.post(name: Notification.Name("startedbackup"), object: nil)
+    }
+    func stopBackup() throws {
+        do {
+            try tmutilRequest(args: "stopbackup")
+        } catch {
+            throw error
+        }
     }
     
     func isConfigured() throws -> Bool {

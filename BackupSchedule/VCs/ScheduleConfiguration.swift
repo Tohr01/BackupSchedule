@@ -49,6 +49,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        schedules = Array(ScheduleCoordinator.schedules.keys)
         dayButtons = [monday : "Monday", tuesday : "Tuesday", wednesday : "Wednesday", thursday : "Thursday", friday : "Friday", saturday : "Saturday", sunday : "Sunday"]
         tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
         
@@ -85,11 +86,12 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             var activeTime = DateComponents()
             activeTime.hour = hours
             activeTime.minute = minutes
-            schedules.append(BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive)))
-            ScheduleCoordinator.default.addToRunLoop(schedules[0])
-            #warning("todo implement safe to user defaults")
+            let newSchedule = BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive))
+            schedules.append(newSchedule)
+            ScheduleCoordinator.default.addToRunLoop(newSchedule)
+            saveAllSchedules()
         } else {
-            
+            #warning("todo")
         }
         scheduleListTableView.reloadData()
     }
@@ -230,6 +232,19 @@ extension ScheduleConfiguration {
             dayText = activeDays.joined(separator: ", ")
         }
         return dayText
+    }
+    
+    func saveAllSchedules() {
+        do {
+            var schedulesEnc: [Data] = []
+            for schedule in schedules {
+                let data = try JSONEncoder().encode(schedule)
+                schedulesEnc.append(data)
+            }
+            UserDefaults.standard.set(schedulesEnc, forKey: "schedules")
+        } catch {
+            defaultAlert(message: "Schedule could not be saved please try restarting the program!")
+        }
     }
 }
 

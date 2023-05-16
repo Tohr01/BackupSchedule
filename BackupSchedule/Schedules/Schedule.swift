@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct BackupSchedule: Hashable {
+struct BackupSchedule: Codable, Hashable {
     static func == (lhs: BackupSchedule, rhs: BackupSchedule) -> Bool {
         return lhs.id == rhs.id && lhs.displayName == rhs.displayName && lhs.activeDays == rhs.activeDays && lhs.timeActive == rhs.timeActive && lhs.selectedDrive == rhs.selectedDrive && lhs.settings == rhs.settings
     }
@@ -31,7 +31,7 @@ struct BackupSchedule: Hashable {
     var settings: BackupScheduleSettings
 }
 
-enum ActiveDays: RawRepresentable {
+enum ActiveDays: Codable, RawRepresentable {
     typealias RawValue = (String, Int)
     
     case monday
@@ -119,7 +119,7 @@ enum ActiveDays: RawRepresentable {
 }
 
 
-struct BackupScheduleSettings: Equatable, Hashable {
+struct BackupScheduleSettings: Codable, Equatable, Hashable {
     var startNotification: Bool
     var disableWhenBattery: Bool
     var runWhenUnderHighLoad: Bool

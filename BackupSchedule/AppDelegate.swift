@@ -17,8 +17,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var menu: NSMenu!
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        ScheduleCoordinator.default.loadSchedules()
+        ScheduleCoordinator.default.getNextExecutionDate()
         do {
             AppDelegate.tm = try TimeMachine.init()
             
@@ -136,18 +137,25 @@ extension AppDelegate {
                 let topMenuItem: NSMenuItem = NSMenuItem(title: "Running backup...", action: nil, keyEquivalent: "")
                 topMenuItem.isEnabled = false
                 topMenuItem.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
+                
+                
                 if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
                     backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
                     topMenuItem.title = "Running backup..."
                     menu.addItem(topMenuItem)
-                    menu.addItem(NSMenuItem.separator())
                 } else if let lastBackupDate = AppDelegate.tm!.getLatestBackup() {
-                    topMenuItem.title = lastBackupDate.getLatestBackupString().capitalizeFirst
+                    topMenuItem.title = "Last backup: \(lastBackupDate.getLatestBackupString().capitalizeFirst)"
                     menu.addItem(topMenuItem)
-                    menu.addItem(NSMenuItem.separator())
                 }
                 
+                let nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? "No backup planned.")", action: nil, keyEquivalent: "")
+                nextBackup.isEnabled = false
+                menu.addItem(nextBackup)
+                
+                menu.addItem(NSMenuItem.separator())
+                
                 let backupNowItem = NSMenuItem(title: "Start Backup", action: #selector(AppDelegate.startBackupWrapper), keyEquivalent: "")
+                backupNowItem.identifier = NSUserInterfaceItemIdentifier("backupNow")
                 menu.addItem(backupNowItem)
                 menu.addItem(NSMenuItem.separator())
             }
@@ -176,6 +184,7 @@ extension AppDelegate {
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning { return }
         
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
+        changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
         RunLoop.main.add(backupTimer!, forMode: .common)
     }
@@ -202,7 +211,12 @@ extension AppDelegate {
 // MARK: TM Wrapper for menu
 extension AppDelegate {
     @objc func startBackupWrapper() {
-        try? AppDelegate.tm!.startBackup()
+        if let startBackupMenuItem = menu.items.filter({$0.identifier == NSUserInterfaceItemIdentifier("backupNow")}).first, startBackupMenuItem.title.lowercased().contains("stop") {
+            try? AppDelegate.tm!.stopBackup()
+            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Start backup")
+        } else {
+            try? AppDelegate.tm!.startBackup()
+        }
     }
     
     @objc func quitApplication() {

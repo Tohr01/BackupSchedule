@@ -24,7 +24,6 @@ class DiskSelectionCell: NSTableCellView {
         
     }
     
-    
     func setIndicatorActive() {
         indicatorView.alphaValue = 1
         setNeedsDisplay(bounds)

@@ -5,7 +5,7 @@
 // Created by Tohr01 on 11.04.23
 // Copyright © 2023 Tohr01. All rights reserved.
 //
-        
+
 
 import Foundation
 import UserNotifications
@@ -15,10 +15,32 @@ class ScheduleCoordinator {
     
     public static var `default` = ScheduleCoordinator()
     
+    func loadSchedules() {
+        if let scheduleData = UserDefaults.standard.value(forKey: "schedules") as? [Data] {
+            // Decode data
+            var schedules: [BackupSchedule] = []
+            for data in scheduleData {
+                if let decodedSchedule = try? JSONDecoder().decode(BackupSchedule.self, from: data) {
+                    schedules.append(decodedSchedule)
+                }
+            }
+            for schedule in schedules {
+                addToRunLoop(schedule)
+            }
+        }
+    }
+    
     deinit {
         // Invalidate timers
         _ = ScheduleCoordinator.schedules.values.map{$0.invalidate()}
         ScheduleCoordinator.schedules = [:]
+    }
+    
+    func getNextExecutionDate() -> Date? {
+        if let nextBackup = ScheduleCoordinator.schedules.values.sorted(by: { $0.fireDate.compare($1.fireDate) == .orderedAscending }).first {
+            return nextBackup.fireDate
+        }
+        return nil
     }
     
     func addToRunLoop(_ schedule: BackupSchedule) {
