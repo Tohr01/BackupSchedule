@@ -43,13 +43,14 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     var schedules: [BackupSchedule] = []
     var newSchedule: Bool = true
+    var currentScheduleIdx: Int?
     
     var tmTargets: [TMDestination] = []
     var selectedDrive: TMDestination?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        schedules = Array(ScheduleCoordinator.schedules.keys)
+        refreshSchedules()
         dayButtons = [monday : "Monday", tuesday : "Tuesday", wednesday : "Wednesday", thursday : "Thursday", friday : "Friday", saturday : "Saturday", sunday : "Sunday"]
         tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
         
@@ -66,33 +67,41 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("selectedDestDrive"), object: nil)
     }
-
+    
     @IBAction func save(_ sender: Any) {
+        guard let days = getSelectedDaysStr() else {
+            defaultAlert(message: "You have to select at least one day for the schedule to run.")
+            return
+        }
+#warning("todo handle time not set")
+        
+        let activeDaysStr = dayButtons.filter({$0.key.isActive}).map({$0.value.lowercased()})
+        let activeDays: [ActiveDays] = activeDaysStr.map({ActiveDays(rawValue: $0)}).compactMap({$0})
+        
+        guard let hours = Int(hoursTextField.stringValue), let minutes = Int(minutesTextField.stringValue) else {
+            defaultAlert(message: "You have to set a time for the schedule to run.")
+            return
+        }
+        var activeTime = DateComponents()
+        activeTime.hour = hours
+        activeTime.minute = minutes
+        var newBackupSchedule = BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive))
         // If new schedule has been created add to arr and activate
         if newSchedule {
-            guard let days = getSelectedDaysStr() else {
-                defaultAlert(message: "You have to select at least one day for the schedule to run.")
-                return
-            }
-#warning("todo handle time not set")
-            
-            let activeDaysStr = dayButtons.filter({$0.key.isActive}).map({$0.value.lowercased()})
-            let activeDays: [ActiveDays] = activeDaysStr.map({ActiveDays(rawValue: $0)}).compactMap({$0})
-            
-            guard let hours = Int(hoursTextField.stringValue), let minutes = Int(minutesTextField.stringValue) else {
-                defaultAlert(message: "You have to set a time for the schedule to run.")
-                return
-            }
-            var activeTime = DateComponents()
-            activeTime.hour = hours
-            activeTime.minute = minutes
-            let newSchedule = BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive))
-            schedules.append(newSchedule)
-            ScheduleCoordinator.default.addToRunLoop(newSchedule)
+            schedules.append(newBackupSchedule)
+            ScheduleCoordinator.default.addToRunLoop(newBackupSchedule)
             saveAllSchedules()
         } else {
-            #warning("todo")
+            if let currentScheduleIdx = currentScheduleIdx {
+                newBackupSchedule.id = schedules[currentScheduleIdx].id
+                ScheduleCoordinator.default.removeScheduleFromRunLoop(id: newBackupSchedule.id)
+                ScheduleCoordinator.default.addToRunLoop(newBackupSchedule)
+                refreshSchedules()
+                scheduleListTableView.reloadData()
+                saveAllSchedules()
+            }
         }
+        NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
         scheduleListTableView.reloadData()
     }
     
@@ -133,6 +142,11 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             rotateDests.setActive()
         }
     }
+    
+    func refreshSchedules() {
+        schedules = Array(ScheduleCoordinator.schedules.keys)
+    }
+    
 }
 
 // MARK: -
@@ -177,6 +191,11 @@ extension ScheduleConfiguration {
         runUnderHighLoad.setActive()
         
         backupDescriptionLabel.stringValue = getDisplayText()
+        
+        
+        rotateDests.setActive()
+        selectedDrive = nil
+        searchDestinations.setInactive()
     }
     
     func configureDiskNames() {
@@ -275,26 +294,56 @@ extension ScheduleConfiguration {
         }
         
         scheduleCell.runDaysTitle.stringValue = schedules[row].displayName
+        scheduleCell.scheduleID = schedules[row].id
+        scheduleCell.deleteButton.action = #selector(deleteSchedule(_:))
         let activeTime = schedules[row].timeActive
         scheduleCell.runTime.stringValue = "\(activeTime.hour!):\(activeTime.minute!)"
         return scheduleCell
     }
-        
+    
     func tableViewSelectionDidChange(_ notification: Notification) {
         let selectedRow = scheduleListTableView.selectedRow
+        print("SELECTED")
         if selectedRow >= 0 {
             // User clicked "Add schedule button"
             if selectedRow == schedules.count {
                 loadTemplateSchedule()
                 newSchedule = true
+                currentScheduleIdx = nil
                 return
             } else {
                 let schedule = schedules[selectedRow]
+                newSchedule = false
+                currentScheduleIdx = selectedRow
                 loadScheduleUI(schedule)
             }
             scheduleListTableView.deselectRow(selectedRow)
         }
     }
+    
+    @objc func deleteSchedule(_ sender: Any) {
+        if let defaultButton = sender as? DefaultButton, let cell = defaultButton.superview?.superview as? SidebarTableCellView, let id = cell.scheduleID {
+            var currentScheduleID: UUID?
+            if let currentScheduleIdx = currentScheduleIdx {
+                if id == schedules[currentScheduleIdx].id {
+                    loadTemplateSchedule()
+                    newSchedule = true
+                    self.currentScheduleIdx = nil
+                } else {
+                    currentScheduleID = schedules[currentScheduleIdx].id != id ? schedules[currentScheduleIdx].id : nil
+                }
+            }
+            ScheduleCoordinator.default.removeScheduleFromRunLoop(id: id)
+            refreshSchedules()
+            if let currentScheduleID = currentScheduleID {
+                currentScheduleIdx = schedules.firstIndex(where: {$0.id == currentScheduleID})
+            }
+            scheduleListTableView.reloadData()
+            saveAllSchedules()
+            NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
+        }
+    }
+    
 }
 
 // MARK: -

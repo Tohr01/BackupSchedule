@@ -41,8 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("disabledautobackup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
-        DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: NSNotification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
+        DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -148,7 +149,8 @@ extension AppDelegate {
                     menu.addItem(topMenuItem)
                 }
                 
-                let nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? "No backup planned.")", action: nil, keyEquivalent: "")
+                var nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")", action: nil, keyEquivalent: "")
+                nextBackup.identifier = NSUserInterfaceItemIdentifier("nextBackup")
                 nextBackup.isEnabled = false
                 menu.addItem(nextBackup)
                 
@@ -223,6 +225,16 @@ extension AppDelegate {
         NSApplication.shared.terminate(self)
     }
     
+}
+
+// MARK: -
+// MARK: Schedule handling
+extension AppDelegate{
+    @objc func schedulesChanged(_ aNotification: Notification) {
+        if let nextBackupMenuItem = menu.items.filter({$0.identifier == NSUserInterfaceItemIdentifier("nextBackup")}).first {
+            nextBackupMenuItem.title = "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")"
+        }
+    }
 }
 
 // MARK: -

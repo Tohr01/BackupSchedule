@@ -879,11 +879,6 @@ disable automatic backups</string>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="clock.arrow.circlepath" id="SEF-zq-fkS"/>
                                                                                 </imageView>
-                                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjh-hH-TOZ">
-                                                                                    <rect key="frame" x="224" y="17" width="21" height="30"/>
-                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="trash" id="gWs-8C-C2j"/>
-                                                                                </imageView>
                                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmG-vy-iAD">
                                                                                     <rect key="frame" x="40" y="11" width="75" height="18"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -893,6 +888,40 @@ disable automatic backups</string>
                                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                 </textField>
+                                                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LlY-N3-Wix" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
+                                                                                    <rect key="frame" x="224" y="15" width="21" height="33"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Cdr-rc-2Uo">
+                                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                        <font key="font" size="14" name="SFPro-Bold"/>
+                                                                                    </buttonCell>
+                                                                                    <userDefinedRuntimeAttributes>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="NO"/>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="canToggle" value="NO"/>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
+                                                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageScale">
+                                                                                            <real key="value" value="1"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="NO"/>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="broadcastNotificationWhenClicked" value="NO"/>
+                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="NO"/>
+                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="bgColorActive">
+                                                                                            <color key="value" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="bgColorInactive">
+                                                                                            <color key="value" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="textColorActive">
+                                                                                            <color key="value" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="textColorInactive">
+                                                                                            <color key="value" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                        </userDefinedRuntimeAttribute>
+                                                                                    </userDefinedRuntimeAttributes>
+                                                                                    <connections>
+                                                                                        <action selector="selectDestinationDrive:" target="YOy-JE-ZEq" id="0lL-Ci-aZv"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                             </subviews>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
@@ -910,7 +939,7 @@ disable automatic backups</string>
                                                                     </subviews>
                                                                     <connections>
                                                                         <outlet property="backgroundView" destination="Rix-2v-hB4" id="46q-Gl-6bc"/>
-                                                                        <outlet property="deleteButton" destination="fjh-hH-TOZ" id="Pdw-el-4ed"/>
+                                                                        <outlet property="deleteButton" destination="LlY-N3-Wix" id="Cbq-cv-QBY"/>
                                                                         <outlet property="runDaysTitle" destination="r26-eI-ZzE" id="PL2-nm-zln"/>
                                                                         <outlet property="runTime" destination="dmG-vy-iAD" id="u9D-hE-HNX"/>
                                                                     </connections>

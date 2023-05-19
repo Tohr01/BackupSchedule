@@ -14,7 +14,9 @@ class SidebarTableCellView: NSTableCellView {
     @IBOutlet var backgroundView: BackgroundView!
     @IBOutlet var runDaysTitle: NSTextField!
     @IBOutlet var runTime: NSTextField!
-    @IBOutlet var deleteButton: NSImageView!
+    @IBOutlet var deleteButton: DefaultButton!
+    
+    var scheduleID: UUID?
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
