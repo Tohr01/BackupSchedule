@@ -6,15 +6,14 @@
 // Copyright © 2023 Tohr01. All rights reserved.
 //
 
-
 import Foundation
 import UserNotifications
 
 class ScheduleCoordinator {
-    public static var schedules: [BackupSchedule : Timer] = [:]
-    
+    public static var schedules: [BackupSchedule: Timer] = [:]
+
     public static var `default` = ScheduleCoordinator()
-    
+
     func loadSchedules() {
         if let scheduleData = UserDefaults.standard.value(forKey: "schedules") as? [Data] {
             // Decode data
@@ -29,42 +28,42 @@ class ScheduleCoordinator {
             }
         }
     }
-    
+
     deinit {
         // Invalidate timers
-        _ = ScheduleCoordinator.schedules.values.map{$0.invalidate()}
+        _ = ScheduleCoordinator.schedules.values.map { $0.invalidate() }
         ScheduleCoordinator.schedules = [:]
     }
-    
+
     func getNextExecutionDate() -> Date? {
         if let nextBackup = ScheduleCoordinator.schedules.values.sorted(by: { $0.fireDate.compare($1.fireDate) == .orderedAscending }).first {
             return nextBackup.fireDate
         }
         return nil
     }
-    
+
     func addToRunLoop(_ schedule: BackupSchedule) {
         if let hour = schedule.timeActive.hour, let minute = schedule.timeActive.minute {
             let dateComponents = DateComponents(hour: hour, minute: minute)
             let date = Calendar.current.nextDate(after: Date(), matching: dateComponents, matchingPolicy: .nextTime)
-            
+
             guard let date = date else {
                 return
             }
             print(date.formatted(date: .abbreviated, time: .standard))
-            let timer = Timer(fire: date, interval: 60*60*24, repeats: true) { timer in
+            let timer = Timer(fire: date, interval: 60 * 60 * 24, repeats: true) { _ in
                 let currentDay = Calendar.current.component(.weekday, from: Date())
-                let validRunDays = schedule.activeDays.map({$0.rawValue.1})
+                let validRunDays = schedule.activeDays.map(\.rawValue.1)
                 // Check if schedule should run today
                 if validRunDays.contains(currentDay) {
                     let highLoad = SystemInformation.isUnderHighLoad()
                     let notification = UNMutableNotificationContent()
                     var shouldRun = true
-                    if schedule.settings.disableWhenBattery && SystemInformation.isInBatteryMode() {
+                    if schedule.settings.disableWhenBattery, SystemInformation.isInBatteryMode() {
                         notification.title = "Backup will not run."
                         notification.subtitle = "Your Mac currently is in battery mode."
                         shouldRun = false
-                    } else if schedule.settings.runWhenUnderHighLoad && highLoad {
+                    } else if schedule.settings.runWhenUnderHighLoad, highLoad {
                         notification.title = "Backup will not run."
                         notification.subtitle = "Your Mac is currently under high load."
                         shouldRun = false
@@ -84,9 +83,9 @@ class ScheduleCoordinator {
             RunLoop.main.add(timer, forMode: .common)
         }
     }
-    
+
     func removeScheduleFromRunLoop(id: UUID) {
-        _ = ScheduleCoordinator.schedules.filter({$0.key.id == id}).map{$0.value.invalidate()}
-        ScheduleCoordinator.schedules = ScheduleCoordinator.schedules.filter({!($0.key.id == id)})
+        _ = ScheduleCoordinator.schedules.filter { $0.key.id == id }.map { $0.value.invalidate() }
+        ScheduleCoordinator.schedules = ScheduleCoordinator.schedules.filter { !($0.key.id == id) }
     }
 }

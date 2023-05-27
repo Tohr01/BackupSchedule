@@ -6,7 +6,6 @@
 // Copyright © 2023 Tohr01. All rights reserved.
 //
 
-
 import Foundation
 
 enum TimeMachineError: Error {
@@ -14,7 +13,6 @@ enum TimeMachineError: Error {
     case authError
     case tmutilRequestError
 }
-
 
 enum AppleScriptExecutionResult {
     case canceled
@@ -24,12 +22,12 @@ enum AppleScriptExecutionResult {
 struct TMDestination: Codable, Equatable, Hashable {
     var name: String
     var id: String
-    var mounted: Bool    
+    var mounted: Bool
 }
 
 class TimeMachine {
     private static var tmutilPath = "/usr/bin/tmutil"
-    
+
     init() throws {
         // Check if tmutil binary exists
         let fm = FileManager()
@@ -37,7 +35,7 @@ class TimeMachine {
             throw TimeMachineError.tmutilNonExistent
         }
     }
-    
+
     func isAutoBackupEnabled() -> Bool {
         let task = Process()
         task.launchPath = "/usr/bin/defaults"
@@ -45,28 +43,28 @@ class TimeMachine {
         let pipe = Pipe()
         task.standardOutput = pipe
         task.launch()
-        
+
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .newlines)
-        
+
         if output == "1" {
             return true
         } else {
             return false
         }
     }
-    
+
     @discardableResult
     func disableAutoBackup() throws -> AppleScriptExecutionResult {
         var err: NSDictionary?
         NSAppleScript(source: "do shell script \"/usr/bin/sudo /usr/bin/tmutil disable\" with administrator " +
-                      "privileges")!.executeAndReturnError(&err)
+            "privileges")!.executeAndReturnError(&err)
         if err == nil {
             return .success
         }
         return .canceled
     }
-    
+
     func startBackup(destID: String? = nil) throws {
         do {
             if let destID = destID {
@@ -79,6 +77,7 @@ class TimeMachine {
         }
         NotificationCenter.default.post(name: Notification.Name("startedbackup"), object: nil)
     }
+
     func stopBackup() throws {
         do {
             try tmutilRequest(args: "stopbackup")
@@ -86,14 +85,14 @@ class TimeMachine {
             throw error
         }
     }
-    
+
     func isConfigured() throws -> Bool {
         do {
             if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
-               let destInfoData = destinationInfo.data(using: .utf8) {
-                
+               let destInfoData = destinationInfo.data(using: .utf8)
+            {
                 let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
-                if let destInfoDict = destInfoDict as? [String : Any] {
+                if let destInfoDict = destInfoDict as? [String: Any] {
                     return !destInfoDict.isEmpty
                 }
             }
@@ -102,10 +101,10 @@ class TimeMachine {
         }
         return false
     }
-    
+
     func getLatestBackup() -> Date? {
-        if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2,3,1,4,5]) {
-            let dateArrInt = dateArr.map({Int($0)}).compactMap({$0})
+        if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2, 3, 1, 4, 5]) {
+            let dateArrInt = dateArr.map { Int($0) }.compactMap { $0 }
             if dateArrInt.count != 5 { return nil }
             var dateComp = DateComponents()
             dateComp.month = dateArrInt[0]
@@ -117,8 +116,7 @@ class TimeMachine {
         }
         return nil
     }
-    
-    
+
     func getPrimaryVolume() throws -> TMDestination? {
         do {
             if let destinations = try getDestinations() {
@@ -129,16 +127,16 @@ class TimeMachine {
         }
         return nil
     }
-    
+
     func getDestinations() throws -> [TMDestination]? {
         do {
             if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
-               let destInfoData = destinationInfo.data(using: .utf8) {
-                
+               let destInfoData = destinationInfo.data(using: .utf8)
+            {
                 let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
-                
-                if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
-                    return destinations.map{TMDestination(name: $0["Name"] as! String, id: $0["ID"] as! String, mounted: $0["MountPoint"] != nil)}
+
+                if let destInfoDict = destInfoDict as? [String: Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
+                    return destinations.map { TMDestination(name: $0["Name"] as! String, id: $0["ID"] as! String, mounted: $0["MountPoint"] != nil) }
                 }
             }
         } catch {
@@ -146,14 +144,14 @@ class TimeMachine {
         }
         return nil
     }
-    
+
     func isBackupRunning() throws -> Bool {
         do {
             if let statusStr = try tmutilRequest(args: "status", "-X"),
-               let statusData = statusStr.data(using: .utf8) {
-                
+               let statusData = statusStr.data(using: .utf8)
+            {
                 let statusPlist = try PropertyListSerialization.propertyList(from: statusData, format: nil)
-                if let statusDict = statusPlist as? [String : Any], let running = statusDict["Running"] as? Bool {
+                if let statusDict = statusPlist as? [String: Any], let running = statusDict["Running"] as? Bool {
                     return running
                 } else {
                     return false
@@ -164,29 +162,28 @@ class TimeMachine {
         }
         return false
     }
-    
+
     func getBackupProgess() throws -> Float? {
         do {
             if let progressStr = try tmutilRequest(args: "status", "-X"), let progressData = progressStr.data(using: .utf8) {
                 let progressPlist = try PropertyListSerialization.propertyList(from: progressData, format: nil)
-                if let statusDict = progressPlist as? [String : Any], let progressDict = statusDict["Progress"] as? [String : Any], let percent = progressDict["Percent"] as? Double {
+                if let statusDict = progressPlist as? [String: Any], let progressDict = statusDict["Progress"] as? [String: Any], let percent = progressDict["Percent"] as? Double {
                     return Float(percent)
                 }
-                
             }
             return nil
         } catch {
             throw error
         }
     }
-    
+
     func getBackupVolumeCount() throws -> Int? {
         do {
             if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
-               let destInfoData = destinationInfo.data(using: .utf8) {
-                
+               let destInfoData = destinationInfo.data(using: .utf8)
+            {
                 let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
-                if let destInfoDict = destInfoDict as? [String : Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
+                if let destInfoDict = destInfoDict as? [String: Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
                     return destinations.count
                 }
             }
@@ -195,7 +192,7 @@ class TimeMachine {
         }
         return nil
     }
-    
+
     @discardableResult
     private func tmutilRequest(args: String...) throws -> String? {
         let process = Process()
@@ -206,10 +203,10 @@ class TimeMachine {
             process.launchPath = TimeMachine.tmutilPath
         }
         process.arguments = Array(args)
-        
+
         let pipe = Pipe()
         process.standardOutput = pipe
-        
+
         if #available(macOS 10.13, *) {
             do {
                 try process.run()
@@ -219,15 +216,15 @@ class TimeMachine {
         } else {
             process.launch()
         }
-        
+
         var output: String?
-        
+
         pipe.fileHandleForReading.readabilityHandler = { fileHandle in
             let data = fileHandle.availableData
-            if (data.count == 0) {
+            if data.count == 0 {
                 return
             }
-            
+
             if let str = String(bytes: data, encoding: .utf8) {
                 if output == nil {
                     output = ""

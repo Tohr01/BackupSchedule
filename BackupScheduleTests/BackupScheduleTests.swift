@@ -5,13 +5,11 @@
 // Created by Tohr01 on 18.03.23
 // Copyright © 2023 Tohr01. All rights reserved.
 //
-        
 
-import XCTest
 @testable import BackupSchedule
+import XCTest
 
 final class BackupScheduleTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -30,9 +28,8 @@ final class BackupScheduleTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

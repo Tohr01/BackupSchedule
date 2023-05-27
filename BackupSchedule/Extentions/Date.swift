@@ -6,7 +6,6 @@
 // Copyright © 2023 Tohr01. All rights reserved.
 //
 
-
 import Foundation
 
 extension Optional where Wrapped == Date {
@@ -26,6 +25,10 @@ extension Date {
             formatter.dateStyle = .none
             formatter.timeStyle = .short
             return "today at \(formatter.string(from: self))"
+        } else if Calendar.current.isDateInTomorrow(self) {
+            formatter.dateStyle = .none
+            formatter.timeStyle = .short
+            return "tommorow at \(formatter.string(from: self))"
         }
         formatter.dateStyle = .short
         formatter.timeStyle = .short

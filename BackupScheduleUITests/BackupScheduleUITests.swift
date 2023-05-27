@@ -5,12 +5,10 @@
 // Created by Tohr01 on 18.03.23
 // Copyright © 2023 Tohr01. All rights reserved.
 //
-        
 
 import XCTest
 
 final class BackupScheduleUITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 

@@ -6,7 +6,6 @@
 // Copyright © 2023 Tohr01. All rights reserved.
 //
 
-
 import Cocoa
 import IOKit.ps
 class SystemInformation {
@@ -20,10 +19,10 @@ class SystemInformation {
             process.launchPath = topBinaryUrl
         }
         process.arguments = ["-l", "1", "-s", "0"]
-        
+
         let pipe = Pipe()
         process.standardOutput = pipe
-        
+
         if #available(macOS 10.13, *) {
             do {
                 try process.run()
@@ -33,15 +32,15 @@ class SystemInformation {
         } else {
             process.launch()
         }
-        
+
         var output: String?
-        
+
         pipe.fileHandleForReading.readabilityHandler = { fileHandle in
             let data = fileHandle.availableData
-            if (data.count == 0) {
+            if data.count == 0 {
                 return
             }
-            
+
             if let str = String(bytes: data, encoding: .utf8) {
                 if output == nil {
                     output = ""
@@ -58,7 +57,7 @@ class SystemInformation {
         }
         return false
     }
-    
+
     static func isInBatteryMode() -> Bool {
         var size = 0
         sysctlbyname("hw.model", nil, &size, nil, 0)
@@ -68,13 +67,13 @@ class SystemInformation {
         guard let device = String(cString: deviceModel, encoding: .utf8)?.lowercased(), device.contains("macbook") else {
             return false
         }
-        
+
         let powerSources = IOPSCopyPowerSourcesInfo().takeRetainedValue()
-        
-        let sources = IOPSCopyPowerSourcesList(powerSources).takeRetainedValue() as Array<AnyObject>
-        
+
+        let sources = IOPSCopyPowerSourcesList(powerSources).takeRetainedValue() as [AnyObject]
+
         for ps in sources {
-            if let info = IOPSGetPowerSourceDescription(powerSources, ps).takeUnretainedValue() as? Dictionary<String, Any>, info[kIOPSIsPresentKey] as? Bool == true {
+            if let info = IOPSGetPowerSourceDescription(powerSources, ps).takeUnretainedValue() as? [String: Any], info[kIOPSIsPresentKey] as? Bool == true {
                 if let powerSource = info[kIOPSPowerSourceStateKey] as? String {
                     if powerSource == kIOPSACPowerValue {
                         return false

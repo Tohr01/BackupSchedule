@@ -5,7 +5,6 @@
 // Created by Tohr01 on 20.03.23
 // Copyright © 2023 Tohr01. All rights reserved.
 //
-        
 
 import Foundation
 
@@ -15,10 +14,10 @@ func groups(for str: String, pattern: String, capture_group: [Int]?, additional_
     do {
         var regex_options: NSRegularExpression.Options = [.anchorsMatchLines]
         regex_options.insert(additional_regex_options)
-        
+
         let regex: NSRegularExpression = try NSRegularExpression(pattern: pattern, options: regex_options)
         let matches = regex.matches(in: str, range: NSRange(str.startIndex..., in: str))
-        
+
         for match in matches {
             if let capture_group = capture_group {
                 for capture_group in capture_group {

@@ -868,7 +868,7 @@ disable automatic backups</string>
                                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r26-eI-ZzE">
                                                                                     <rect key="frame" x="14" y="34" width="211" height="19"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Monday and Saturday" id="Yn6-uV-jdt">
+                                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Monday and Saturday" id="Yn6-uV-jdt">
                                                                                         <font key="font" size="16" name="SFPro-Semibold"/>
                                                                                         <color key="textColor" name="defaultColor"/>
                                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -928,11 +928,14 @@ disable automatic backups</string>
                                                                                     <color key="value" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
-                                                                                    <real key="value" value="0.080000000000000002"/>
+                                                                                    <real key="value" value="0.80000000000000004"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="hoverDarken" value="YES"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                     <real key="value" value="7"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                                <userDefinedRuntimeAttribute type="number" keyPath="darkenModifier">
+                                                                                    <real key="value" value="0.10000000000000001"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </customView>
@@ -967,7 +970,7 @@ disable automatic backups</string>
                                                                                     <color key="value" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
-                                                                                    <real key="value" value="0.050000000000000003"/>
+                                                                                    <real key="value" value="0.040000000000000001"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="hoverDarken" value="YES"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1001,15 +1004,20 @@ disable automatic backups</string>
                                         </scroller>
                                     </scrollView>
                                 </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
+                                        <real key="value" value="0.040000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </customView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4tv-OS-8Cp" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="319" y="409" width="501" height="81"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-1c-oay">
-                                        <rect key="frame" x="18" y="29" width="465" height="24"/>
+                                        <rect key="frame" x="18" y="17" width="465" height="47"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" alignment="center" title="&quot;Every day at 10 o' clock&quot;" id="bEG-Dt-WHe">
+                                        <textFieldCell key="cell" alignment="center" title="&quot;Every day at 10 o' clock&quot;" id="bEG-Dt-WHe" customClass="CenterCell" customModule="BackupSchedule" customModuleProvider="target">
                                             <font key="font" size="20" name="SFPro-Bold"/>
                                             <color key="textColor" name="defaultTextColorHD"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1021,7 +1029,7 @@ disable automatic backups</string>
                                         <color key="value" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
-                                        <real key="value" value="0.040000000000000001"/>
+                                        <real key="value" value="0.050000000000000003"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
@@ -1270,7 +1278,7 @@ disable automatic backups</string>
                                 <rect key="frame" x="442" y="227" width="60" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0m-7S-pkp">
+                                    <textField identifier="minutesTF" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0m-7S-pkp">
                                         <rect key="frame" x="4" y="3" width="53" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" drawsBackground="YES" id="saa-X1-neH">
@@ -1278,6 +1286,9 @@ disable automatic backups</string>
                                             <color key="textColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="0.84705882352941175" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="YOy-JE-ZEq" id="0MR-cD-are"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <userDefinedRuntimeAttributes>
@@ -1297,7 +1308,7 @@ disable automatic backups</string>
                                 <rect key="frame" x="345" y="227" width="60" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghl-Ml-vQ7">
+                                    <textField identifier="hoursTF" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ghl-Ml-vQ7">
                                         <rect key="frame" x="7" y="4" width="46" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" alignment="center" drawsBackground="YES" id="rg1-tx-Hzl">
@@ -1305,6 +1316,9 @@ disable automatic backups</string>
                                             <color key="textColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="YOy-JE-ZEq" id="lxO-Xm-4zs"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <userDefinedRuntimeAttributes>
@@ -1321,7 +1335,7 @@ disable automatic backups</string>
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
-                                <rect key="frame" x="411" y="236" width="55" height="18"/>
+                                <rect key="frame" x="411" y="236" width="14" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
                                     <font key="font" size="15" name="SFPro-Medium"/>
@@ -1526,7 +1540,7 @@ disable automatic backups</string>
         </scene>
     </scenes>
     <resources>
-        <image name="clock.arrow.circlepath" width="12" height="12"/>
+        <image name="clock.arrow.circlepath" width="25" height="25"/>
         <image name="magnifyingglass" width="25" height="25"/>
         <image name="timemachine_icon" width="139" height="132"/>
         <image name="trash" width="32" height="32"/>

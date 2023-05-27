@@ -5,12 +5,10 @@
 // Created by Tohr01 on 18.03.23
 // Copyright © 2023 Tohr01. All rights reserved.
 //
-        
 
 import XCTest
 
 final class BackupScheduleUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
