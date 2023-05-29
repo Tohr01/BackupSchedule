@@ -166,8 +166,8 @@ extension ScheduleConfiguration {
         }
 
         // Set time fields
-        hoursTextField.stringValue = "\(schedule.timeActive.hour ?? 00)"
-        minutesTextField.stringValue = "\(schedule.timeActive.minute ?? 00)"
+        hoursTextField.stringValue = "\(schedule.getHourString())"
+        minutesTextField.stringValue = "\(schedule.getMinuteString())"
 
         // Set settings
         if schedule.settings.startNotification { notifyBackup.setActive() } else { notifyBackup.setInactive() }
@@ -358,7 +358,7 @@ extension ScheduleConfiguration: NSTextFieldDelegate {
 
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
         if let tf = control as? NSTextField {
-            var upperLimit = tf.identifier == NSUserInterfaceItemIdentifier("minutesTF") ? 60 : 23
+            let upperLimit = tf.identifier == NSUserInterfaceItemIdentifier("minutesTF") ? 60 : 23
 
             if let number = Int(fieldEditor.string), number >= 0, number <= upperLimit {
                 NotificationCenter.default.post(Notification(name: Notification.Name("updatedSchedule")))

@@ -27,7 +27,23 @@ struct BackupSchedule: Codable, Hashable {
         if let hour = time.hour, let minute = time.minute {
             return "\(hour < 10 ? "0\(hour)" : String(hour)):\(minute < 10 ? "0\(minute)" : String(minute))"
         }
-        return ""
+        return "00:00"
+    }
+    
+    func getHourString() -> String{
+        let time = timeActive
+        if let hour = time.hour {
+            return "\(hour < 10 ? "0\(hour)" : String(hour))"
+        }
+        return "00"
+    }
+    
+    func getMinuteString() -> String {
+        let time = timeActive
+        if let minute = time.minute {
+            return "\(minute < 10 ? "0\(minute)" : String(minute))"
+        }
+        return "00"
     }
 
     var id: UUID = .init()

@@ -16,9 +16,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var menu: NSMenu!
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
+    private var latestBackupDate: Date?
+    
     func applicationDidFinishLaunching(_: Notification) {
         ScheduleCoordinator.default.loadSchedules()
         ScheduleCoordinator.default.getNextExecutionDate()
+        latestBackupDate = UserDefaults.standard.value(forKey: "latestBackup") as? Date
         do {
             AppDelegate.tm = try TimeMachine()
 
@@ -38,21 +41,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             communicationError()
             return
         }
+        
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("disabledautobackup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
 
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
-    }
-
-    func applicationWillTerminate(_: Notification) {
-        let workspaceNC = NSWorkspace.shared.notificationCenter
-        workspaceNC.removeObserver(self, name: NSWorkspace.didLaunchApplicationNotification, object: nil)
-        workspaceNC.removeObserver(self, name: NSWorkspace.didTerminateApplicationNotification, object: nil)
-    }
-
-    func applicationSupportsSecureRestorableState(_: NSApplication) -> Bool {
-        true
     }
 }
 
@@ -147,12 +141,25 @@ extension AppDelegate {
                     backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
                     topMenuItem.title = "Running backup..."
                     menu.addItem(topMenuItem)
-                } else if let lastBackupDate = AppDelegate.tm!.getLatestBackup() {
-                    topMenuItem.title = "Last backup: \(lastBackupDate.getLatestBackupString().capitalizeFirst)"
+                } else {
+                    var titleString: String!
+                    if let latestBackupDateTM = AppDelegate.tm!.getLatestBackup() {
+                        if let latestBackupDate = latestBackupDate, latestBackupDateTM < latestBackupDate {
+                            titleString = "Last backup: \(latestBackupDate.getLatestBackupString().capitalizeFirst)"
+                        } else {
+                            UserDefaults.standard.set(latestBackupDateTM, forKey: "latestBackup")
+                            titleString = "Last backup: \(latestBackupDateTM.getLatestBackupString().capitalizeFirst)"
+                        }
+                    } else if let latestBackupDate = latestBackupDate {
+                        titleString = "Last backup: \(latestBackupDate.getLatestBackupString().capitalizeFirst)"
+                    } else {
+                        titleString = "No latest backup found"
+                    }
+                    topMenuItem.title = titleString
                     menu.addItem(topMenuItem)
                 }
 
-                var nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")", action: nil, keyEquivalent: "")
+                let nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")", action: nil, keyEquivalent: "")
                 nextBackup.identifier = NSUserInterfaceItemIdentifier("nextBackup")
                 nextBackup.isEnabled = false
                 menu.addItem(nextBackup)
@@ -200,7 +207,16 @@ extension AppDelegate {
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
             backupTimer?.invalidate()
             backupTimer = nil
-            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "\(AppDelegate.tm!.getLatestBackup().getLatestBackupString()?.capitalizeFirst ?? "No latest Backup found")")
+            if let latestBackupDateTM = AppDelegate.tm!.getLatestBackup() {
+                if let latestBackupDate = latestBackupDate, latestBackupDateTM < latestBackupDate {
+                    changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "\(latestBackupDate.getLatestBackupString().capitalizeFirst)")
+                } else {
+                    UserDefaults.standard.set(latestBackupDateTM, forKey: "latestBackup")
+                    changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "\(latestBackupDateTM.getLatestBackupString().capitalizeFirst)")
+                }
+            } else {
+                changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "No latest Backup found")
+            }
             return
         }
 

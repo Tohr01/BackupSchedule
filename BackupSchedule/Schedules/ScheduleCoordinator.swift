@@ -50,7 +50,7 @@ class ScheduleCoordinator {
             guard let date = date else {
                 return
             }
-            print(date.formatted(date: .abbreviated, time: .standard))
+            
             let timer = Timer(fire: date, interval: 60 * 60 * 24, repeats: true) { _ in
                 let currentDay = Calendar.current.component(.weekday, from: Date())
                 let validRunDays = schedule.activeDays.map(\.rawValue.1)
@@ -60,12 +60,17 @@ class ScheduleCoordinator {
                     let notification = UNMutableNotificationContent()
                     var shouldRun = true
                     if schedule.settings.disableWhenBattery, SystemInformation.isInBatteryMode() {
-                        notification.title = "Backup will not run."
+                        notification.title = "Backup will not run"
                         notification.subtitle = "Your Mac currently is in battery mode."
                         shouldRun = false
                     } else if schedule.settings.runWhenUnderHighLoad, highLoad {
-                        notification.title = "Backup will not run."
+                        notification.title = "Backup will not run"
                         notification.subtitle = "Your Mac is currently under high load."
+                        shouldRun = false
+                    }
+                    if !AppDelegate.tm!.isMounted(destination: schedule.selectedDrive) {
+                        notification.title = "Backup will not run"
+                        notification.subtitle = "Backup drive not connected."
                         shouldRun = false
                     }
                     if shouldRun {

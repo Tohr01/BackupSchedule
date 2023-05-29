@@ -128,6 +128,29 @@ class TimeMachine {
         return nil
     }
 
+    func isMounted(destination: TMDestination? = nil) -> Bool {
+        do {
+            if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
+               let destInfoData = destinationInfo.data(using: .utf8)
+            {
+                let destInfoDict = try PropertyListSerialization.propertyList(from: destInfoData, format: nil)
+
+                if let destInfoDict = destInfoDict as? [String: Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
+                    if let destination = destination {
+                        if let destDict = destinations.filter({$0["ID"] as! String == destination.id}).first {
+                            return destDict["MountPoint"] != nil
+                        }
+                    } else {
+                        return !destinations.filter({$0["MountPoint"] != nil}).isEmpty
+                    }
+                }
+            }
+        } catch {
+            return false
+        }
+        return false
+    }
+    
     func getDestinations() throws -> [TMDestination]? {
         do {
             if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
