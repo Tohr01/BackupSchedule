@@ -102,6 +102,22 @@ class TimeMachine {
         return false
     }
 
+    func getLatestKnownBackup() -> Date? {
+        let savedDate = UserDefaults.standard.value(forKey: "latestBackup") as? Date
+        if let lastBackupTM = getLatestBackup() {
+            if let savedDate = savedDate, lastBackupTM < savedDate {
+                return savedDate
+            } else {
+                UserDefaults.standard.set(lastBackupTM, forKey: "latestBackup")
+                return lastBackupTM
+            }
+        } else if let savedDate = savedDate {
+            return savedDate
+        }
+        
+        return nil
+    }
+    
     func getLatestBackup() -> Date? {
         if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2, 3, 1, 4, 5]) {
             let dateArrInt = dateArr.map { Int($0) }.compactMap { $0 }

@@ -53,11 +53,13 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
 
         configureSidebar()
+        configureLastBackup()
         configureTableView()
         loadTemplateSchedule()
 
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectedDestDrive(_:)), name: Notification.Name("selectedDestDrive"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tmeventHandler(_:)), name: Notification.Name("tmchanged"), object: nil)
     }
 
     // Deinitilizer
@@ -89,6 +91,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             schedules.append(newBackupSchedule)
             ScheduleCoordinator.default.addToRunLoop(newBackupSchedule)
             saveAllSchedules()
+            loadTemplateSchedule()
         } else {
             if let currentScheduleIdx = currentScheduleIdx {
                 newBackupSchedule.id = schedules[currentScheduleIdx].id
@@ -144,6 +147,10 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
 
     func refreshSchedules() {
         schedules = Array(ScheduleCoordinator.schedules.keys)
+    }
+    
+    @objc func tmeventHandler(_ aNotification: Notification) {
+        configureLastBackup()
     }
 }
 
@@ -207,7 +214,14 @@ extension ScheduleConfiguration {
         } else {
             destCountMoreLabel.stringValue = "\(volumeCount) more"
         }
-        lastBackupLabel.stringValue = "Last backup on \(AppDelegate.tm!.getLatestBackup().getLatestBackupString() ?? "")"
+    }
+    
+    func configureLastBackup() {
+        if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
+            lastBackupLabel.stringValue = "Last backup on \(lastBackup.getLatestBackupString().capitalizeFirst)"
+        } else {
+            lastBackupLabel.stringValue = "No last backup found)"
+        }
     }
 }
 
