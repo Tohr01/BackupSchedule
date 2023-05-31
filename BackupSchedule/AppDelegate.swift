@@ -8,16 +8,21 @@
 
 import Cocoa
 import UserNotifications
+import ServiceManagement
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     static var tm: TimeMachine?
-    var window: NSWindow!
+    var window: BackupWindow!
     private var menu: NSMenu!
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
     
     func applicationDidFinishLaunching(_: Notification) {
+        
+        // Add application to Autolaunch
+        let helperBundleId = "codes.cr.BackupScheduleHelper"
+        SMLoginItemSetEnabled(helperBundleId as CFString, true)
         ScheduleCoordinator.default.loadSchedules()
         do {
             AppDelegate.tm = try TimeMachine()
@@ -63,7 +68,7 @@ extension AppDelegate {
     func openVC(title: String, storyboardID: String) {
         if window == nil || !window.isVisible {
             let contentRect = NSRect(x: 0, y: 0, width: 820, height: 498)
-            window = NSWindow(contentRect: contentRect, styleMask: [.closable, .miniaturizable, .titled], backing: .buffered, defer: false)
+            window = BackupWindow(contentRect: contentRect, styleMask: [.closable, .miniaturizable, .titled], backing: .buffered, defer: false)
 
             window.isReleasedWhenClosed = false
             window.center()

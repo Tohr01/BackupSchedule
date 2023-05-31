@@ -373,7 +373,7 @@ extension ScheduleConfiguration: NSTextFieldDelegate {
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
         if let tf = control as? NSTextField {
             let upperLimit = tf.identifier == NSUserInterfaceItemIdentifier("minutesTF") ? 60 : 23
-
+            print("called")
             if let number = Int(fieldEditor.string), number >= 0, number <= upperLimit {
                 NotificationCenter.default.post(Notification(name: Notification.Name("updatedSchedule")))
                 return true

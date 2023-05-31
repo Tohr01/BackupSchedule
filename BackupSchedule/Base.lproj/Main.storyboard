@@ -928,7 +928,7 @@ disable automatic backups</string>
                                                                                     <color key="value" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
-                                                                                    <real key="value" value="0.080000000000000002"/>
+                                                                                    <real key="value" value="0.059999999999999998"/>
                                                                                 </userDefinedRuntimeAttribute>
                                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="hoverDarken" value="YES"/>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

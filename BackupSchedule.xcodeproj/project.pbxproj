@@ -21,6 +21,11 @@
 		C32963F329C61D9300DF624A /* BackupScheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963F229C61D9300DF624A /* BackupScheduleUITests.swift */; };
 		C32963F529C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */; };
 		C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329640129C61DFD00DF624A /* DefaultButton.swift */; };
+		C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630A2E2A26891400AE3658 /* BackupWindow.swift */; };
+		C3630A372A269A1900AE3658 /* HelperAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630A362A269A1900AE3658 /* HelperAppDelegate.swift */; };
+		C3630A3B2A269A1A00AE3658 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3630A3A2A269A1A00AE3658 /* Assets.xcassets */; };
+		C3630A3E2A269A1A00AE3658 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3630A3C2A269A1A00AE3658 /* Main.storyboard */; };
+		C3630A602A269BE400AE3658 /* BackupScheduleHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3630A342A269A1900AE3658 /* BackupScheduleHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C374D94529F70F2E0007F52C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D94429F70F2E0007F52C /* String.swift */; };
 		C3752A9229E48CA700C049CD /* DiskSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3752A9129E48CA700C049CD /* DiskSelection.swift */; };
 		C3752A9429E48DC000C049CD /* DiskSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3752A9329E48DC000C049CD /* DiskSelectionCell.swift */; };
@@ -50,6 +55,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C3630A5F2A269B7D00AE3658 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				C3630A602A269BE400AE3658 /* BackupScheduleHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleConfiguration.swift; sourceTree = "<group>"; };
 		C30A469129C78C4800B0AB32 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
@@ -69,6 +87,12 @@
 		C32963F229C61D9300DF624A /* BackupScheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleUITests.swift; sourceTree = "<group>"; };
 		C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C329640129C61DFD00DF624A /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
+		C3630A2E2A26891400AE3658 /* BackupWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupWindow.swift; sourceTree = "<group>"; };
+		C3630A342A269A1900AE3658 /* BackupScheduleHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackupScheduleHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3630A362A269A1900AE3658 /* HelperAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperAppDelegate.swift; sourceTree = "<group>"; };
+		C3630A3A2A269A1A00AE3658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C3630A3D2A269A1A00AE3658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C3630A3F2A269A1A00AE3658 /* BackupScheduleHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BackupScheduleHelper.entitlements; sourceTree = "<group>"; };
 		C374D94429F70F2E0007F52C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C3752A9129E48CA700C049CD /* DiskSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskSelection.swift; sourceTree = "<group>"; };
 		C3752A9329E48DC000C049CD /* DiskSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskSelectionCell.swift; sourceTree = "<group>"; };
@@ -103,6 +127,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3630A312A269A1900AE3658 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -120,6 +151,7 @@
 				C32963D529C61D9200DF624A /* BackupSchedule */,
 				C32963E729C61D9300DF624A /* BackupScheduleTests */,
 				C32963F129C61D9300DF624A /* BackupScheduleUITests */,
+				C3630A352A269A1900AE3658 /* BackupScheduleHelper */,
 				C32963D429C61D9200DF624A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,6 +162,7 @@
 				C32963D329C61D9200DF624A /* BackupSchedule.app */,
 				C32963E429C61D9300DF624A /* BackupScheduleTests.xctest */,
 				C32963EE29C61D9300DF624A /* BackupScheduleUITests.xctest */,
+				C3630A342A269A1900AE3658 /* BackupScheduleHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +179,7 @@
 				C32963DC29C61D9300DF624A /* Main.storyboard */,
 				C329640129C61DFD00DF624A /* DefaultButton.swift */,
 				C30D4E922A216F50000725B9 /* CenterCell.swift */,
+				C3630A2E2A26891400AE3658 /* BackupWindow.swift */,
 				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
 				C3A9389A29C652E500527264 /* TimeMachine.swift */,
 				C3A9389729C6395000527264 /* Extentions */,
@@ -169,6 +203,17 @@
 				C32963F429C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift */,
 			);
 			path = BackupScheduleUITests;
+			sourceTree = "<group>";
+		};
+		C3630A352A269A1900AE3658 /* BackupScheduleHelper */ = {
+			isa = PBXGroup;
+			children = (
+				C3630A362A269A1900AE3658 /* HelperAppDelegate.swift */,
+				C3630A3A2A269A1A00AE3658 /* Assets.xcassets */,
+				C3630A3C2A269A1A00AE3658 /* Main.storyboard */,
+				C3630A3F2A269A1A00AE3658 /* BackupScheduleHelper.entitlements */,
+			);
+			path = BackupScheduleHelper;
 			sourceTree = "<group>";
 		};
 		C3A5CD4329DF48B90031AC3B /* Schedules */ = {
@@ -222,6 +267,7 @@
 				C32963CF29C61D9200DF624A /* Sources */,
 				C32963D029C61D9200DF624A /* Frameworks */,
 				C32963D129C61D9200DF624A /* Resources */,
+				C3630A5F2A269B7D00AE3658 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -268,6 +314,23 @@
 			productReference = C32963EE29C61D9300DF624A /* BackupScheduleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C3630A332A269A1900AE3658 /* BackupScheduleHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3630A562A269A1A00AE3658 /* Build configuration list for PBXNativeTarget "BackupScheduleHelper" */;
+			buildPhases = (
+				C3630A302A269A1900AE3658 /* Sources */,
+				C3630A312A269A1900AE3658 /* Frameworks */,
+				C3630A322A269A1900AE3658 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BackupScheduleHelper;
+			productName = BackupScheduleHelper;
+			productReference = C3630A342A269A1900AE3658 /* BackupScheduleHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -289,6 +352,9 @@
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = C32963D229C61D9200DF624A;
 					};
+					C3630A332A269A1900AE3658 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 				};
 			};
 			buildConfigurationList = C32963CE29C61D9200DF624A /* Build configuration list for PBXProject "BackupSchedule" */;
@@ -307,6 +373,7 @@
 				C32963D229C61D9200DF624A /* BackupSchedule */,
 				C32963E329C61D9300DF624A /* BackupScheduleTests */,
 				C32963ED29C61D9300DF624A /* BackupScheduleUITests */,
+				C3630A332A269A1900AE3658 /* BackupScheduleHelper */,
 			);
 		};
 /* End PBXProject section */
@@ -332,6 +399,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3630A322A269A1900AE3658 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3630A3B2A269A1A00AE3658 /* Assets.xcassets in Resources */,
+				C3630A3E2A269A1A00AE3658 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +437,7 @@
 				C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
+				C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +455,14 @@
 			files = (
 				C32963F329C61D9300DF624A /* BackupScheduleUITests.swift in Sources */,
 				C32963F529C61D9300DF624A /* BackupScheduleUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3630A302A269A1900AE3658 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3630A372A269A1900AE3658 /* HelperAppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +486,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				C32963DD29C61D9300DF624A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C3630A3C2A269A1A00AE3658 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3630A3D2A269A1A00AE3658 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -651,6 +744,66 @@
 			};
 			name = Release;
 		};
+		C3630A572A269A1A00AE3658 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BackupScheduleHelper/BackupScheduleHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2UGDUMT6N4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.cr.BackupScheduleHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C3630A582A269A1A00AE3658 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BackupScheduleHelper/BackupScheduleHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2UGDUMT6N4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.cr.BackupScheduleHelper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -686,6 +839,15 @@
 			buildConfigurations = (
 				C32963FF29C61D9300DF624A /* Debug */,
 				C329640029C61D9300DF624A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3630A562A269A1A00AE3658 /* Build configuration list for PBXNativeTarget "BackupScheduleHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3630A572A269A1A00AE3658 /* Debug */,
+				C3630A582A269A1A00AE3658 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
