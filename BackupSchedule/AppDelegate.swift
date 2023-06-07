@@ -18,8 +18,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
     
-    func applicationDidFinishLaunching(_: Notification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         
+        var showUI: Bool = false
+        if aNotification.userInfo?[NSApplication.launchIsDefaultUserInfoKey] != nil{
+            showUI = true
+        }
+        print(showUI)
         // Add application to Autolaunch
         let helperBundleId = "codes.cr.BackupScheduleHelper"
         SMLoginItemSetEnabled(helperBundleId as CFString, true)
@@ -38,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 await requestNotificationAuth()
             }
 
-            initUserInterface()
+            initUserInterface(showUI: showUI)
         } catch {
             communicationError()
             return
@@ -92,14 +97,16 @@ extension AppDelegate {
         }
     }
 
-    @objc func initUserInterface() {
+    @objc func initUserInterface(showUI: Bool) {
         do {
             if try !(AppDelegate.tm!.isConfigured()) {
                 openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
             } else if AppDelegate.tm!.isAutoBackupEnabled() {
                 openVC(title: "Disable AutoBackup", storyboardID: "disableab")
             } else {
-                openMainVC(nil)
+                if showUI {
+                    openMainVC(nil)
+                }
             }
         } catch {
             communicationError()
