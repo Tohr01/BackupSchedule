@@ -52,7 +52,8 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit BackupSchedule" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit BackupSchedule" id="4sb-4s-VLi">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -1006,7 +1007,7 @@ disable automatic backups</string>
                                 </subviews>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
-                                        <real key="value" value="0.040000000000000001"/>
+                                        <real key="value" value="0.029999999999999999"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
