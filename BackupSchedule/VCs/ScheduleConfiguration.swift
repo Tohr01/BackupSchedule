@@ -95,8 +95,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         } else {
             if let currentScheduleIdx = currentScheduleIdx {
                 newBackupSchedule.id = schedules[currentScheduleIdx].id
-                ScheduleCoordinator.default.removeScheduleFromRunLoop(id: newBackupSchedule.id)
-                ScheduleCoordinator.default.addToRunLoop(newBackupSchedule)
+                ScheduleCoordinator.default.replaceSchedule(newBackupSchedule)
                 refreshSchedules()
                 scheduleListTableView.reloadData()
                 saveAllSchedules()
@@ -146,7 +145,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     }
 
     func refreshSchedules() {
-        schedules = Array(ScheduleCoordinator.schedules.keys)
+        schedules = Array(ScheduleCoordinator.schedules.map{$0.0})
     }
     
     @objc func tmeventHandler(_ aNotification: Notification) {
@@ -327,6 +326,7 @@ extension ScheduleConfiguration {
                 let schedule = schedules[selectedRow]
                 newSchedule = false
                 currentScheduleIdx = selectedRow
+                print("Current schedule idx \(currentScheduleIdx)")
                 loadScheduleUI(schedule)
             }
             scheduleListTableView.deselectRow(selectedRow)
