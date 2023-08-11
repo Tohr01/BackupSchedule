@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if aNotification.userInfo?[NSApplication.launchIsDefaultUserInfoKey] != nil{
             showUI = true
         }
-        print(showUI)
+        
         // Add application to Autolaunch
         let helperBundleId = "codes.cr.BackupScheduleHelper"
         SMLoginItemSetEnabled(helperBundleId as CFString, true)
@@ -51,6 +51,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("disabledautobackup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("informationVC"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ScheduleCoordinator.default.macWillGoToSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ScheduleCoordinator.default.macWillWakeUp(_:)), name: NSWorkspace.willSleepNotification, object: nil)
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
 
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
@@ -99,7 +105,9 @@ extension AppDelegate {
 
     @objc func initUserInterface(showUI: Bool) {
         do {
-            if try !(AppDelegate.tm!.isConfigured()) {
+            if UserDefaults.standard.value(forKey: "firstLaunch") == nil {
+              openVC(title: "Information", storyboardID: "information")
+            } else if try !(AppDelegate.tm!.isConfigured()) {
                 openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
             } else if AppDelegate.tm!.isAutoBackupEnabled() {
                 openVC(title: "Disable AutoBackup", storyboardID: "disableab")

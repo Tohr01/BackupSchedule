@@ -36,6 +36,7 @@
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
 		C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */; };
 		C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */; };
+		C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
 		C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCoordinator.swift; sourceTree = "<group>"; };
 		C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleCellView.swift; sourceTree = "<group>"; };
+		C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +255,7 @@
 				C3752A9129E48CA700C049CD /* DiskSelection.swift */,
 				C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */,
 				C3A9389C29C654A300527264 /* DisableAutoBackup.swift */,
+				C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
 				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
 				C30D4E932A216F50000725B9 /* CenterCell.swift in Sources */,
+				C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */,
 				C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */,
 				C374D94529F70F2E0007F52C /* String.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
@@ -621,6 +625,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = BackupSchedule/BackupSchedule.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -650,6 +655,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = BackupSchedule/BackupSchedule.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -750,6 +756,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BackupScheduleHelper/BackupScheduleHelper.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -780,6 +787,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BackupScheduleHelper/BackupScheduleHelper.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

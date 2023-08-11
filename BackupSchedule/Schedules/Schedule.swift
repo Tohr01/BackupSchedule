@@ -22,6 +22,46 @@ struct BackupSchedule: Codable, Hashable {
         hasher.combine(settings)
     }
 
+    func getNextExecDate() -> Date? {
+        var validDays = activeDays.map({$0.rawValue.1})
+        let cal = Calendar.current
+        let dateComps = cal.dateComponents([.weekday, .hour, .minute], from: Date.now)
+        let currentWeekday = dateComps.weekday!
+        if validDays.contains(currentWeekday) {
+            // Run day is today
+            // Check if run time has passed
+            let currentHour = dateComps.hour!
+            let currentMinute = dateComps.minute!
+            // Time active e.g. 11:20 currentTime e.g. 10:56
+            if currentHour <= timeActive.hour! && currentMinute <= timeActive.minute! {
+                // Backup is upcoming today
+                var nextExecDateComps = cal.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: Date.now)
+                nextExecDateComps.hour = timeActive.hour!
+                nextExecDateComps.minute = timeActive.minute!
+                return cal.date(from: nextExecDateComps)!
+            } else {
+                // Time has passed
+                let lastValidDay = validDays.sorted()[validDays.count-1]
+                if (lastValidDay == currentWeekday) {
+                    return Date.constructDate(from: validDays.sorted()[0], hour: timeActive.hour!, minute: timeActive.minute!)
+                }
+            }
+        } else {
+            if currentWeekday < validDays.sorted()[validDays.count-1] {
+                return Date.constructDate(from: validDays.sorted()[0], hour: timeActive.hour!, minute: timeActive.minute!)
+            } else {
+                var validDays = validDays
+                validDays.append(currentWeekday)
+                let nextWeekdayIdx = validDays.sorted().firstIndex(of: currentWeekday)!+1
+                let nextWeekday = validDays[nextWeekdayIdx%validDays.count]
+                return Date.constructDate(from: nextWeekday, hour: timeActive.hour!, minute: timeActive.minute!)
+            }
+            
+        }
+        return nil
+    }
+
+    
     func getTimeString() -> String {
         let time = timeActive
         if let hour = time.hour, let minute = time.minute {

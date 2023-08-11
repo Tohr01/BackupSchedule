@@ -19,6 +19,12 @@ extension Optional where Wrapped == Date {
 }
 
 extension Date {
+    static func constructDate(from weekday: Int, hour: Int, minute: Int) -> Date {
+        let nextExecDateComps = DateComponents(hour: hour, minute: minute, weekday: weekday)
+        let nextExecDate = Calendar.current.nextDate(after: Date.now, matching: nextExecDateComps, matchingPolicy: .nextTime)
+        return nextExecDate!
+    }
+    
     func getLatestBackupString() -> String {
         let formatter = DateFormatter()
         if Calendar.current.isDateInToday(self) {
@@ -33,5 +39,9 @@ extension Date {
         formatter.dateStyle = .short
         formatter.timeStyle = .short
         return formatter.string(from: self)
+    }
+    
+    func isBetween(startDate: Date, endDate: Date) -> Bool{
+        return startDate <= self && self <= endDate
     }
 }

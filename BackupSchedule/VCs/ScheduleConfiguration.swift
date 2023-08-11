@@ -326,7 +326,6 @@ extension ScheduleConfiguration {
                 let schedule = schedules[selectedRow]
                 newSchedule = false
                 currentScheduleIdx = selectedRow
-                print("Current schedule idx \(currentScheduleIdx)")
                 loadScheduleUI(schedule)
             }
             scheduleListTableView.deselectRow(selectedRow)

@@ -1539,6 +1539,55 @@ disable automatic backups</string>
             </objects>
             <point key="canvasLocation" x="1513.5" y="1018"/>
         </scene>
+        <!--Information-->
+        <scene sceneID="Ug9-Gd-0u7">
+            <objects>
+                <viewController title="Information" storyboardIdentifier="information" id="JmY-dy-TRz" customClass="BackupScheduleInformation" customModule="BackupSchedule" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="0iD-Sp-n3Z">
+                        <rect key="frame" x="0.0" y="0.0" width="820" height="490"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mXK-Ib-oW1">
+                                <rect key="frame" x="-2" y="361" width="824" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="⚠️" id="Gkg-Lj-0WP">
+                                    <font key="font" size="50" name="SFPro-Bold"/>
+                                    <color key="textColor" name="defaultTextColorHD"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wd3-Ux-6Ok" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
+                                <rect key="frame" x="335" y="86" width="150" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="I understood!" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="wyY-Fp-mAV">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="14" name="SFPro-Bold"/>
+                                </buttonCell>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continue:" target="JmY-dy-TRz" id="vC2-sG-xEX"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-u3-lRQ">
+                                <rect key="frame" x="142" y="161" width="536" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" alignment="center" id="sTn-EP-vId">
+                                    <font key="font" size="26" name="SFPro-Bold"/>
+                                    <string key="title">Due to macOS system restrictions BackupSchedule cannot run Backups when the operating system is in standby mode. The missed schedules will run when the system wakes up.</string>
+                                    <color key="textColor" name="defaultTextColorHD"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="F4p-C4-qEC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1088" y="568"/>
+        </scene>
     </scenes>
     <resources>
         <image name="clock.arrow.circlepath" width="25" height="25"/>
