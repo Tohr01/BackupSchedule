@@ -73,7 +73,6 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             defaultAlert(message: "You have to select at least one day for the schedule to run.")
             return
         }
-        #warning("todo handle time not set")
 
         let activeDaysStr = dayButtons.filter(\.key.isActive).map { $0.value.lowercased() }
         let activeDays: [ActiveDays] = activeDaysStr.map { ActiveDays(rawValue: $0) }.compactMap { $0 }
@@ -179,7 +178,11 @@ extension ScheduleConfiguration {
         if schedule.settings.startNotification { notifyBackup.setActive() } else { notifyBackup.setInactive() }
         if schedule.settings.disableWhenBattery { disableWhenInBattery.setActive() } else { disableWhenInBattery.setInactive() }
         if schedule.settings.runWhenUnderHighLoad { runUnderHighLoad.setActive() } else { runUnderHighLoad.setInactive() }
-
+        if let destinationDrive = schedule.selectedDrive {
+            rotateDests.setInactive()
+            searchDestinations.setActive()
+            selectedDrive = destinationDrive
+        }
         backupDescriptionLabel.stringValue = getDisplayText()
     }
 
@@ -232,18 +235,18 @@ extension ScheduleConfiguration {
     func getDisplayText() -> String {
         let dayText = getSelectedDaysStr()
         guard let dayText = dayText else {
-            return "\"Never\""
+            return "Never"
         }
 
         var timeText = ""
 
         if let minutes = Int(minutesTextField.stringValue), minutes == 0 {
-            timeText = "\(hoursTextField.stringValue) o'clock"
+            timeText = "\(Int(hoursTextField.stringValue) ?? 0) o'clock"
         } else {
             timeText = "\(hoursTextField.stringValue):\(minutesTextField.stringValue)"
         }
 
-        return"\"\(dayText) at \(timeText)\""
+        return "\(dayText) at \(timeText)"
     }
 
     func getSelectedDaysStr() -> String? {
@@ -372,7 +375,6 @@ extension ScheduleConfiguration: NSTextFieldDelegate {
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
         if let tf = control as? NSTextField {
             let upperLimit = tf.identifier == NSUserInterfaceItemIdentifier("minutesTF") ? 60 : 23
-            print("called")
             if let number = Int(fieldEditor.string), number >= 0, number <= upperLimit {
                 NotificationCenter.default.post(Notification(name: Notification.Name("updatedSchedule")))
                 return true
@@ -392,9 +394,7 @@ extension ScheduleConfiguration: NSTextFieldDelegate {
 }
 
 // MARK: -
-
 // MARK: Error handling
-
 extension ScheduleConfiguration {
     func defaultAlert(message: String) {
         let alert = NSAlert()

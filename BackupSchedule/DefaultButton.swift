@@ -69,9 +69,9 @@ class DefaultButton: NSButton {
         if #available(macOS 10.14, *) {
             self.contentTintColor = color
         } else {
-            // Fallback on earlier versions
-            #warning("fix")
-            // self.set_title_color(color: color)
+            // Fallback on earlier versions´
+            let attributedString = NSAttributedString(string: title, attributes: [.foregroundColor: color])
+            attributedTitle = attributedString
         }
     }
 

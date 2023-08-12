@@ -22,10 +22,10 @@ struct BackupSchedule: Codable, Hashable {
         hasher.combine(settings)
     }
 
-    func getNextExecDate() -> Date? {
-        var validDays = activeDays.map({$0.rawValue.1})
+    func getNextExecDate(after date: Date = Date.now) -> Date? {
+        var validDays = activeDays.map({$0.rawValue.1}).sorted()
         let cal = Calendar.current
-        let dateComps = cal.dateComponents([.weekday, .hour, .minute], from: Date.now)
+        let dateComps = cal.dateComponents([.weekday, .hour, .minute], from: date)
         let currentWeekday = dateComps.weekday!
         if validDays.contains(currentWeekday) {
             // Run day is today
@@ -33,7 +33,7 @@ struct BackupSchedule: Codable, Hashable {
             let currentHour = dateComps.hour!
             let currentMinute = dateComps.minute!
             // Time active e.g. 11:20 currentTime e.g. 10:56
-            if currentHour <= timeActive.hour! && currentMinute <= timeActive.minute! {
+            if currentHour < timeActive.hour! || (currentHour == timeActive.hour! && currentMinute <= timeActive.minute!) {
                 // Backup is upcoming today
                 var nextExecDateComps = cal.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: Date.now)
                 nextExecDateComps.hour = timeActive.hour!
@@ -50,7 +50,6 @@ struct BackupSchedule: Codable, Hashable {
             if currentWeekday < validDays.sorted()[validDays.count-1] {
                 return Date.constructDate(from: validDays.sorted()[0], hour: timeActive.hour!, minute: timeActive.minute!)
             } else {
-                var validDays = validDays
                 validDays.append(currentWeekday)
                 let nextWeekdayIdx = validDays.sorted().firstIndex(of: currentWeekday)!+1
                 let nextWeekday = validDays[nextWeekdayIdx%validDays.count]

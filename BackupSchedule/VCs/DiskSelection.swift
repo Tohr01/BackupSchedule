@@ -17,7 +17,6 @@ class DiskSelection: NSViewController, NSTableViewDelegate, NSTableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layer?.backgroundColor = .clear
-        print(selectedDrive)
         configureTableView()
     }
 

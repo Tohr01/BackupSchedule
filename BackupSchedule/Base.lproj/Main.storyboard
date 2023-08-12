@@ -1016,7 +1016,7 @@ disable automatic backups</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-1c-oay">
-                                        <rect key="frame" x="18" y="17" width="465" height="47"/>
+                                        <rect key="frame" x="18" y="10" width="465" height="54"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" title="&quot;Every day at 10 o' clock&quot;" id="bEG-Dt-WHe" customClass="CenterCell" customModule="BackupSchedule" customModuleProvider="target">
                                             <font key="font" size="20" name="SFPro-Bold"/>
@@ -1559,7 +1559,7 @@ disable automatic backups</string>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wd3-Ux-6Ok" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="335" y="86" width="150" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="I understood!" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="wyY-Fp-mAV">
+                                <buttonCell key="cell" type="bevel" title="I understand!" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="wyY-Fp-mAV">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="14" name="SFPro-Bold"/>
                                 </buttonCell>

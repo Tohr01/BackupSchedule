@@ -38,8 +38,8 @@ class ScheduleCoordinator {
     }
     
     func getNextExecutionDate() -> Date? {
-        if let nextBackup = ScheduleCoordinator.schedules.sorted(by: { $0.1.fireDate.compare($1.1.fireDate) == .orderedAscending }).first {
-            return nextBackup.1.fireDate
+        if let nextBackup = ScheduleCoordinator.schedules.compactMap({$0.0.getNextExecDate()}).sorted().first {
+            return nextBackup
         }
         return nil
     }
@@ -54,7 +54,6 @@ class ScheduleCoordinator {
     
     
     func getTimer(for schedule: BackupSchedule) -> Timer? {
-        print(schedule.getNextExecDate())
         if let hour = schedule.timeActive.hour, let minute = schedule.timeActive.minute {
             let dateComponents = DateComponents(hour: hour, minute: minute)
             let date = Calendar.current.nextDate(after: Date(), matching: dateComponents, matchingPolicy: .nextTime)
@@ -119,6 +118,16 @@ class ScheduleCoordinator {
     }
     
     @objc func macWillWakeUp(_ aNotification: Notification) {
-        
+        if let sleepStartDate = sleepStart {
+            // Get schedules that where missed when mac slept
+            if !ScheduleCoordinator.schedules.compactMap({$0.0.getNextExecDate(after: sleepStartDate)}).filter({$0.compare(Date.now) == .orderedAscending}).isEmpty {
+                let notificationCenter = UNUserNotificationCenter.current()
+                let content = UNMutableNotificationContent()
+                content.title = "Starting Backup"
+                content.subtitle = "Running Backups missed when Mac was sleeping."
+                let request = UNNotificationRequest(identifier: "backupNotification", content: content, trigger: nil)
+                notificationCenter.add(request)
+            }
+        }
     }
 }

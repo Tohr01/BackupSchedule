@@ -19,31 +19,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var backupTimer: Timer?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-        var showUI: Bool = false
-        if aNotification.userInfo?[NSApplication.launchIsDefaultUserInfoKey] != nil{
-            showUI = true
-        }
-        
-        // Add application to Autolaunch
+        // Add helper application to Autolaunch
         let helperBundleId = "codes.cr.BackupScheduleHelper"
         SMLoginItemSetEnabled(helperBundleId as CFString, true)
         ScheduleCoordinator.default.loadSchedules()
+        
         do {
             AppDelegate.tm = try TimeMachine()
-
+            
             // Construct menubar appearance
             statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
             if let button = statusItem.button {
                 button.image = NSImage(named: "tmicon")
                 try constructMenu()
             }
-
+            
             Task {
                 await requestNotificationAuth()
             }
-
-            initUserInterface(showUI: showUI)
+            
+            initUserInterface()
         } catch {
             communicationError()
             return
@@ -56,9 +51,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ScheduleCoordinator.default.macWillGoToSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ScheduleCoordinator.default.macWillWakeUp(_:)), name: NSWorkspace.willSleepNotification, object: nil)
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
-
+        
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
     }
 }
@@ -75,26 +69,26 @@ extension AppDelegate {
             openVC(title: "Schedule Backups", storyboardID: "scheduleconfiguration")
         }
     }
-
+    
     func openVC(title: String, storyboardID: String) {
         if window == nil || !window.isVisible {
             let contentRect = NSRect(x: 0, y: 0, width: 820, height: 498)
             window = BackupWindow(contentRect: contentRect, styleMask: [.closable, .miniaturizable, .titled], backing: .buffered, defer: false)
-
+            
             window.isReleasedWhenClosed = false
             window.center()
             window.title = title
             window.orderFrontRegardless()
-
+            
             let storyboard = NSStoryboard(name: "Main", bundle: nil)
-
+            
             if let vc = storyboard.instantiateController(withIdentifier: storyboardID) as? NSViewController {
                 window.contentViewController = vc
             }
-
+            
         } else {
             let storyboard: NSStoryboard = .init(name: "Main", bundle: nil)
-
+            
             if let vc = storyboard.instantiateController(withIdentifier: storyboardID) as? NSViewController {
                 window.title = title
                 window.contentViewController = vc
@@ -102,19 +96,18 @@ extension AppDelegate {
             window.orderFrontRegardless()
         }
     }
-
-    @objc func initUserInterface(showUI: Bool) {
+    
+    @objc func initUserInterface() {
         do {
             if UserDefaults.standard.value(forKey: "firstLaunch") == nil {
-              openVC(title: "Information", storyboardID: "information")
+                openVC(title: "Information", storyboardID: "information")
             } else if try !(AppDelegate.tm!.isConfigured()) {
                 openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
             } else if AppDelegate.tm!.isAutoBackupEnabled() {
                 openVC(title: "Disable AutoBackup", storyboardID: "disableab")
             } else {
-                if showUI {
                     openMainVC(nil)
-                }
+                
             }
         } catch {
             communicationError()
@@ -139,21 +132,20 @@ extension AppDelegate {
 // MARK: Menu construction
 
 extension AppDelegate {
-    #warning("todo menu creation")
     func constructMenu() throws {
         menu = NSMenu()
-
+        
         do {
             if try !(AppDelegate.tm!.isConfigured()) {
                 let notConfiguredItem = NSMenuItem(title: "TimeMachine not configured", action: nil, keyEquivalent: "")
                 notConfiguredItem.isEnabled = false
                 menu.addItem(notConfiguredItem)
-
+                
             } else {
                 let topMenuItem: NSMenuItem = .init(title: "Running backup...", action: nil, keyEquivalent: "")
                 topMenuItem.isEnabled = false
                 topMenuItem.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
-
+                
                 if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
                     backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
                     topMenuItem.title = "Running backup..."
@@ -168,14 +160,14 @@ extension AppDelegate {
                     topMenuItem.title = titleString
                     menu.addItem(topMenuItem)
                 }
-
+                
                 let nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")", action: nil, keyEquivalent: "")
                 nextBackup.identifier = NSUserInterfaceItemIdentifier("nextBackup")
                 nextBackup.isEnabled = false
                 menu.addItem(nextBackup)
-
+                
                 menu.addItem(NSMenuItem.separator())
-
+                
                 let backupNowItem = NSMenuItem(title: "Start Backup", action: #selector(AppDelegate.startBackupWrapper), keyEquivalent: "")
                 backupNowItem.identifier = NSUserInterfaceItemIdentifier("backupNow")
                 menu.addItem(backupNowItem)
@@ -186,12 +178,12 @@ extension AppDelegate {
         }
         let preferences = NSMenuItem(title: "Preferences...", action: #selector(initUserInterface), keyEquivalent: "")
         menu.addItem(preferences)
-
+        
         let quitNowitem = NSMenuItem(title: "Quit", action: #selector(quitApplication), keyEquivalent: "")
         menu.addItem(quitNowitem)
         statusItem.menu = menu
     }
-
+    
     func changeTitleForMenuItem(with identifier: NSUserInterfaceItemIdentifier, to title: String) {
         _ = menu.items.filter { $0.identifier == identifier }.map { $0.title = title }
     }
@@ -205,13 +197,13 @@ extension AppDelegate {
     @objc func backupStarted(_: Notification) {
         // test if backup is running
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning { return }
-
+        
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
         RunLoop.main.add(backupTimer!, forMode: .common)
     }
-
+    
     @objc func updateTMProgressMenu() {
         // Checks if backup finished
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
@@ -225,7 +217,7 @@ extension AppDelegate {
             NotificationCenter.default.post(Notification(name: Notification.Name("tmchanged")))
             return
         }
-
+        
         if let percent = (try? AppDelegate.tm!.getBackupProgess()) {
             changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Backup: \(Int(percent * 100))%")
         } else {
@@ -247,7 +239,7 @@ extension AppDelegate {
             try? AppDelegate.tm!.startBackup()
         }
     }
-
+    
     @objc func quitApplication() {
         NSApplication.shared.terminate(self)
     }

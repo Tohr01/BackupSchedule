@@ -11,7 +11,6 @@
 		C30A469229C78C4800B0AB32 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A469129C78C4800B0AB32 /* BackgroundView.swift */; };
 		C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B4EC829E7685D002BB568 /* SystemInformation.swift */; };
 		C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30C20C829C7E7E0005F5D83 /* Regex.swift */; };
-		C30D4E932A216F50000725B9 /* CenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30D4E922A216F50000725B9 /* CenterCell.swift */; };
 		C31288D529F67AC500F05FA5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31288D429F67AC500F05FA5 /* Date.swift */; };
 		C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D629C61D9200DF624A /* AppDelegate.swift */; };
 		C32963D929C61D9200DF624A /* ConfigureTimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32963D829C61D9200DF624A /* ConfigureTimeMachine.swift */; };
@@ -29,6 +28,7 @@
 		C374D94529F70F2E0007F52C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D94429F70F2E0007F52C /* String.swift */; };
 		C3752A9229E48CA700C049CD /* DiskSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3752A9129E48CA700C049CD /* DiskSelection.swift */; };
 		C3752A9429E48DC000C049CD /* DiskSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3752A9329E48DC000C049CD /* DiskSelectionCell.swift */; };
+		C37AF9242A8710D5005421E2 /* CenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AF9232A8710D5005421E2 /* CenterCell.swift */; };
 		C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5CD4429DF48CB0031AC3B /* Schedule.swift */; };
 		C3A5CD4B29DF69CE0031AC3B /* SidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A5CD4A29DF69CE0031AC3B /* SidebarTableCellView.swift */; };
 		C3A9389929C6395B00527264 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389829C6395B00527264 /* NSColor.swift */; };
@@ -74,7 +74,6 @@
 		C30A469129C78C4800B0AB32 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		C30B4EC829E7685D002BB568 /* SystemInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemInformation.swift; sourceTree = "<group>"; };
 		C30C20C829C7E7E0005F5D83 /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
-		C30D4E922A216F50000725B9 /* CenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterCell.swift; sourceTree = "<group>"; };
 		C31288D429F67AC500F05FA5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		C32963D329C61D9200DF624A /* BackupSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackupSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32963D629C61D9200DF624A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +96,7 @@
 		C374D94429F70F2E0007F52C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C3752A9129E48CA700C049CD /* DiskSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskSelection.swift; sourceTree = "<group>"; };
 		C3752A9329E48DC000C049CD /* DiskSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskSelectionCell.swift; sourceTree = "<group>"; };
+		C37AF9232A8710D5005421E2 /* CenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterCell.swift; sourceTree = "<group>"; };
 		C3A5CD4429DF48CB0031AC3B /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		C3A5CD4A29DF69CE0031AC3B /* SidebarTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTableCellView.swift; sourceTree = "<group>"; };
 		C3A9389829C6395B00527264 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 				C32963DA29C61D9300DF624A /* Assets.xcassets */,
 				C32963DC29C61D9300DF624A /* Main.storyboard */,
 				C329640129C61DFD00DF624A /* DefaultButton.swift */,
-				C30D4E922A216F50000725B9 /* CenterCell.swift */,
+				C37AF9232A8710D5005421E2 /* CenterCell.swift */,
 				C3630A2E2A26891400AE3658 /* BackupWindow.swift */,
 				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
 				C3A9389A29C652E500527264 /* TimeMachine.swift */,
@@ -432,13 +432,13 @@
 				C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */,
 				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
 				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
-				C30D4E932A216F50000725B9 /* CenterCell.swift in Sources */,
 				C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */,
 				C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */,
 				C374D94529F70F2E0007F52C /* String.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
 				C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */,
 				C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */,
+				C37AF9242A8710D5005421E2 /* CenterCell.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
 				C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */,
