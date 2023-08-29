@@ -38,7 +38,6 @@ class ScheduleCoordinator {
     }
     
     func getNextExecutionDate() -> Date? {
-        print(ScheduleCoordinator.schedules.compactMap({$0.0.getNextExecDate()}))
         if let nextBackup = ScheduleCoordinator.schedules.compactMap({$0.0.getNextExecDate()}).sorted().first {
             return nextBackup
         }

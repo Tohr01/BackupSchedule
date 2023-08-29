@@ -59,7 +59,6 @@ extension DiskSelection {
         selectedDrive = tmTargets[selectedRow]
         for row in 0 ..< diskSelectionTableView.numberOfRows {
             if row == selectedRow, let cell = diskSelectionTableView.view(atColumn: 0, row: selectedRow, makeIfNecessary: false) as? DiskSelectionCell {
-                print(row)
                 cell.setIndicatorActive()
             } else {
                 if let cell = diskSelectionTableView.view(atColumn: 0, row: row, makeIfNecessary: false) as? DiskSelectionCell {

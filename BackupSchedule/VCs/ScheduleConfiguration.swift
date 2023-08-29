@@ -12,14 +12,14 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBOutlet var destNameLabel: NSTextField!
     @IBOutlet var destCountMoreLabel: NSTextField!
     @IBOutlet var lastBackupLabel: NSTextField!
-
+    
     @IBOutlet var scheduleListTableView: NSTableView!
-
+    
     // Right main view
     @IBOutlet var backupDescriptionLabel: NSTextField!
     @IBOutlet var hoursTextField: NSTextField!
     @IBOutlet var minutesTextField: NSTextField!
-
+    
     // Day selection buttons
     @IBOutlet var monday: DefaultButton!
     @IBOutlet var tuesday: DefaultButton!
@@ -29,54 +29,53 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBOutlet var saturday: DefaultButton!
     @IBOutlet var sunday: DefaultButton!
     var dayButtons: [DefaultButton: String]!
-
+    
     // Destination selection
     @IBOutlet var rotateDests: DefaultButton!
     @IBOutlet var searchDestinations: DefaultButton!
-
+    
     // Backup settings
     @IBOutlet var notifyBackup: DefaultButton!
     @IBOutlet var disableWhenInBattery: DefaultButton!
     @IBOutlet var runUnderHighLoad: DefaultButton!
-
+    
     var schedules: [BackupSchedule] = []
     var newSchedule: Bool = true
     var currentScheduleIdx: Int?
-
+    
     var tmTargets: [TMDestination] = []
     var selectedDrive: TMDestination?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshSchedules()
         dayButtons = [monday: "Monday", tuesday: "Tuesday", wednesday: "Wednesday", thursday: "Thursday", friday: "Friday", saturday: "Saturday", sunday: "Sunday"]
         tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
-
+        
         configureSidebar()
         configureLastBackup()
         configureTableView()
         loadTemplateSchedule()
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectedDestDrive(_:)), name: Notification.Name("selectedDestDrive"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tmeventHandler(_:)), name: Notification.Name("tmchanged"), object: nil)
     }
-
     // Deinitilizer
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("selectedDestDrive"), object: nil)
     }
-
+    
     @IBAction func save(_: Any) {
         guard let days = getSelectedDaysStr() else {
             defaultAlert(message: "You have to select at least one day for the schedule to run.")
             return
         }
-
+        
         let activeDaysStr = dayButtons.filter(\.key.isActive).map { $0.value.lowercased() }
         let activeDays: [ActiveDays] = activeDaysStr.map { ActiveDays(rawValue: $0) }.compactMap { $0 }
-
+        
         guard let hours = Int(hoursTextField.stringValue), let minutes = Int(minutesTextField.stringValue) else {
             defaultAlert(message: "You have to set a time for the schedule to run.")
             return
@@ -103,7 +102,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
         scheduleListTableView.reloadData()
     }
-
+    
     @IBAction func selectDestinationDrive(_: Any) {
         let popover = NSPopover()
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -113,11 +112,11 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             popover.contentViewController = vc
             popover.behavior = .transient
             popover.animates = true
-
+            
             popover.show(relativeTo: view.bounds, of: searchDestinations, preferredEdge: .maxX)
         }
     }
-
+    
     @IBAction func rotateDests(_: Any) {
         if !rotateDests.isActive {
             rotateDests.setActive()
@@ -125,11 +124,11 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             searchDestinations.setInactive()
         }
     }
-
+    
     @objc func updateScheduleText(_: Notification) {
         backupDescriptionLabel.stringValue = getDisplayText()
     }
-
+    
     @objc func selectedDestDrive(_ aNotification: Notification) {
         // Get selected drive from notification
         if let selectedDrive = aNotification.object as? TMDestination {
@@ -142,7 +141,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             rotateDests.setActive()
         }
     }
-
+    
     func refreshSchedules() {
         schedules = Array(ScheduleCoordinator.schedules.map{$0.0})
     }
@@ -158,22 +157,22 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
 
 extension ScheduleConfiguration {
     // SIDEBAR
-
+    
     func configureSidebar() {
         configureDiskNames()
     }
-
+    
     func loadScheduleUI(_ schedule: BackupSchedule) {
         newSchedule = false
         _ = dayButtons.keys.map { $0.setInactive() }
         for activeDay in schedule.activeDays {
             _ = dayButtons.filter { $0.value.lowercased() == activeDay.rawValue.0 }.map { $0.key.setActive() }
         }
-
+        
         // Set time fields
         hoursTextField.stringValue = "\(schedule.getHourString())"
         minutesTextField.stringValue = "\(schedule.getMinuteString())"
-
+        
         // Set settings
         if schedule.settings.startNotification { notifyBackup.setActive() } else { notifyBackup.setInactive() }
         if schedule.settings.disableWhenBattery { disableWhenInBattery.setActive() } else { disableWhenInBattery.setInactive() }
@@ -185,32 +184,32 @@ extension ScheduleConfiguration {
         }
         backupDescriptionLabel.stringValue = getDisplayText()
     }
-
+    
     func loadTemplateSchedule() {
         // Turn all dayButtons off
         _ = dayButtons.keys.map { $0.setInactive() }
-
+        
         // Set time fields
         hoursTextField.stringValue = "00"
         minutesTextField.stringValue = "00"
-
+        
         // Set default settings
         notifyBackup.setActive()
         disableWhenInBattery.setInactive()
         runUnderHighLoad.setActive()
-
+        
         backupDescriptionLabel.stringValue = getDisplayText()
-
+        
         rotateDests.setActive()
         selectedDrive = nil
         searchDestinations.setInactive()
     }
-
+    
     func configureDiskNames() {
         destNameLabel.stringValue = (try? AppDelegate.tm?.getPrimaryVolume()?.name) ?? "# Error #"
         var volumeCount = (try? AppDelegate.tm?.getBackupVolumeCount()) ?? 1
         volumeCount -= 1
-
+        
         if volumeCount == 0 {
             destCountMoreLabel.isHidden = true
         } else {
@@ -237,18 +236,18 @@ extension ScheduleConfiguration {
         guard let dayText = dayText else {
             return "Never"
         }
-
+        
         var timeText = ""
-
+        
         if let minutes = Int(minutesTextField.stringValue), minutes == 0 {
             timeText = "\(Int(hoursTextField.stringValue) ?? 0) o'clock"
         } else {
             timeText = "\(hoursTextField.stringValue):\(minutesTextField.stringValue)"
         }
-
+        
         return "\(dayText) at \(timeText)"
     }
-
+    
     func getSelectedDaysStr() -> String? {
         var dayText = ""
         // Reformat days
@@ -268,7 +267,7 @@ extension ScheduleConfiguration {
         }
         return dayText
     }
-
+    
     func saveAllSchedules() {
         do {
             var schedulesEnc: [Data] = []
@@ -291,12 +290,13 @@ extension ScheduleConfiguration {
     func configureTableView() {
         scheduleListTableView.selectionHighlightStyle = .none
         scheduleListTableView.allowsMultipleSelection = false
+        scheduleListTableView.action = #selector(rowClicked)
     }
-
+    
     func numberOfRows(in _: NSTableView) -> Int {
         schedules.count + 1
     }
-
+    
     func tableView(_: NSTableView, viewFor _: NSTableColumn?, row: Int) -> NSView? {
         if row == schedules.count {
             guard let addCell = scheduleListTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("addSchedule"), owner: self) as? AddScheduleCellView else {
@@ -304,37 +304,37 @@ extension ScheduleConfiguration {
             }
             return addCell
         }
-
+        
         guard let scheduleCell = scheduleListTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("scheduleCell"), owner: self) as? SidebarTableCellView else {
             return nil
         }
-
+        
         scheduleCell.runDaysTitle.stringValue = schedules[row].displayName
         scheduleCell.scheduleID = schedules[row].id
         scheduleCell.deleteButton.action = #selector(deleteSchedule(_:))
         scheduleCell.runTime.stringValue = schedules[row].getTimeString()
         return scheduleCell
     }
-
-    func tableViewSelectionDidChange(_: Notification) {
-        let selectedRow = scheduleListTableView.selectedRow
-        if selectedRow >= 0 {
+    
+    @objc func rowClicked() {
+        let clickedRow = scheduleListTableView.clickedRow
+        if clickedRow >= 0 {
             // User clicked "Add schedule button"
-            if selectedRow == schedules.count {
+            if clickedRow == schedules.count {
                 loadTemplateSchedule()
                 newSchedule = true
                 currentScheduleIdx = nil
                 return
             } else {
-                let schedule = schedules[selectedRow]
+                let schedule = schedules[clickedRow]
                 newSchedule = false
-                currentScheduleIdx = selectedRow
+                currentScheduleIdx = clickedRow
                 loadScheduleUI(schedule)
             }
-            scheduleListTableView.deselectRow(selectedRow)
+            scheduleListTableView.deselectRow(clickedRow)
         }
     }
-
+    
     @objc func deleteSchedule(_ sender: Any) {
         if let defaultButton = sender as? DefaultButton, let cell = defaultButton.superview?.superview as? SidebarTableCellView, let id = cell.scheduleID {
             var currentScheduleID: UUID?
@@ -368,10 +368,10 @@ extension ScheduleConfiguration: NSTextFieldDelegate {
         let hoursFormatter = NumberFormatter()
         hoursFormatter.minimum = 0
         hoursFormatter.maximum = 23
-
+        
         hoursTextField.formatter = hoursFormatter
     }
-
+    
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
         if let tf = control as? NSTextField {
             let upperLimit = tf.identifier == NSUserInterfaceItemIdentifier("minutesTF") ? 60 : 23
