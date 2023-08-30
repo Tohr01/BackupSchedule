@@ -833,20 +833,20 @@ disable automatic backups</string>
                                         </textFieldCell>
                                     </textField>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="79" horizontalPageScroll="10" verticalLineScroll="79" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFg-xi-Jts">
-                                        <rect key="frame" x="10" y="47" width="299" height="245"/>
+                                        <rect key="frame" x="3" y="47" width="305" height="245"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="rKr-0S-Wsw">
-                                            <rect key="frame" x="0.0" y="0.0" width="299" height="245"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="305" height="245"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="79" viewBased="YES" id="gXr-qK-QS3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="299" height="245"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="327" height="245"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="17" height="0.0"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="267" minWidth="40" maxWidth="1000" id="2Rv-rI-3YW">
+                                                        <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="295" minWidth="40" maxWidth="1000" id="2Rv-rI-3YW">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -859,11 +859,11 @@ disable automatic backups</string>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="scheduleCell" id="csq-ug-1lx" customClass="SidebarTableCellView" customModule="BackupSchedule" customModuleProvider="target">
-                                                                    <rect key="frame" x="18" y="0.0" width="262" height="79"/>
+                                                                    <rect key="frame" x="18" y="0.0" width="290" height="74"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rix-2v-hB4" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                                                            <rect key="frame" x="3" y="12" width="256" height="64"/>
+                                                                            <rect key="frame" x="17" y="10" width="256" height="64"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <subviews>
                                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r26-eI-ZzE">
@@ -940,8 +940,14 @@ disable automatic backups</string>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </customView>
+                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JQG-pA-Apt">
+                                                                            <rect key="frame" x="-6" y="29" width="21" height="26"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSGoForwardTemplate" id="QyO-5j-0kI"/>
+                                                                        </imageView>
                                                                     </subviews>
                                                                     <connections>
+                                                                        <outlet property="activityIndicator" destination="JQG-pA-Apt" id="t1e-NL-Rxm"/>
                                                                         <outlet property="backgroundView" destination="Rix-2v-hB4" id="46q-Gl-6bc"/>
                                                                         <outlet property="deleteButton" destination="LlY-N3-Wix" id="Cbq-cv-QBY"/>
                                                                         <outlet property="runDaysTitle" destination="r26-eI-ZzE" id="PL2-nm-zln"/>
@@ -949,11 +955,11 @@ disable automatic backups</string>
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <customView identifier="addSchedule" id="9lo-sa-d3T" customClass="AddScheduleCellView" customModule="BackupSchedule" customModuleProvider="target">
-                                                                    <rect key="frame" x="18" y="79" width="262" height="41"/>
+                                                                    <rect key="frame" x="18" y="74" width="290" height="41"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbl-b8-fOU" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="256" height="41"/>
+                                                                            <rect key="frame" x="17" y="0.0" width="256" height="41"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <subviews>
                                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYR-TB-KHK">
@@ -979,8 +985,14 @@ disable automatic backups</string>
                                                                                 </userDefinedRuntimeAttribute>
                                                                             </userDefinedRuntimeAttributes>
                                                                         </customView>
+                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y41-pq-mtt" customClass="ScheduleSelectionIndicator" customModule="BackupSchedule" customModuleProvider="target">
+                                                                            <rect key="frame" x="-6" y="8" width="21" height="26"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSGoForwardTemplate" id="ZRc-lg-yg9"/>
+                                                                        </imageView>
                                                                     </subviews>
                                                                     <connections>
+                                                                        <outlet property="activityIndicator" destination="Y41-pq-mtt" id="wFv-Dh-KLq"/>
                                                                         <outlet property="backgroundView" destination="pbl-b8-fOU" id="9GS-gH-Upb"/>
                                                                     </connections>
                                                                 </customView>
@@ -1406,6 +1418,7 @@ disable automatic backups</string>
                         <outlet property="saturday" destination="J1T-vJ-rdn" id="hXg-Dg-nfo"/>
                         <outlet property="scheduleListTableView" destination="gXr-qK-QS3" id="oLc-PB-y7V"/>
                         <outlet property="searchDestinations" destination="9uq-za-pNF" id="VmK-A0-Ryc"/>
+                        <outlet property="sidebarBackgroundView" destination="aeO-fe-l9g" id="N3p-QX-q9j"/>
                         <outlet property="sunday" destination="HMC-pb-ZAY" id="7rq-L0-utf"/>
                         <outlet property="thursday" destination="n4t-JU-KYL" id="mls-7n-bb9"/>
                         <outlet property="tuesday" destination="Ann-a2-pXl" id="lGG-Pq-4lF"/>
@@ -1590,6 +1603,7 @@ disable automatic backups</string>
         </scene>
     </scenes>
     <resources>
+        <image name="NSGoForwardTemplate" width="10" height="14"/>
         <image name="clock.arrow.circlepath" width="25" height="25"/>
         <image name="magnifyingglass" width="25" height="25"/>
         <image name="timemachine_icon" width="139" height="132"/>

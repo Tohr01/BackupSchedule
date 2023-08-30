@@ -8,12 +8,22 @@
 
 import Cocoa
 
-class AddScheduleCellView: NSTableCellView {
+class AddScheduleCellView: NSTableCellView, DefaultSidebarTableCellView {
     @IBOutlet var backgroundView: BackgroundView!
+    @IBOutlet var activityIndicator: ScheduleSelectionIndicator!
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         backgroundView.layer?.backgroundColor = .white
         backgroundView.layer?.cornerRadius = 7
-        // Drawing code here.
+        
     }
+    
+    func setActive() {
+        activityIndicator.isHidden = false
+    }
+    func setInactive() {
+        activityIndicator.isHidden = true
+    }
+    
 }

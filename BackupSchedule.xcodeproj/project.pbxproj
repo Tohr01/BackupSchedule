@@ -35,6 +35,8 @@
 		C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389A29C652E500527264 /* TimeMachine.swift */; };
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
 		C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */; };
+		C3EAD9C02A9EB2C300B8F81B /* ScheduleSelectionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EAD9BF2A9EB2C300B8F81B /* ScheduleSelectionIndicator.swift */; };
+		C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */; };
 		C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */; };
 		C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +105,8 @@
 		C3A9389A29C652E500527264 /* TimeMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
 		C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCoordinator.swift; sourceTree = "<group>"; };
+		C3EAD9BF2A9EB2C300B8F81B /* ScheduleSelectionIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSelectionIndicator.swift; sourceTree = "<group>"; };
+		C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSidebarTableCellView.swift; sourceTree = "<group>"; };
 		C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleCellView.swift; sourceTree = "<group>"; };
 		C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupScheduleInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				C30A469129C78C4800B0AB32 /* BackgroundView.swift */,
+				C3EAD9BF2A9EB2C300B8F81B /* ScheduleSelectionIndicator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 				C3A5CD4A29DF69CE0031AC3B /* SidebarTableCellView.swift */,
 				C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */,
 				C3752A9329E48DC000C049CD /* DiskSelectionCell.swift */,
+				C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -425,6 +431,7 @@
 				C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */,
 				C30A469229C78C4800B0AB32 /* BackgroundView.swift in Sources */,
 				C3A5CD4B29DF69CE0031AC3B /* SidebarTableCellView.swift in Sources */,
+				C3EAD9C02A9EB2C300B8F81B /* ScheduleSelectionIndicator.swift in Sources */,
 				C32963D929C61D9200DF624A /* ConfigureTimeMachine.swift in Sources */,
 				C3752A9429E48DC000C049CD /* DiskSelectionCell.swift in Sources */,
 				C31288D529F67AC500F05FA5 /* Date.swift in Sources */,
@@ -441,6 +448,7 @@
 				C37AF9242A8710D5005421E2 /* CenterCell.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
+				C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */,
 				C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

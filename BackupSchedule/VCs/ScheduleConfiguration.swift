@@ -13,7 +13,9 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBOutlet var destCountMoreLabel: NSTextField!
     @IBOutlet var lastBackupLabel: NSTextField!
     
+    @IBOutlet var sidebarBackgroundView: BackgroundView!
     @IBOutlet var scheduleListTableView: NSTableView!
+    @IBOutlet var scheduleSelectionIndicator: ScheduleSelectionIndicator!
     
     // Right main view
     @IBOutlet var backupDescriptionLabel: NSTextField!
@@ -294,7 +296,7 @@ extension ScheduleConfiguration {
     }
     
     func numberOfRows(in _: NSTableView) -> Int {
-        schedules.count + 1
+        return schedules.count + 1
     }
     
     func tableView(_: NSTableView, viewFor _: NSTableColumn?, row: Int) -> NSView? {
@@ -304,11 +306,10 @@ extension ScheduleConfiguration {
             }
             return addCell
         }
-        
         guard let scheduleCell = scheduleListTableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("scheduleCell"), owner: self) as? SidebarTableCellView else {
             return nil
         }
-        
+        scheduleCell.setInactive()
         scheduleCell.runDaysTitle.stringValue = schedules[row].displayName
         scheduleCell.scheduleID = schedules[row].id
         scheduleCell.deleteButton.action = #selector(deleteSchedule(_:))
@@ -318,21 +319,25 @@ extension ScheduleConfiguration {
     
     @objc func rowClicked() {
         let clickedRow = scheduleListTableView.clickedRow
+        let clickedCell = scheduleListTableView.view(atColumn: 0, row: clickedRow, makeIfNecessary: false) as? DefaultSidebarTableCellView
         if clickedRow >= 0 {
             // User clicked "Add schedule button"
             if clickedRow == schedules.count {
                 loadTemplateSchedule()
                 newSchedule = true
                 currentScheduleIdx = nil
-                return
             } else {
                 let schedule = schedules[clickedRow]
                 newSchedule = false
                 currentScheduleIdx = clickedRow
                 loadScheduleUI(schedule)
             }
-            scheduleListTableView.deselectRow(clickedRow)
         }
+        for cellIdx in 0..<scheduleListTableView.numberOfRows {
+            let cell = scheduleListTableView.view(atColumn: 0, row: cellIdx, makeIfNecessary: false) as? DefaultSidebarTableCellView
+            cell?.setInactive()
+        }
+        clickedCell?.setActive()
     }
     
     @objc func deleteSchedule(_ sender: Any) {
@@ -358,6 +363,7 @@ extension ScheduleConfiguration {
         }
     }
 }
+
 
 // MARK: -
 
