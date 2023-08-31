@@ -122,7 +122,6 @@ class ScheduleCoordinator {
     }
     
     @objc func macWillGoToSleep() {
-        print("WILL SLEEP")
         sleepStart = Date.now
     }
     

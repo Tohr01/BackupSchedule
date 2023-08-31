@@ -15,7 +15,6 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     @IBOutlet var sidebarBackgroundView: BackgroundView!
     @IBOutlet var scheduleListTableView: NSTableView!
-    @IBOutlet var scheduleSelectionIndicator: ScheduleSelectionIndicator!
     
     // Right main view
     @IBOutlet var backupDescriptionLabel: NSTextField!
