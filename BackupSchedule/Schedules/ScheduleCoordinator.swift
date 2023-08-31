@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import AppKit
 
 class ScheduleCoordinator {
     
@@ -15,6 +16,11 @@ class ScheduleCoordinator {
     public static var `default` = ScheduleCoordinator()
     
     private var sleepStart: Date? = nil
+    
+    init() {
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(macWillGoToSleep), name: NSWorkspace.willSleepNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(macWillWakeUp), name: NSWorkspace.didWakeNotification, object: nil)
+    }
     
     func loadSchedules() {
         if let scheduleData = UserDefaults.standard.value(forKey: "schedules") as? [Data] {
@@ -35,6 +41,8 @@ class ScheduleCoordinator {
         // Invalidate timers
         _ = ScheduleCoordinator.schedules.map { $0.1.invalidate() }
         ScheduleCoordinator.schedules = []
+        NSWorkspace.shared.notificationCenter.removeObserver(self, name: NSWorkspace.willSleepNotification, object: nil)
+        NSWorkspace.shared.notificationCenter.removeObserver(self, name: NSWorkspace.didWakeNotification, object: nil)
     }
     
     func getNextExecutionDate() -> Date? {
@@ -113,20 +121,23 @@ class ScheduleCoordinator {
         }
     }
     
-    @objc func macWillGoToSleep(_ aNotification: Notification) {
+    @objc func macWillGoToSleep() {
+        print("WILL SLEEP")
         sleepStart = Date.now
     }
     
-    @objc func macWillWakeUp(_ aNotification: Notification) {
+    @objc func macWillWakeUp() {
         if let sleepStartDate = sleepStart {
             // Get schedules that where missed when mac slept
-            if !ScheduleCoordinator.schedules.compactMap({$0.0.getNextExecDate(after: sleepStartDate)}).filter({$0.compare(Date.now) == .orderedAscending}).isEmpty {
+            let missedSchedules = ScheduleCoordinator.schedules.compactMap({$0.0.getNextExecDate(after: sleepStartDate)}).filter({$0.compare(Date.now) == .orderedAscending})
+            if !missedSchedules.isEmpty {
                 let notificationCenter = UNUserNotificationCenter.current()
                 let content = UNMutableNotificationContent()
                 content.title = "Starting Backup"
                 content.subtitle = "Running Backups missed when Mac was sleeping."
                 let request = UNNotificationRequest(identifier: "backupNotification", content: content, trigger: nil)
                 notificationCenter.add(request)
+                try? AppDelegate.tm?.startBackup()
             }
         }
     }

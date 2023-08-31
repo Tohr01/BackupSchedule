@@ -48,13 +48,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("informationVC"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ScheduleCoordinator.default.macWillGoToSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ScheduleCoordinator.default.macWillWakeUp(_:)), name: NSWorkspace.willSleepNotification, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
-        DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted(_:)), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
+        DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
     }
+    
 }
 
 // MARK: -
@@ -168,7 +166,14 @@ extension AppDelegate {
                 
                 menu.addItem(NSMenuItem.separator())
                 
-                let backupNowItem = NSMenuItem(title: "Start Backup", action: #selector(AppDelegate.startBackupWrapper), keyEquivalent: "")
+                var backupNowTitle = ""
+                if let backupRunning = try? AppDelegate.tm?.isBackupRunning(), backupRunning {
+                    backupNowTitle = "Stop Backup"
+                    backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
+                } else {
+                    backupNowTitle = "Start Backup"
+                }
+                let backupNowItem = NSMenuItem(title: backupNowTitle, action: #selector(AppDelegate.startBackupWrapper), keyEquivalent: "")
                 backupNowItem.identifier = NSUserInterfaceItemIdentifier("backupNow")
                 menu.addItem(backupNowItem)
                 menu.addItem(NSMenuItem.separator())
@@ -176,8 +181,8 @@ extension AppDelegate {
         } catch {
             throw error
         }
-        let preferences = NSMenuItem(title: "Preferences...", action: #selector(initUserInterface), keyEquivalent: "")
-        menu.addItem(preferences)
+        let scheduleSettings = NSMenuItem(title: "Schedules...", action: #selector(initUserInterface), keyEquivalent: "")
+        menu.addItem(scheduleSettings)
         
         let quitNowitem = NSMenuItem(title: "Quit", action: #selector(quitApplication), keyEquivalent: "")
         menu.addItem(quitNowitem)

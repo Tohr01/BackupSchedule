@@ -221,7 +221,7 @@ extension ScheduleConfiguration {
     
     func configureLastBackup() {
         if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
-            lastBackupLabel.stringValue = "Last backup on \(lastBackup.getLatestBackupString().capitalizeFirst)"
+            lastBackupLabel.stringValue = "Last backup \(lastBackup.getLatestBackupString())"
         } else {
             lastBackupLabel.stringValue = "No last backup found)"
         }
