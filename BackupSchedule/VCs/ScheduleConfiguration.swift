@@ -114,7 +114,8 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
             popover.contentViewController = vc
             popover.behavior = .transient
             popover.animates = true
-            
+            searchDestinations.setActive()
+            rotateDests.setInactive()
             popover.show(relativeTo: view.bounds, of: searchDestinations, preferredEdge: .maxX)
         }
     }
@@ -135,11 +136,10 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         // Get selected drive from notification
         if let selectedDrive = aNotification.object as? TMDestination {
             self.selectedDrive = selectedDrive
-            searchDestinations.setActive()
-            rotateDests.setInactive()
         } else {
             // if empty no drive has been selected
             selectedDrive = nil
+            searchDestinations.setInactive()
             rotateDests.setActive()
         }
     }
@@ -221,9 +221,9 @@ extension ScheduleConfiguration {
     
     func configureLastBackup() {
         if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
-            lastBackupLabel.stringValue = "Last backup \(lastBackup.getLatestBackupString())"
+            lastBackupLabel.stringValue = "Last Backup \(lastBackup.getLatestBackupString())"
         } else {
-            lastBackupLabel.stringValue = "No last backup found)"
+            lastBackupLabel.stringValue = "No last Backup found"
         }
     }
 }

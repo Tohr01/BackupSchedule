@@ -833,14 +833,14 @@ disable automatic backups</string>
                                         </textFieldCell>
                                     </textField>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="79" horizontalPageScroll="10" verticalLineScroll="79" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFg-xi-Jts">
-                                        <rect key="frame" x="3" y="47" width="305" height="245"/>
+                                        <rect key="frame" x="1" y="47" width="305" height="251"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="rKr-0S-Wsw">
-                                            <rect key="frame" x="0.0" y="0.0" width="305" height="245"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="305" height="251"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="79" viewBased="YES" id="gXr-qK-QS3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="327" height="245"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="327" height="251"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="17" height="0.0"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1227,7 +1227,7 @@ disable automatic backups</string>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43U-OD-GQk">
                                 <rect key="frame" x="374" y="177" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" alignment="left" title="Notify me when this backup starts" id="pSd-LM-vXm">
+                                <textFieldCell key="cell" alignment="left" title="Notify me when this Backup starts" id="pSd-LM-vXm">
                                     <font key="font" size="15" name="SFPro-Medium"/>
                                     <color key="textColor" name="defaultTextColorHD"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1281,7 +1281,7 @@ disable automatic backups</string>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qno-RB-Sgb">
                                 <rect key="frame" x="374" y="103" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" alignment="left" title="Run backup even when Mac is under high load" id="0uX-e5-lSG">
+                                <textFieldCell key="cell" alignment="left" title="Run Backup even when Mac is under high load" id="0uX-e5-lSG">
                                     <font key="font" size="15" name="SFPro-Medium"/>
                                     <color key="textColor" name="defaultTextColorHD"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

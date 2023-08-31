@@ -140,20 +140,20 @@ extension AppDelegate {
                 menu.addItem(notConfiguredItem)
                 
             } else {
-                let topMenuItem: NSMenuItem = .init(title: "Running backup...", action: nil, keyEquivalent: "")
+                let topMenuItem: NSMenuItem = .init(title: "Running Backup...", action: nil, keyEquivalent: "")
                 topMenuItem.isEnabled = false
                 topMenuItem.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
                 
                 if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
                     backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
-                    topMenuItem.title = "Running backup..."
+                    topMenuItem.title = "Running Backup..."
                     menu.addItem(topMenuItem)
                 } else {
                     var titleString: String!
                     if let latestBackup = AppDelegate.tm!.getLatestKnownBackup() {
-                        titleString = "Last backup: \(latestBackup.getLatestBackupString().capitalizeFirst)"
+                        titleString = "Last Backup: \(latestBackup.getLatestBackupString().capitalizeFirst)"
                     } else {
-                        titleString = "No latest backup found"
+                        titleString = "No latest Backup found"
                     }
                     topMenuItem.title = titleString
                     menu.addItem(topMenuItem)
