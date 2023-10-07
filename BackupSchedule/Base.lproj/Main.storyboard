@@ -1347,15 +1347,6 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
-                                <rect key="frame" x="411" y="236" width="14" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
-                                    <font key="font" size="15" name="SFPro-Medium"/>
-                                    <color key="textColor" name="defaultTextColorHD"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0gf-8z-Few">
                                 <rect key="frame" x="539" y="267" width="201" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1400,6 +1391,15 @@ disable automatic backups</string>
                                     <action selector="selectDestinationDrive:" target="YOy-JE-ZEq" id="P0j-lS-pQO"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
+                                <rect key="frame" x="419" y="236" width="8" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
+                                    <font key="font" size="15" name="SFPro-Medium"/>
+                                    <color key="textColor" name="defaultTextColorHD"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
