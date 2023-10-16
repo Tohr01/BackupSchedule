@@ -219,6 +219,7 @@ extension AppDelegate {
             } else {
                 changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "No latest Backup found")
             }
+            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Start Backup")
             NotificationCenter.default.post(Notification(name: Notification.Name("tmchanged")))
             return
         }
