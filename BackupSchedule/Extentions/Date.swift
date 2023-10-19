@@ -27,14 +27,14 @@ extension Date {
     
     func getLatestBackupString() -> String {
         let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
         if Calendar.current.isDateInToday(self) {
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
             return "today at \(formatter.string(from: self))"
         } else if Calendar.current.isDateInTomorrow(self) {
-            formatter.dateStyle = .none
-            formatter.timeStyle = .short
             return "tommorow at \(formatter.string(from: self))"
+        } else if Calendar.current.isDateInYesterday(self) {
+            return "yesterday at \(formatter.string(from: self))"
         }
         formatter.dateStyle = .short
         formatter.timeStyle = .short
