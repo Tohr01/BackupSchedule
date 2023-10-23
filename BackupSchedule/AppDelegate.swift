@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("disabledautobackup"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("informationVC"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name.NSCalendarDayChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
@@ -149,17 +149,11 @@ extension AppDelegate {
                     topMenuItem.title = "Running Backup..."
                     menu.addItem(topMenuItem)
                 } else {
-                    var titleString: String!
-                    if let latestBackup = AppDelegate.tm!.getLatestKnownBackup() {
-                        titleString = "Last Backup: \(latestBackup.getLatestBackupString().capitalizeFirst)"
-                    } else {
-                        titleString = "No latest Backup found"
-                    }
-                    topMenuItem.title = titleString
+                    topMenuItem.title = AppDelegate.tm!.getLatestBackupStr()
                     menu.addItem(topMenuItem)
                 }
                 
-                let nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")", action: nil, keyEquivalent: "")
+                let nextBackup = NSMenuItem(title: "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDateStr())", action: nil, keyEquivalent: "")
                 nextBackup.identifier = NSUserInterfaceItemIdentifier("nextBackup")
                 nextBackup.isEnabled = false
                 menu.addItem(nextBackup)
@@ -192,6 +186,11 @@ extension AppDelegate {
     func changeTitleForMenuItem(with identifier: NSUserInterfaceItemIdentifier, to title: String) {
         _ = menu.items.filter { $0.identifier == identifier }.map { $0.title = title }
     }
+    
+    @objc func updateMenuLabels(_ aNotification: Notification) {
+        changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: AppDelegate.tm!.getLatestBackupStr())
+        changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("nextBackup"), to: ScheduleCoordinator.default.getNextExecutionDateStr())
+    }
 }
 
 // MARK: -
@@ -201,7 +200,7 @@ extension AppDelegate {
 extension AppDelegate {
     @objc func backupStarted(_: Notification) {
         // test if backup is running
-        if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning { return }
+        if let backupRunning = try? AppDelegate.tm!.isBackupRunning() && backupTimer != nil, !backupRunning { return }
         
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
@@ -221,6 +220,7 @@ extension AppDelegate {
             }
             changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Start Backup")
             NotificationCenter.default.post(Notification(name: Notification.Name("tmchanged")))
+            updateMenuLabels(Notification(name: Notification.Name("backupEnded")))
             return
         }
         

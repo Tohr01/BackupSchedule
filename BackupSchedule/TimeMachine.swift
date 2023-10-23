@@ -132,6 +132,13 @@ class TimeMachine {
         }
         return nil
     }
+    
+    func getLatestBackupStr() -> String {
+        if let latestBackup = getLatestBackup() {
+            return "Last Backup: \(latestBackup.getLatestBackupString().capitalizeFirst)"
+        }
+        return "No latest Backup found"
+    }
 
     func getPrimaryVolume() throws -> TMDestination? {
         do {

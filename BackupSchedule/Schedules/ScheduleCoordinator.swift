@@ -52,6 +52,12 @@ class ScheduleCoordinator {
         return nil
     }
     
+    func getNextExecutionDateStr() -> String {
+        if let nextExecutionDate = getNextExecutionDate() {
+            return nextExecutionDate.getLatestBackupString().capitalizeFirst
+        }
+        return "No backup planned"
+    }
     
     func addToRunLoop(_ schedule: BackupSchedule) {
         if let timer = getTimer(for: schedule) {
