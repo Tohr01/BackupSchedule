@@ -48,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("informationVC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name.NSCalendarDayChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(schedulesChanged(_:)), name: Notification.Name("scheduleschanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
         DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
     }
@@ -248,18 +248,6 @@ extension AppDelegate {
     
     @objc func quitApplication() {
         NSApplication.shared.terminate(self)
-    }
-}
-
-// MARK: -
-
-// MARK: Schedule handling
-
-extension AppDelegate {
-    @objc func schedulesChanged(_: Notification) {
-        if let nextBackupMenuItem = menu.items.filter({ $0.identifier == NSUserInterfaceItemIdentifier("nextBackup") }).first {
-            nextBackupMenuItem.title = "Next backup:\n\(ScheduleCoordinator.default.getNextExecutionDate()?.getLatestBackupString().capitalizeFirst ?? " No backup planned")"
-        }
     }
 }
 
