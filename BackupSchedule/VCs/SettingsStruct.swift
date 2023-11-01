@@ -12,10 +12,12 @@ import Cocoa
 class Settings: NSViewController {
 
     @IBOutlet weak var autoBackupButton: DefaultButton!
+    @IBOutlet weak var autoBackupTextFieldContainer: BackgroundView!
     @IBOutlet weak var autoBackupLabel1: NSTextField!
     @IBOutlet weak var autoBackupLabel2: NSTextField!
     
     @IBOutlet weak var deleteSnapshotButton: DefaultButton!
+    @IBOutlet weak var deleteSnapshotTextFieldContainer: BackgroundView!
     @IBOutlet weak var deleteSnapshotLabel1: NSTextField!
     @IBOutlet weak var deleteSnapshotLabel2: NSTextField!
     
@@ -29,22 +31,24 @@ class Settings: NSViewController {
         let autoBackupEnabled = SettingsStruct.autoBackupEnable
         SettingsStruct.autoBackupEnable.toggle()
         setAutoBackup(active: !autoBackupEnabled)
+        NotificationCenter.default.post(Notification(name: Notification.Name("changedAutoBackup")))
     }
     
     @IBAction func autoDeleteSnapshot(_ sender: Any) {
         let deleteSnapshotEnabled = SettingsStruct.deleteSnapshotEnable
         SettingsStruct.deleteSnapshotEnable.toggle()
         setDeleteSnapshots(active: !deleteSnapshotEnabled)
-        NotificationCenter
+        NotificationCenter.default.post(Notification(name: Notification.Name("changedAutoDeleteSnapshot")))
     }
     
     func setAutoBackup(active: Bool) {
         if active {
             autoBackupButton.setActive()
-            autoBackupLabel1.textColor = .white
-            autoBackupLabel2.textColor = .white
+            autoBackupLabel1.textColor = NSColor(named: "defaultTextColorHD")
+            autoBackupLabel2.textColor = NSColor(named: "defaultTextColorHD")
         } else {
             autoBackupButton.setInactive()
+            autoBackupTextFieldContainer.backgroundColor = .secondaryLabelColor
             autoBackupLabel1.textColor = .secondaryLabelColor
             autoBackupLabel2.textColor = .secondaryLabelColor
         }
@@ -53,10 +57,12 @@ class Settings: NSViewController {
     func setDeleteSnapshots(active: Bool) {
         if active {
             deleteSnapshotButton.setActive()
-            deleteSnapshotLabel1.textColor = .white
-            deleteSnapshotLabel2.textColor = .white
+            deleteSnapshotTextFieldContainer.backgroundColor = .white
+            deleteSnapshotLabel1.textColor = NSColor(named: "defaultTextColorHD")
+            deleteSnapshotLabel2.textColor = NSColor(named: "defaultTextColorHD")
         } else {
             deleteSnapshotButton.setInactive()
+            deleteSnapshotTextFieldContainer.backgroundColor = .secondaryLabelColor
             deleteSnapshotLabel1.textColor = .secondaryLabelColor
             deleteSnapshotLabel2.textColor = .secondaryLabelColor
         }

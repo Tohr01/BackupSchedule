@@ -13,10 +13,12 @@ import ServiceManagement
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     static var tm: TimeMachine?
+    
     var window: BackupWindow!
     private var menu: NSMenu!
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
+    
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Add helper application to Autolaunch
@@ -26,7 +28,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         do {
             AppDelegate.tm = try TimeMachine()
-            
             // Construct menubar appearance
             statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
             if let button = statusItem.button {
@@ -37,6 +38,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Task {
                 await requestNotificationAuth()
             }
+            
+            #warning("potential remove / performance check todo")
+            let autoTaskTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
+                // Last backup ist too old. Starting new Backup
+                if SettingsStruct.autoBackupEnable, let lastBackup = AppDelegate.tm!.getLatestBackup(), lastBackup <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.autoBackupTime, to: Date.now)! {
+                    try? AppDelegate.tm!.startBackup()
+                    let notification = UNMutableNotificationContent()
+                    notification.title = "Started Backup"
+                    notification.subtitle = "Your Mac has not been backuped for \(SettingsStruct.autoBackupTime) day(s)"
+                    let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
+                    UNUserNotificationCenter.current().add(request)
+                }
+
+                if SettingsStruct.deleteSnapshotEnable && SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date.now)! {
+                    
+                }
+            }
+            RunLoop.main.add(autoTaskTimer, forMode: .common)
             
             initUserInterface()
         } catch {

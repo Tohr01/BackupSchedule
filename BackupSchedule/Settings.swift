@@ -43,4 +43,12 @@ struct SettingsStruct {
             UserDefaults.standard.set(newValue, forKey: "deleteSnapshotsTime")
         }
     }
+    static var lastSnapshotDeletionDate: Date {
+        get {
+            return (UserDefaults.standard.value(forKey: "lastSnapshotDeletionDate") as? Date) ?? Date.now
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "lastSnapshotDeletionDate")
+        }
+    }
 }

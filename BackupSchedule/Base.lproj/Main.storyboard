@@ -1805,9 +1805,11 @@ disable automatic backups</string>
                         <outlet property="autoBackupButton" destination="tDu-UL-PP6" id="p9A-NL-fr1"/>
                         <outlet property="autoBackupLabel1" destination="OeN-wy-QYW" id="LjO-S9-q0p"/>
                         <outlet property="autoBackupLabel2" destination="4m4-cM-2Hj" id="ZEM-dG-JjG"/>
+                        <outlet property="autoBackupTextFieldContainer" destination="sHO-c9-tux" id="j6V-LI-HCU"/>
                         <outlet property="deleteSnapshotButton" destination="Bom-2k-dbn" id="9tz-Rj-mG0"/>
                         <outlet property="deleteSnapshotLabel1" destination="NfG-Iz-CYf" id="lfw-ZZ-dXB"/>
                         <outlet property="deleteSnapshotLabel2" destination="yTN-dS-nXR" id="zEU-n5-fiP"/>
+                        <outlet property="deleteSnapshotTextFieldContainer" destination="LpL-Gk-IJv" id="Ge8-jU-Ge6"/>
                     </connections>
                 </viewController>
                 <customObject id="rtJ-OX-Aw9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
