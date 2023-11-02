@@ -26,6 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         SMLoginItemSetEnabled(helperBundleId as CFString, true)
         ScheduleCoordinator.default.loadSchedules()
         
+        print(getRootDrivePath())
+        
         do {
             AppDelegate.tm = try TimeMachine()
             // Construct menubar appearance

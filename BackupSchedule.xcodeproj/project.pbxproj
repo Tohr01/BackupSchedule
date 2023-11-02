@@ -34,6 +34,7 @@
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
 		C3AED32E2AF0238F008357B3 /* SettingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32D2AF0238F008357B3 /* SettingsStruct.swift */; };
 		C3AED3302AF038FB008357B3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32F2AF038FB008357B3 /* Settings.swift */; };
+		C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC501C2AF331060026DF23 /* DriveUtil.swift */; };
 		C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */; };
 		C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */; };
 		C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */; };
@@ -84,6 +85,7 @@
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
 		C3AED32D2AF0238F008357B3 /* SettingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStruct.swift; sourceTree = "<group>"; };
 		C3AED32F2AF038FB008357B3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C3CC501C2AF331060026DF23 /* DriveUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveUtil.swift; sourceTree = "<group>"; };
 		C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCoordinator.swift; sourceTree = "<group>"; };
 		C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSidebarTableCellView.swift; sourceTree = "<group>"; };
 		C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleCellView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				C3630A2E2A26891400AE3658 /* BackupWindow.swift */,
 				C3AED32F2AF038FB008357B3 /* Settings.swift */,
 				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
+				C3CC501C2AF331060026DF23 /* DriveUtil.swift */,
 				C3A9389A29C652E500527264 /* TimeMachine.swift */,
 				C3A9389729C6395000527264 /* Extentions */,
 				C32963DF29C61D9300DF624A /* BackupSchedule.entitlements */,
@@ -333,6 +336,7 @@
 				C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */,
 				C37AF9242A8710D5005421E2 /* CenterCell.swift in Sources */,
 				C3AED32E2AF0238F008357B3 /* SettingsStruct.swift in Sources */,
+				C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
 				C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */,
@@ -506,6 +510,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.cr.BackupSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -536,6 +541,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.cr.BackupSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
