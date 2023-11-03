@@ -26,7 +26,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         SMLoginItemSetEnabled(helperBundleId as CFString, true)
         ScheduleCoordinator.default.loadSchedules()
         
-        print(getRootDrivePath())
         
         do {
             AppDelegate.tm = try TimeMachine()
@@ -54,7 +53,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
 
                 if SettingsStruct.deleteSnapshotEnable && SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date.now)! {
-                    
+                    #warning("todo")
+                    let notification = UNMutableNotificationContent()
+                    notification.title = "Started Backup"
+                    notification.subtitle = "Your Mac has not been backuped for \(SettingsStruct.autoBackupTime) day(s)"
+                    let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
+                    UNUserNotificationCenter.current().add(request)
                 }
             }
             RunLoop.main.add(autoTaskTimer, forMode: .common)
@@ -220,6 +224,7 @@ extension AppDelegate {
 
 extension AppDelegate {
     @objc func backupStarted(_: Notification) {
+        print(try? AppDelegate.tm!.isBackupRunning(), backupTimer)
         // test if backup is running
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning() && backupTimer != nil, !backupRunning { return }
         
@@ -230,6 +235,7 @@ extension AppDelegate {
     }
     
     @objc func updateTMProgressMenu() {
+        print(try? AppDelegate.tm!.isBackupRunning(), try? AppDelegate.tm!.getBackupProgess())
         // Checks if backup finished
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
             backupTimer?.invalidate()
@@ -244,7 +250,6 @@ extension AppDelegate {
             updateMenuLabels(Notification(name: Notification.Name("backupEnded")))
             return
         }
-        
         if let percent = (try? AppDelegate.tm!.getBackupProgess()) {
             changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Backup: \(Int(percent * 100))%")
         } else {

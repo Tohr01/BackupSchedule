@@ -119,9 +119,9 @@ class TimeMachine {
     }
     
     func getLatestBackup() -> Date? {
-        if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2, 3, 1, 4, 5]) {
+    latestBackupCheck: if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2, 3, 1, 4, 5]) {
             let dateArrInt = dateArr.map { Int($0) }.compactMap { $0 }
-            if dateArrInt.count != 5 { return nil }
+            if dateArrInt.count < 5 { break latestBackupCheck }
             var dateComp = DateComponents()
             dateComp.month = dateArrInt[0]
             dateComp.day = dateArrInt[1]
@@ -130,7 +130,7 @@ class TimeMachine {
             dateComp.minute = dateArrInt[4]
             return Calendar.current.date(from: dateComp)
         }
-        return nil
+        return getLatestKnownBackup()
     }
     
     func getLatestBackupStr() -> String {

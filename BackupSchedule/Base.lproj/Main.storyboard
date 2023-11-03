@@ -1818,7 +1818,7 @@ disable automatic backups</string>
         </scene>
     </scenes>
     <resources>
-        <image name="NSGoForwardTemplate" width="10" height="14"/>
+        <image name="NSGoForwardTemplate" width="12" height="16"/>
         <image name="clock.arrow.circlepath" width="25" height="25"/>
         <image name="magnifyingglass" width="25" height="25"/>
         <image name="timemachine_icon" width="139" height="132"/>
