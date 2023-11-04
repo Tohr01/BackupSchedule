@@ -19,13 +19,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
     
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Add helper application to Autolaunch
         let helperBundleId = "codes.cr.BackupScheduleHelper"
         SMLoginItemSetEnabled(helperBundleId as CFString, true)
         ScheduleCoordinator.default.loadSchedules()
-        
         
         do {
             AppDelegate.tm = try TimeMachine()
@@ -40,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 await requestNotificationAuth()
             }
             
-            #warning("potential remove / performance check todo")
+#warning("potential remove / performance check todo")
             let autoTaskTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                 // Last backup ist too old. Starting new Backup
                 if SettingsStruct.autoBackupEnable, let lastBackup = AppDelegate.tm!.getLatestBackup(), lastBackup <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.autoBackupTime, to: Date.now)! {
@@ -51,9 +49,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
                     UNUserNotificationCenter.current().add(request)
                 }
-
+                
                 if SettingsStruct.deleteSnapshotEnable && SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date.now)! {
-                    #warning("todo")
+#warning("todo")
                     let notification = UNMutableNotificationContent()
                     notification.title = "Started Backup"
                     notification.subtitle = "Your Mac has not been backuped for \(SettingsStruct.autoBackupTime) day(s)"
@@ -62,6 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             RunLoop.main.add(autoTaskTimer, forMode: .common)
+            
             
             initUserInterface()
         } catch {
@@ -75,7 +74,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name.NSCalendarDayChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
-        DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
+        if #available(macOS 13.0, *) {
+            let backupCheckerTimer = Timer(timeInterval: 2, repeats: true) { _ in
+                if self.backupTimer == nil, let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
+                    print("startet")
+                    self.backupStarted(nil)
+                }
+            }
+            RunLoop.main.add(backupCheckerTimer, forMode: .common)
+            NotificationCenter.default.addObserver(self, selector: #selector(backupStarted(_:)), name: Notification.Name("backupStarted"), object: nil)
+        } else {
+            DistributedNotificationCenter.default().addObserver(self, selector: #selector(backupStarted), name: Notification.Name("com.apple.backupd.DestinationMountNotification"), object: nil)
+        }
     }
     
 }
@@ -170,7 +180,7 @@ extension AppDelegate {
                 topMenuItem.identifier = NSUserInterfaceItemIdentifier("topMenuItem")
                 
                 if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
-                    backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
+                    backupStarted(nil)
                     topMenuItem.title = "Running Backup..."
                     menu.addItem(topMenuItem)
                 } else {
@@ -188,7 +198,6 @@ extension AppDelegate {
                 var backupNowTitle = ""
                 if let backupRunning = try? AppDelegate.tm?.isBackupRunning(), backupRunning {
                     backupNowTitle = "Stop Backup"
-                    backupStarted(Notification(name: Notification.Name("com.apple.backupd.DestinationMountNotification")))
                 } else {
                     backupNowTitle = "Start Backup"
                 }
@@ -223,11 +232,12 @@ extension AppDelegate {
 // MARK: TM Listeners
 
 extension AppDelegate {
-    @objc func backupStarted(_: Notification) {
-        print(try? AppDelegate.tm!.isBackupRunning(), backupTimer)
+    @objc func backupStarted(_ aNotification: Notification?) {
         // test if backup is running
-        if let backupRunning = try? AppDelegate.tm!.isBackupRunning() && backupTimer != nil, !backupRunning { return }
-        
+        if let backupRunning = try? AppDelegate.tm!.isBackupRunning() , !backupRunning && backupTimer != nil {
+            print(backupRunning, backupTimer)
+            return }
+        print("running")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
@@ -235,9 +245,10 @@ extension AppDelegate {
     }
     
     @objc func updateTMProgressMenu() {
-        print(try? AppDelegate.tm!.isBackupRunning(), try? AppDelegate.tm!.getBackupProgess())
+        print("gomme")
         // Checks if backup finished
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
+            print("3242")
             backupTimer?.invalidate()
             backupTimer = nil
             if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
