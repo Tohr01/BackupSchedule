@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
         if #available(macOS 13.0, *) {
-            let backupCheckerTimer = Timer(timeInterval: 2, repeats: true) { _ in
+            let backupCheckerTimer = Timer(timeInterval: 5, repeats: true) { _ in
                 if self.backupTimer == nil, let backupRunning = try? AppDelegate.tm!.isBackupRunning(), backupRunning {
                     print("startet")
                     self.backupStarted(nil)
