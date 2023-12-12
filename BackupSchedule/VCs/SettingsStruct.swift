@@ -25,6 +25,8 @@ class Settings: NSViewController {
         super.viewDidLoad()
         setAutoBackup(active: SettingsStruct.autoBackupEnable)
         setDeleteSnapshots(active: SettingsStruct.deleteSnapshotEnable)
+        
+        autoBackupLabel1.addClickGestureRecognizer(target: self, selector: #selector(enableAutoBackup() -> Void))
     }
     
     @IBAction func enableAutoBackup(_ sender: Any) {
