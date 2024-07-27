@@ -5,28 +5,32 @@
 // Created by Tohr01 on 30.10.23
 // Copyright © 2023 Tohr01. All rights reserved.
 //
-        
+
 
 import Cocoa
 
 class Settings: NSViewController {
-
+    
     @IBOutlet weak var autoBackupButton: DefaultButton!
     @IBOutlet weak var autoBackupTextFieldContainer: BackgroundView!
-    @IBOutlet weak var autoBackupLabel1: NSTextField!
-    @IBOutlet weak var autoBackupLabel2: NSTextField!
+    @IBOutlet weak var autoBackupLabel1: ToggleTextField!
+    @IBOutlet weak var autoBackupLabel2: ToggleTextField!
     
     @IBOutlet weak var deleteSnapshotButton: DefaultButton!
     @IBOutlet weak var deleteSnapshotTextFieldContainer: BackgroundView!
-    @IBOutlet weak var deleteSnapshotLabel1: NSTextField!
-    @IBOutlet weak var deleteSnapshotLabel2: NSTextField!
+    @IBOutlet weak var deleteSnapshotLabel1: ToggleTextField!
+    @IBOutlet weak var deleteSnapshotLabel2: ToggleTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setAutoBackup(active: SettingsStruct.autoBackupEnable)
         setDeleteSnapshots(active: SettingsStruct.deleteSnapshotEnable)
         
-        autoBackupLabel1.addClickGestureRecognizer(target: self, selector: #selector(enableAutoBackup() -> Void))
+        autoBackupLabel1.addClickGestureRecognizer(target: self, selector: #selector(enableAutoBackup(_:)))
+        autoBackupLabel2.addClickGestureRecognizer(target: self, selector: #selector(enableAutoBackup(_:)))
+        
+        deleteSnapshotLabel1.addClickGestureRecognizer(target: self, selector: #selector(autoDeleteSnapshot(_:)))
+        deleteSnapshotLabel2.addClickGestureRecognizer(target: self, selector: #selector(autoDeleteSnapshot(_:)))
     }
     
     @IBAction func enableAutoBackup(_ sender: Any) {

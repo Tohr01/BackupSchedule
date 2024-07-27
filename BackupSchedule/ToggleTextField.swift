@@ -10,11 +10,11 @@
 import Cocoa
 
 class ToggleTextField: NSTextField {
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        // Drawing code here.
+    public func addClickGestureRecognizer(target: AnyObject, selector: Selector) {
+        let gestureRecognizer = NSClickGestureRecognizer()
+        gestureRecognizer.target = target
+        gestureRecognizer.buttonMask = 0x1
+        gestureRecognizer.action = selector
+        self.addGestureRecognizer(gestureRecognizer)
     }
-    
 }

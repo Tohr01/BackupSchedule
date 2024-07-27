@@ -17,6 +17,7 @@
 		C32963DB29C61D9300DF624A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C32963DA29C61D9300DF624A /* Assets.xcassets */; };
 		C32963DE29C61D9300DF624A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32963DC29C61D9300DF624A /* Main.storyboard */; };
 		C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329640129C61DFD00DF624A /* DefaultButton.swift */; };
+		C346A9F52B27D3DC00355DD6 /* ToggleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */; };
 		C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630A2E2A26891400AE3658 /* BackupWindow.swift */; };
 		C3630A372A269A1900AE3658 /* HelperAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630A362A269A1900AE3658 /* HelperAppDelegate.swift */; };
 		C3630A3B2A269A1A00AE3658 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3630A3A2A269A1A00AE3658 /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		C32963DD29C61D9300DF624A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C32963DF29C61D9300DF624A /* BackupSchedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BackupSchedule.entitlements; sourceTree = "<group>"; };
 		C329640129C61DFD00DF624A /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
+		C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTextField.swift; sourceTree = "<group>"; };
 		C3630A2E2A26891400AE3658 /* BackupWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupWindow.swift; sourceTree = "<group>"; };
 		C3630A342A269A1900AE3658 /* BackupScheduleHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackupScheduleHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3630A362A269A1900AE3658 /* HelperAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperAppDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				C32963DA29C61D9300DF624A /* Assets.xcassets */,
 				C32963DC29C61D9300DF624A /* Main.storyboard */,
 				C329640129C61DFD00DF624A /* DefaultButton.swift */,
+				C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */,
 				C37AF9232A8710D5005421E2 /* CenterCell.swift */,
 				C3630A2E2A26891400AE3658 /* BackupWindow.swift */,
 				C3AED32F2AF038FB008357B3 /* Settings.swift */,
@@ -333,6 +336,7 @@
 				C374D94529F70F2E0007F52C /* String.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
 				C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */,
+				C346A9F52B27D3DC00355DD6 /* ToggleTextField.swift in Sources */,
 				C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */,
 				C37AF9242A8710D5005421E2 /* CenterCell.swift in Sources */,
 				C3AED32E2AF0238F008357B3 /* SettingsStruct.swift in Sources */,
