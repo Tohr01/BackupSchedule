@@ -9,6 +9,7 @@
 import Cocoa
 import UserNotifications
 import ServiceManagement
+import LaunchAtLogin
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,11 +21,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var backupTimer: Timer?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Add helper application to Autolaunch
-        let helperBundleId = "codes.cr.BackupScheduleHelper"
-        SMLoginItemSetEnabled(helperBundleId as CFString, true)
+        // Run application on Login
+        LaunchAtLogin.isEnabled = true
+
         ScheduleCoordinator.default.loadSchedules()
-        
+
         do {
             AppDelegate.tm = try TimeMachine()
             // Construct menubar appearance
@@ -235,9 +236,8 @@ extension AppDelegate {
     @objc func backupStarted(_ aNotification: Notification?) {
         // test if backup is running
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning() , !backupRunning && backupTimer != nil {
-            print(backupRunning, backupTimer)
             return }
-        print("running")
+        
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
