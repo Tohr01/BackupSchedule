@@ -245,10 +245,8 @@ extension AppDelegate {
     }
     
     @objc func updateTMProgressMenu() {
-        print("gomme")
         // Checks if backup finished
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
-            print("3242")
             backupTimer?.invalidate()
             backupTimer = nil
             if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
