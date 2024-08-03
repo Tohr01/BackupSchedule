@@ -15,12 +15,18 @@ import LaunchAtLogin
 class AppDelegate: NSObject, NSApplicationDelegate {
     static var tm: TimeMachine?
     
+    var launchedAtLogin: Bool = false
+    
     var window: BackupWindow!
     private var menu: NSMenu!
     private var statusItem: NSStatusItem!
     private var backupTimer: Timer?
-    
+        
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let event = NSAppleEventManager.shared().currentAppleEvent
+        launchedAtLogin =
+            event?.eventID == kAEOpenApplication && event?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
+        
         // Run application on Login
         LaunchAtLogin.isEnabled = true
 
@@ -62,8 +68,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             RunLoop.main.add(autoTaskTimer, forMode: .common)
             
-            
             initUserInterface()
+            
+            // Set launch at login var to false so the user can launch the ui from the menu bar item
+            launchedAtLogin = false
         } catch {
             communicationError()
             return
@@ -139,9 +147,8 @@ extension AppDelegate {
                 openVC(title: "Configure TimeMachine", storyboardID: "configuretm")
             } else if AppDelegate.tm!.isAutoBackupEnabled() {
                 openVC(title: "Disable AutoBackup", storyboardID: "disableab")
-            } else {
-                    openMainVC(nil)
-                
+            } else if !launchedAtLogin {
+                openMainVC(nil)
             }
         } catch {
             communicationError()
