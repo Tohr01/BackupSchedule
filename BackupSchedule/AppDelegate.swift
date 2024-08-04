@@ -241,35 +241,32 @@ extension AppDelegate {
 
 extension AppDelegate {
     @objc func backupStarted(_ aNotification: Notification?) {
+        let topMenuItem = NSUserInterfaceItemIdentifier("topMenuItem")
         // test if backup is running
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning() , !backupRunning && backupTimer != nil {
             return }
         
-        changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Starting backup...")
+        changeTitleForMenuItem(with: topMenuItem, to: "Starting backup...")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
         RunLoop.main.add(backupTimer!, forMode: .common)
     }
     
     @objc func updateTMProgressMenu() {
+        let topMenuItem = NSUserInterfaceItemIdentifier("topMenuItem")
         // Checks if backup finished
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
             backupTimer?.invalidate()
             backupTimer = nil
-            if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
-                changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "\(lastBackup.getLatestBackupString().capitalizeFirst)")
-            } else {
-                changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "No latest Backup found")
-            }
+            NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
             changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Start Backup")
             NotificationCenter.default.post(Notification(name: Notification.Name("tmchanged")))
-            updateMenuLabels(Notification(name: Notification.Name("backupEnded")))
             return
         }
         if let percent = (try? AppDelegate.tm!.getBackupProgess()) {
-            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Backup: \(Int(percent * 100))%")
+            changeTitleForMenuItem(with: topMenuItem, to: "Backup: \(Int(percent * 100))%")
         } else {
-            changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("topMenuItem"), to: "Running backup...")
+            changeTitleForMenuItem(with: topMenuItem, to: "Running backup...")
         }
     }
 }

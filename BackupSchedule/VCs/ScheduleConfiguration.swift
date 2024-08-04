@@ -88,7 +88,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         // If new schedule has been created add to arr and activate
         if newSchedule {
             schedules.append(newBackupSchedule)
-            ScheduleCoordinator.default.addToRunLoop(newBackupSchedule)
+            ScheduleCoordinator.default.addSchedule(newBackupSchedule)
             saveAllSchedules()
             loadTemplateSchedule()
         } else {

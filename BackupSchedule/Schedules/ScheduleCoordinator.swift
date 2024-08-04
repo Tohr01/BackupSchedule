@@ -32,7 +32,7 @@ class ScheduleCoordinator {
                 }
             }
             for schedule in schedules {
-                addToRunLoop(schedule)
+                addSchedule(schedule)
             }
         }
     }
@@ -59,7 +59,7 @@ class ScheduleCoordinator {
         return "No backup planned"
     }
     
-    func addToRunLoop(_ schedule: BackupSchedule) {
+    func addSchedule(_ schedule: BackupSchedule) {
         if let timer = getTimer(for: schedule) {
             ScheduleCoordinator.schedules.append((schedule, timer))
             RunLoop.main.add(timer, forMode: .common)
@@ -123,6 +123,8 @@ class ScheduleCoordinator {
     func replaceSchedule(_ schedule: BackupSchedule) {
         if let timer = getTimer(for: schedule), let oldScheduleIdx = ScheduleCoordinator.schedules.firstIndex(where: {$0.0.id == schedule.id}) {
             _ = ScheduleCoordinator.schedules.filter { $0.0.id == schedule.id }.map { $0.1.invalidate() }
+            ScheduleCoordinator.schedules[oldScheduleIdx].1.invalidate()
+            RunLoop.main.add(timer, forMode: .common)
             ScheduleCoordinator.schedules[oldScheduleIdx] = (schedule, timer)
         }
     }
