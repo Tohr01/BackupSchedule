@@ -14,15 +14,26 @@ import LaunchAtLogin
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     static var tm: TimeMachine?
+    private var backupTimer: Timer?
     
     var launchedAtLogin: Bool = false
     
     var window: BackupWindow!
+    
+    // Menu bar
     private var menu: NSMenu!
+    
+    // Status item
     private var statusItem: NSStatusItem!
-    private var backupTimer: Timer?
+    private let tmIcon = NSImage(named: "tmicon")
+    private let tmIconActive = NSImage(named: "tmicon_active")
+    
         
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Set size of status item images
+        tmIcon?.size = CGSize(width: 18, height: 18)
+        tmIconActive?.size = CGSize(width: 18, height: 18)
+        
         let event = NSAppleEventManager.shared().currentAppleEvent
         launchedAtLogin =
             event?.eventID == kAEOpenApplication && event?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
@@ -37,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Construct menubar appearance
             statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
             if let button = statusItem.button {
-                button.image = NSImage(named: "tmicon")
+                button.image = tmIcon
                 try constructMenu()
             }
             
@@ -248,6 +259,7 @@ extension AppDelegate {
         
         changeTitleForMenuItem(with: topMenuItem, to: "Starting backup...")
         changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Stop backup")
+        statusItem.button?.image = tmIconActive
         backupTimer = Timer(timeInterval: 5, target: self, selector: #selector(updateTMProgressMenu), userInfo: nil, repeats: true)
         RunLoop.main.add(backupTimer!, forMode: .common)
     }
@@ -261,6 +273,7 @@ extension AppDelegate {
             NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
             changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Start Backup")
             NotificationCenter.default.post(Notification(name: Notification.Name("tmchanged")))
+            statusItem.button?.image = tmIcon
             return
         }
         if let percent = (try? AppDelegate.tm!.getBackupProgess()) {
