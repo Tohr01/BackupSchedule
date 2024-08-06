@@ -37,14 +37,14 @@ class Settings: NSViewController {
         let autoBackupEnabled = SettingsStruct.autoBackupEnable
         SettingsStruct.autoBackupEnable.toggle()
         setAutoBackup(active: !autoBackupEnabled)
-        NotificationCenter.default.post(Notification(name: Notification.Name("changedAutoBackup")))
+        NotificationCenter.default.post(Notification(name: Notification.Name("settingsUpdated")))
     }
     
     @IBAction func autoDeleteSnapshot(_ sender: Any) {
         let deleteSnapshotEnabled = SettingsStruct.deleteSnapshotEnable
         SettingsStruct.deleteSnapshotEnable.toggle()
         setDeleteSnapshots(active: !deleteSnapshotEnabled)
-        NotificationCenter.default.post(Notification(name: Notification.Name("changedAutoDeleteSnapshot")))
+        NotificationCenter.default.post(Notification(name: Notification.Name("settingsUpdated")))
     }
     
     func setAutoBackup(active: Bool) {

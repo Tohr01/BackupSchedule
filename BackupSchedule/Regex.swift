@@ -8,13 +8,10 @@
 
 import Foundation
 
-func groups(for str: String, pattern: String, capture_group: [Int]?, additional_regex_options: NSRegularExpression.Options = []) -> [String]? {
+func groups(for str: String, pattern: String, capture_group: [Int]?, regex_options: NSRegularExpression.Options = [.anchorsMatchLines]) -> [String]? {
     // Array containing the result of the regular expression. Has the following form: [0, 1, 2, ...] = [Match, CaptureGroup1, CaptureGroup2, ...]
     var result = Array<String>.init()
     do {
-        var regex_options: NSRegularExpression.Options = [.anchorsMatchLines]
-        regex_options.insert(additional_regex_options)
-
         let regex: NSRegularExpression = try NSRegularExpression(pattern: pattern, options: regex_options)
         let matches = regex.matches(in: str, range: NSRange(str.startIndex..., in: str))
 
@@ -47,3 +44,5 @@ func groups(for str: String, pattern: String, capture_group: [Int]?, additional_
     }
     return result.isEmpty ? nil : result
 }
+
+

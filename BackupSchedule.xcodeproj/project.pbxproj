@@ -30,8 +30,8 @@
 		C3A9389929C6395B00527264 /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389829C6395B00527264 /* NSColor.swift */; };
 		C3A9389B29C652E500527264 /* TimeMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389A29C652E500527264 /* TimeMachine.swift */; };
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
-		C3AED32E2AF0238F008357B3 /* SettingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32D2AF0238F008357B3 /* SettingsStruct.swift */; };
-		C3AED3302AF038FB008357B3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32F2AF038FB008357B3 /* Settings.swift */; };
+		C3AED32E2AF0238F008357B3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32D2AF0238F008357B3 /* Settings.swift */; };
+		C3AED3302AF038FB008357B3 /* SettingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */; };
 		C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC501C2AF331060026DF23 /* DriveUtil.swift */; };
 		C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */; };
 		C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */; };
@@ -76,8 +76,8 @@
 		C3A9389829C6395B00527264 /* NSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		C3A9389A29C652E500527264 /* TimeMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeMachine.swift; sourceTree = "<group>"; };
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
-		C3AED32D2AF0238F008357B3 /* SettingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStruct.swift; sourceTree = "<group>"; };
-		C3AED32F2AF038FB008357B3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C3AED32D2AF0238F008357B3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStruct.swift; sourceTree = "<group>"; };
 		C3CC501C2AF331060026DF23 /* DriveUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveUtil.swift; sourceTree = "<group>"; };
 		C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCoordinator.swift; sourceTree = "<group>"; };
 		C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSidebarTableCellView.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 				C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */,
 				C37AF9232A8710D5005421E2 /* CenterCell.swift */,
 				C3630A2E2A26891400AE3658 /* BackupWindow.swift */,
-				C3AED32F2AF038FB008357B3 /* Settings.swift */,
+				C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */,
 				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
 				C3CC501C2AF331060026DF23 /* DriveUtil.swift */,
 				C3A9389A29C652E500527264 /* TimeMachine.swift */,
@@ -185,7 +185,7 @@
 				C30A468E29C78A1100B0AB32 /* ScheduleConfiguration.swift */,
 				C3A9389C29C654A300527264 /* DisableAutoBackup.swift */,
 				C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */,
-				C3AED32D2AF0238F008357B3 /* SettingsStruct.swift */,
+				C3AED32D2AF0238F008357B3 /* Settings.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -276,7 +276,7 @@
 				C31288D529F67AC500F05FA5 /* Date.swift in Sources */,
 				C3752A9229E48CA700C049CD /* DiskSelection.swift in Sources */,
 				C30A468F29C78A1100B0AB32 /* ScheduleConfiguration.swift in Sources */,
-				C3AED3302AF038FB008357B3 /* Settings.swift in Sources */,
+				C3AED3302AF038FB008357B3 /* SettingsStruct.swift in Sources */,
 				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
 				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
 				C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */,
@@ -287,7 +287,7 @@
 				C346A9F52B27D3DC00355DD6 /* ToggleTextField.swift in Sources */,
 				C30B4EC929E7685D002BB568 /* SystemInformation.swift in Sources */,
 				C37AF9242A8710D5005421E2 /* CenterCell.swift in Sources */,
-				C3AED32E2AF0238F008357B3 /* SettingsStruct.swift in Sources */,
+				C3AED32E2AF0238F008357B3 /* Settings.swift in Sources */,
 				C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,

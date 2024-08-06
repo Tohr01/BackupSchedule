@@ -10,12 +10,11 @@ import Foundation
 
 enum TimeMachineError: Error {
     case tmutilNonExistent
-    case authError
     case tmutilRequestError
 }
 
 enum AppleScriptExecutionResult {
-    case canceled
+    case errored
     case success
 }
 
@@ -26,7 +25,7 @@ struct TMDestination: Codable, Equatable, Hashable {
 }
 
 class TimeMachine {
-    private static var tmutilPath = "/usr/bin/tmutil"
+    private static let tmutilPath = "/usr/bin/tmutil"
 
     init() throws {
         // Check if tmutil binary exists
@@ -47,22 +46,18 @@ class TimeMachine {
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .newlines)
 
-        if output == "1" {
-            return true
-        } else {
-            return false
-        }
+        return output == "1"
     }
 
     @discardableResult
-    func disableAutoBackup() throws -> AppleScriptExecutionResult {
+    func disableAutoBackup() -> AppleScriptExecutionResult {
         var err: NSDictionary?
         NSAppleScript(source: "do shell script \"/usr/bin/sudo /usr/bin/tmutil disable\" with administrator " +
             "privileges")!.executeAndReturnError(&err)
         if err == nil {
             return .success
         }
-        return .canceled
+        return .errored
     }
 
     func startBackup(destID: String? = nil) throws {
@@ -239,6 +234,27 @@ class TimeMachine {
         return nil
     }
 
+    // MARK: Snapshots
+    
+    func getLocalSnapshotCount() throws -> Int {
+        do {
+            if let localSnapshotsStr = try tmutilRequest(args: "listlocalsnapshots", "/"), let matches = groups(for: localSnapshotsStr, pattern: #"^com\.apple\.TimeMachine.+$"#, capture_group: nil) {
+                return matches.count
+            }
+        } catch {
+            throw error
+        }
+        return 0
+    }
+    
+    func deleteLocalSnapshots() throws {
+        do {
+            try tmutilRequest(args: "deletelocalsnapshots", "/")
+        } catch {
+            throw error
+        }
+    }
+    
     @discardableResult
     private func tmutilRequest(args: String...) throws -> String? {
         let process = Process()

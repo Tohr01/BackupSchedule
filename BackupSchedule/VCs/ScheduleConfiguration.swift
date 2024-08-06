@@ -40,6 +40,10 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBOutlet var disableWhenInBattery: DefaultButton!
     @IBOutlet var runUnderHighLoad: DefaultButton!
     
+    // Global settings
+    @IBOutlet var settingsBackgroundContainer: BackgroundView!
+    @IBOutlet var settingsContainer: NSView!
+    
     var schedules: [BackupSchedule] = []
     var newSchedule: Bool = true
     var currentScheduleIdx: Int?
@@ -100,7 +104,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
                 saveAllSchedules()
             }
         }
-        NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
+        NotificationCenter.default.post(Notification(name: Notification.Name("schedulesChanged")))
         scheduleListTableView.reloadData()
     }
     
@@ -358,7 +362,7 @@ extension ScheduleConfiguration {
             }
             scheduleListTableView.reloadData()
             saveAllSchedules()
-            NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
+            NotificationCenter.default.post(Notification(name: Notification.Name("schedulesChanged")))
         }
     }
 }

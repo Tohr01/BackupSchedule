@@ -13,8 +13,11 @@ import LaunchAtLogin
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    static var tm: TimeMachine?
+    static var tm: TimeMachine!
+    
+    // TM Timers
     private var backupTimer: Timer?
+    private var autoTaskTimer: Timer!
     
     var launchedAtLogin: Bool = false
     
@@ -45,6 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         do {
             AppDelegate.tm = try TimeMachine()
+            
             // Construct menubar appearance
             statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
             if let button = statusItem.button {
@@ -56,25 +60,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 await requestNotificationAuth()
             }
             
-#warning("potential remove / performance check todo")
-            let autoTaskTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
+            autoTaskTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                 // Last backup ist too old. Starting new Backup
-                if SettingsStruct.autoBackupEnable, let lastBackup = AppDelegate.tm!.getLatestBackup(), lastBackup <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.autoBackupTime, to: Date.now)! {
+                if SettingsStruct.autoBackupEnable, let lastBackup = AppDelegate.tm!.getLatestBackup(), 
+                    lastBackup <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.autoBackupTime, to: Date.now)! {
                     try? AppDelegate.tm!.startBackup()
                     let notification = UNMutableNotificationContent()
                     notification.title = "Started Backup"
-                    notification.subtitle = "Your Mac has not been backuped for \(SettingsStruct.autoBackupTime) day(s)"
+                    notification.subtitle = "Your Mac has not been backed up for \(SettingsStruct.autoBackupTime) day(s)"
                     let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
                     UNUserNotificationCenter.current().add(request)
                 }
                 
-                if SettingsStruct.deleteSnapshotEnable && SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date.now)! {
-#warning("todo")
-                    let notification = UNMutableNotificationContent()
-                    notification.title = "Started Backup"
-                    notification.subtitle = "Your Mac has not been backuped for \(SettingsStruct.autoBackupTime) day(s)"
-                    let request = UNNotificationRequest(identifier: "backupNotification", content: notification, trigger: nil)
-                    UNUserNotificationCenter.current().add(request)
+                if SettingsStruct.deleteSnapshotEnable &&
+                    SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date.now)! {
+                    if let snapshotCount = try? AppDelegate.tm.getLocalSnapshotCount(), snapshotCount > 0 {
+                        try? AppDelegate.tm.deleteLocalSnapshots()
+                        
+                        let notification = UNMutableNotificationContent()
+                        notification.title = "Deleted snapshots"
+                        notification.subtitle = "A total of \(snapshotCount) snapshot(s) have been deleted."
+                        let request = UNNotificationRequest(identifier: "snapshotNotification", content: notification, trigger: nil)
+                        UNUserNotificationCenter.current().add(request)
+                    }
                 }
             }
             RunLoop.main.add(autoTaskTimer, forMode: .common)
@@ -92,7 +100,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("tmconfigured"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openMainVC(_:)), name: Notification.Name("informationVC"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name.NSCalendarDayChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateMenuLabels(_:)), name: Notification.Name("scheduleschanged"), object: nil)
         
         if #available(macOS 13.0, *) {
             let backupCheckerTimer = Timer(timeInterval: 5, repeats: true) { _ in
@@ -170,7 +177,7 @@ extension AppDelegate {
 
 // MARK: -
 
-// MARK: Notification handling
+// MARK: User Notification handling
 
 extension AppDelegate {
     func requestNotificationAuth() async {
@@ -270,7 +277,7 @@ extension AppDelegate {
         if let backupRunning = try? AppDelegate.tm!.isBackupRunning(), !backupRunning {
             backupTimer?.invalidate()
             backupTimer = nil
-            NotificationCenter.default.post(Notification(name: Notification.Name("scheduleschanged")))
+            NotificationCenter.default.post(Notification(name: Notification.Name("schedulesChanged")))
             changeTitleForMenuItem(with: NSUserInterfaceItemIdentifier("backupNow"), to: "Start Backup")
             NotificationCenter.default.post(Notification(name: Notification.Name("tmchanged")))
             statusItem.button?.image = tmIcon
