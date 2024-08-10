@@ -12,6 +12,7 @@ class BackgroundView: NSView {
     @IBInspectable var alphaComponent: CGFloat = 0.07
     @IBInspectable var backgroundColor: NSColor = .quaternaryLabelColor
     @IBInspectable var hoverDarken: Bool = false
+    @IBInspectable var enableClickthrough: Bool = true
     @IBInspectable var cornerRadius: CGFloat = 0.0
     @IBInspectable var onlyVisibleOnHover: Bool = false
 
@@ -45,7 +46,7 @@ class BackgroundView: NSView {
             addTrackingArea(trackingArea)
         }
     }
-
+    
     /// On mouse Enter
     override func mouseEntered(with _: NSEvent) {
         NSAnimationContext.runAnimationGroup { context in
@@ -61,6 +62,13 @@ class BackgroundView: NSView {
             context.duration = 0.3
             context.allowsImplicitAnimation = true
             self.animator().layer?.backgroundColor = onlyVisibleOnHover ? .clear : defaultBackgroundColor.cgColor
+        }
+    }
+    
+    override func mouseDown(with event: NSEvent) {
+        // If enableClickthough is set to false remove default mouseDown functionality
+        if enableClickthrough {
+            super.mouseDown(with: event)
         }
     }
 }

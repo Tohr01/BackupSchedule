@@ -33,6 +33,8 @@
 		C3AED32E2AF0238F008357B3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32D2AF0238F008357B3 /* Settings.swift */; };
 		C3AED3302AF038FB008357B3 /* SettingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */; };
 		C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC501C2AF331060026DF23 /* DriveUtil.swift */; };
+		C3D4B8152C63FEC30013652C /* NumericalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4B8142C63FEC30013652C /* NumericalTextField.swift */; };
+		C3D4B8172C63FFEB0013652C /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4B8162C63FFEB0013652C /* Window.swift */; };
 		C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */; };
 		C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */; };
 		C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */; };
@@ -79,6 +81,8 @@
 		C3AED32D2AF0238F008357B3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStruct.swift; sourceTree = "<group>"; };
 		C3CC501C2AF331060026DF23 /* DriveUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveUtil.swift; sourceTree = "<group>"; };
+		C3D4B8142C63FEC30013652C /* NumericalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericalTextField.swift; sourceTree = "<group>"; };
+		C3D4B8162C63FFEB0013652C /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		C3E75E9E29E60DC10062EA55 /* ScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCoordinator.swift; sourceTree = "<group>"; };
 		C3EAD9C12A9EC92100B8F81B /* DefaultSidebarTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSidebarTableCellView.swift; sourceTree = "<group>"; };
 		C3F9A4CD29E08EFF0085BABE /* AddScheduleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleCellView.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 				C32963DA29C61D9300DF624A /* Assets.xcassets */,
 				C32963DC29C61D9300DF624A /* Main.storyboard */,
 				C329640129C61DFD00DF624A /* DefaultButton.swift */,
+				C3D4B8142C63FEC30013652C /* NumericalTextField.swift */,
 				C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */,
 				C37AF9232A8710D5005421E2 /* CenterCell.swift */,
 				C3630A2E2A26891400AE3658 /* BackupWindow.swift */,
@@ -173,6 +178,7 @@
 				C3A9389829C6395B00527264 /* NSColor.swift */,
 				C31288D429F67AC500F05FA5 /* Date.swift */,
 				C374D94429F70F2E0007F52C /* String.swift */,
+				C3D4B8162C63FFEB0013652C /* Window.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 				C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */,
 				C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */,
 				C374D94529F70F2E0007F52C /* String.swift in Sources */,
+				C3D4B8172C63FFEB0013652C /* Window.swift in Sources */,
 				C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */,
 				C3F9A4CE29E08EFF0085BABE /* AddScheduleCellView.swift in Sources */,
 				C346A9F52B27D3DC00355DD6 /* ToggleTextField.swift in Sources */,
@@ -291,6 +298,7 @@
 				C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */,
 				C3A5CD4529DF48CB0031AC3B /* Schedule.swift in Sources */,
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
+				C3D4B8152C63FEC30013652C /* NumericalTextField.swift in Sources */,
 				C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */,
 				C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */,
 				C36C04442AA12B5400358C72 /* ScheduleSelectionIndicator.swift in Sources */,

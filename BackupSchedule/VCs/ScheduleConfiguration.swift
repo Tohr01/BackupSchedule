@@ -18,8 +18,8 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     // Right main view
     @IBOutlet var backupDescriptionLabel: NSTextField!
-    @IBOutlet var hoursTextField: NSTextField!
-    @IBOutlet var minutesTextField: NSTextField!
+    @IBOutlet var hoursTextField: NumericalTextField!
+    @IBOutlet var minutesTextField: NumericalTextField!
     
     // Day selection buttons
     @IBOutlet var monday: DefaultButton!
@@ -41,6 +41,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @IBOutlet var runUnderHighLoad: DefaultButton!
     
     // Global settings
+    @IBOutlet var settingsButton: NSButton!
     @IBOutlet var settingsBackgroundContainer: BackgroundView!
     @IBOutlet var settingsContainer: NSView!
     
@@ -60,6 +61,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         configureSidebar()
         configureLastBackup()
         configureTableView()
+        configureSettings()
         loadTemplateSchedule()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
@@ -70,24 +72,30 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("selectedDestDrive"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("tmchanged"), object: nil)
     }
     
     @IBAction func save(_: Any) {
         guard let days = getSelectedDaysStr() else {
-            defaultAlert(message: "You have to select at least one day for the schedule to run.")
+            view.window!.defaultAlert(message: "You have to select at least one day for the schedule to run.")
             return
         }
         
         let activeDaysStr = dayButtons.filter(\.key.isActive).map { $0.value.lowercased() }
         let activeDays: [ActiveDays] = activeDaysStr.map { ActiveDays(rawValue: $0) }.compactMap { $0 }
         
-        guard let hours = Int(hoursTextField.stringValue), let minutes = Int(minutesTextField.stringValue) else {
-            defaultAlert(message: "You have to set a time for the schedule to run.")
+        if !hoursTextField.isValid() {
+            hoursTextField.displayAlert()
+            return
+        }
+        if !minutesTextField.isValid() {
+            minutesTextField.displayAlert()
             return
         }
         var activeTime = DateComponents()
-        activeTime.hour = hours
-        activeTime.minute = minutes
+        activeTime.hour = Int(hoursTextField.stringValue)!
+        activeTime.minute = Int(minutesTextField.stringValue)!
+        
         var newBackupSchedule = BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive))
         // If new schedule has been created add to arr and activate
         if newSchedule {
@@ -112,7 +120,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         let popover = NSPopover()
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         if let vc = storyboard.instantiateController(withIdentifier: "diskSelectVC") as? DiskSelection {
-            vc.selectedDrive = selectedDrive
+        vc.selectedDrive = selectedDrive
             vc.tmTargets = tmTargets
             popover.contentViewController = vc
             popover.behavior = .transient
@@ -153,6 +161,14 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     @objc func tmeventHandler(_ aNotification: Notification) {
         configureLastBackup()
+    }
+    
+    @IBAction func openSettings(_ sender: Any) {
+        showSettings()
+    }
+    
+    @IBAction func closeSettings(_ sender: Any) {
+        hideSettings()
     }
 }
 
@@ -229,6 +245,15 @@ extension ScheduleConfiguration {
             lastBackupLabel.stringValue = "No last Backup found"
         }
     }
+    
+    func configureSettings() {
+        settingsBackgroundContainer.isHidden = true
+        settingsBackgroundContainer.alphaValue = 0
+        
+        settingsContainer.wantsLayer = true
+        settingsContainer.layer?.masksToBounds = true
+        settingsContainer.layer?.cornerRadius = 7
+    }
 }
 
 // MARK: -
@@ -282,7 +307,7 @@ extension ScheduleConfiguration {
             }
             UserDefaults.standard.set(schedulesEnc, forKey: "schedules")
         } catch {
-            defaultAlert(message: "Schedule could not be saved please try restarting the program!")
+            view.window!.defaultAlert(message: "Schedule could not be saved please try restarting the program!")
         }
     }
 }
@@ -296,7 +321,7 @@ extension ScheduleConfiguration {
         scheduleListTableView.selectionHighlightStyle = .none
         scheduleListTableView.allowsMultipleSelection = false
         scheduleListTableView.action = #selector(rowClicked)
-    }
+    } 
     
     func numberOfRows(in _: NSTableView) -> Int {
         return schedules.count + 1
@@ -367,48 +392,25 @@ extension ScheduleConfiguration {
     }
 }
 
-
 // MARK: -
-
-// MARK: TextFieldDelegate
-
-extension ScheduleConfiguration: NSTextFieldDelegate {
-    func setupTextFields() {
-        let hoursFormatter = NumberFormatter()
-        hoursFormatter.minimum = 0
-        hoursFormatter.maximum = 23
-        
-        hoursTextField.formatter = hoursFormatter
+// MARK: Settings
+extension ScheduleConfiguration {
+    func showSettings() {
+        settingsBackgroundContainer.isHidden = false
+        NSAnimationContext.runAnimationGroup { context in
+            context.allowsImplicitAnimation = true
+            context.duration = 0.5
+            settingsBackgroundContainer.animator().alphaValue = 1
+        }
     }
     
-    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
-        if let tf = control as? NSTextField {
-            let upperLimit = tf.identifier == NSUserInterfaceItemIdentifier("minutesTF") ? 60 : 23
-            if let number = Int(fieldEditor.string), number >= 0, number <= upperLimit {
-                NotificationCenter.default.post(Notification(name: Notification.Name("updatedSchedule")))
-                return true
-            } else {
-                let alert = NSAlert()
-                alert.messageText = "Invalid Input"
-                alert.informativeText = "Please enter a number between 0 and \(upperLimit)."
-                alert.alertStyle = .informational
-                alert.addButton(withTitle: "OK")
-                alert.runModal()
-                tf.stringValue = "00"
-            }
+    func hideSettings() {
+        NSAnimationContext.runAnimationGroup { context in
+            context.allowsImplicitAnimation = true
+            context.duration = 0.3
+            settingsBackgroundContainer.animator().alphaValue = 0
+        } completionHandler: {
+            self.settingsBackgroundContainer.isHidden = true
         }
-        NotificationCenter.default.post(Notification(name: Notification.Name("updatedSchedule")))
-        return false
-    }
-}
-
-// MARK: -
-// MARK: Error handling
-extension ScheduleConfiguration {
-    func defaultAlert(message: String) {
-        let alert = NSAlert()
-        alert.messageText = message
-        alert.alertStyle = .informational
-        alert.beginSheetModal(for: view.window!)
     }
 }
