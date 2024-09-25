@@ -16,6 +16,7 @@ class NumericalTextField: NSTextField {
     @IBInspectable var upperBound: Int = 60
     @IBInspectable var defaultString: String = "00"
     @IBInspectable var shouldDisplayAlert: Bool = true
+    @IBInspectable var shouldResetContents: Bool = true
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -31,7 +32,9 @@ class NumericalTextField: NSTextField {
             if shouldDisplayAlert {
                 displayAlert()
             }
-            self.stringValue = defaultString
+            if shouldResetContents {
+                resetToDefault()
+            }
         }
     }
     
@@ -57,12 +60,20 @@ class NumericalTextField: NSTextField {
         self.window?.defaultAlert(message: alertMessage)
     }
     
+    func resetToDefault() {
+        self.stringValue = defaultString
+    }
+    
     func isValid() -> Bool {
         let num = Int(self.stringValue)
         if num == nil || (enableLower && num! < lowerBound) || (enableUpper && upperBound < num!) {
             return false
         }
         return true
+    }
+    
+    func getInt() -> Int? {
+        return Int(self.stringValue)
     }
 }
 

@@ -37,8 +37,14 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     // Backup settings
     @IBOutlet var notifyBackup: DefaultButton!
+    @IBOutlet var notifyBackupLabel: ToggleTextField!
+    var notifyBackupProxy: SelectionUIProxy!
     @IBOutlet var disableWhenInBattery: DefaultButton!
+    @IBOutlet var disableWhenInBatteryLabel: ToggleTextField!
+    var disableWhenInBatteryProxy: SelectionUIProxy!
     @IBOutlet var runUnderHighLoad: DefaultButton!
+    @IBOutlet var runUnderHighLoadLabel: ToggleTextField!
+    var runUnderHighLoadProxy: SelectionUIProxy!
     
     // Global settings
     @IBOutlet var settingsButton: NSButton!
@@ -54,6 +60,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("VIEW LOADING: \(Date.timeIntervalSinceReferenceDate)")
         refreshSchedules()
         dayButtons = [monday: "Monday", tuesday: "Tuesday", wednesday: "Wednesday", thursday: "Thursday", friday: "Friday", saturday: "Saturday", sunday: "Sunday"]
         tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
@@ -62,17 +69,24 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         configureLastBackup()
         configureTableView()
         configureSettings()
+        configureSelectionProxies()
         loadTemplateSchedule()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectedDestDrive(_:)), name: Notification.Name("selectedDestDrive"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tmeventHandler(_:)), name: Notification.Name("tmchanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(closeSettings(_:)), name: Notification.Name("closeSettings"), object: nil)
     }
     // Deinitilizer
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("selectedDestDrive"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("tmchanged"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("closeSettings"), object: nil)
+    }
+    
+    override func viewDidAppear() {
+        print("VIEW APPEAR: \(Date.timeIntervalSinceReferenceDate)")
     }
     
     @IBAction func save(_: Any) {
@@ -96,7 +110,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         activeTime.hour = Int(hoursTextField.stringValue)!
         activeTime.minute = Int(minutesTextField.stringValue)!
         
-        var newBackupSchedule = BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackup.isActive, disableWhenBattery: disableWhenInBattery.isActive, runWhenUnderHighLoad: runUnderHighLoad.isActive))
+        var newBackupSchedule = BackupSchedule(id: UUID(), displayName: days, activeDays: activeDays, timeActive: activeTime, selectedDrive: selectedDrive, settings: BackupScheduleSettings(startNotification: notifyBackupProxy.active, disableWhenBattery: disableWhenInBatteryProxy.active, runWhenUnderHighLoad: runUnderHighLoadProxy.active))
         // If new schedule has been created add to arr and activate
         if newSchedule {
             schedules.append(newBackupSchedule)
@@ -167,7 +181,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         showSettings()
     }
     
-    @IBAction func closeSettings(_ sender: Any) {
+    @objc func closeSettings(_ aNotification: Notification) {
         hideSettings()
     }
 }
@@ -195,9 +209,9 @@ extension ScheduleConfiguration {
         minutesTextField.stringValue = "\(schedule.getMinuteString())"
         
         // Set settings
-        if schedule.settings.startNotification { notifyBackup.setActive() } else { notifyBackup.setInactive() }
-        if schedule.settings.disableWhenBattery { disableWhenInBattery.setActive() } else { disableWhenInBattery.setInactive() }
-        if schedule.settings.runWhenUnderHighLoad { runUnderHighLoad.setActive() } else { runUnderHighLoad.setInactive() }
+        if schedule.settings.startNotification { notifyBackupProxy.setActive() } else { notifyBackupProxy.setInactive() }
+        if schedule.settings.disableWhenBattery { disableWhenInBatteryProxy.setActive() } else { disableWhenInBatteryProxy.setInactive() }
+        if schedule.settings.runWhenUnderHighLoad { runUnderHighLoadProxy.setActive() } else { runUnderHighLoadProxy.setInactive() }
         if let destinationDrive = schedule.selectedDrive {
             rotateDests.setInactive()
             searchDestinations.setActive()
@@ -215,9 +229,9 @@ extension ScheduleConfiguration {
         minutesTextField.stringValue = "00"
         
         // Set default settings
-        notifyBackup.setActive()
-        disableWhenInBattery.setInactive()
-        runUnderHighLoad.setActive()
+        notifyBackupProxy.setActive()
+        disableWhenInBatteryProxy.setInactive()
+        runUnderHighLoadProxy.setActive()
         
         backupDescriptionLabel.stringValue = getDisplayText()
         
@@ -253,6 +267,12 @@ extension ScheduleConfiguration {
         settingsContainer.wantsLayer = true
         settingsContainer.layer?.masksToBounds = true
         settingsContainer.layer?.cornerRadius = 7
+    }
+    
+    func configureSelectionProxies() {
+        notifyBackupProxy = SelectionUIProxy(onClick: {}, checkbox: notifyBackup, toggleLabels: [notifyBackupLabel])
+        disableWhenInBatteryProxy = SelectionUIProxy(onClick: {}, checkbox: disableWhenInBattery, toggleLabels: [disableWhenInBatteryLabel])
+        runUnderHighLoadProxy = SelectionUIProxy(onClick: {}, checkbox: runUnderHighLoad, toggleLabels: [runUnderHighLoadLabel])
     }
 }
 

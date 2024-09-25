@@ -2,8 +2,7 @@
 // CenterCell.swift
 // BackupSchedule
 //
-// Created by Tohr01 on 12.08.23
-// Copyright © 2023 Tohr01. All rights reserved.
+// See https://stackoverflow.com/a/45492039
 //
         
 

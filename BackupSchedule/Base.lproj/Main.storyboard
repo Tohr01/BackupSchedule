@@ -1217,6 +1217,7 @@ disable automatic backups</string>
                                         <real key="value" value="0.070000000000000007"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puB-xi-fVi" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
@@ -1235,7 +1236,7 @@ disable automatic backups</string>
                                     <action selector="save:" target="YOy-JE-ZEq" id="84h-9U-bbN"/>
                                 </connections>
                             </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43U-OD-GQk">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43U-OD-GQk" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="374" y="177" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Notify me when this Backup starts" id="pSd-LM-vXm">
@@ -1260,9 +1261,10 @@ disable automatic backups</string>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOa-JR-Guk">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOa-JR-Guk" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="374" y="140" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Disable Backup when in battery mode" id="x3c-ur-ql1">
@@ -1287,9 +1289,10 @@ disable automatic backups</string>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="completeRoundWhenFocus" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qno-RB-Sgb">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qno-RB-Sgb" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="374" y="103" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Run Backup even when Mac is under high load" id="0uX-e5-lSG">
@@ -1444,28 +1447,12 @@ disable automatic backups</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzv-KM-4Hw">
-                                        <rect key="frame" x="127" y="198" width="566" height="197"/>
+                                        <rect key="frame" x="127" y="102" width="566" height="287"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <connections>
                                             <segue destination="2L6-ke-EQD" kind="embed" id="fpU-tI-TzD"/>
                                         </connections>
                                     </containerView>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SP3-Ey-FU3" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="367" y="97" width="86" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="RQm-R8-I6W">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" size="14" name="SFPro-Bold"/>
-                                        </buttonCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="canToggle" value="NO"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="closeSettings:" target="YOy-JE-ZEq" id="3Vb-6A-UGj"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
@@ -1484,14 +1471,17 @@ disable automatic backups</string>
                         <outlet property="destCountMoreLabel" destination="rnF-5g-1Wl" id="INC-xp-tKu"/>
                         <outlet property="destNameLabel" destination="OyE-g2-9fA" id="gQ6-0x-7tb"/>
                         <outlet property="disableWhenInBattery" destination="I0E-tB-KZJ" id="o4X-6A-C0H"/>
+                        <outlet property="disableWhenInBatteryLabel" destination="OOa-JR-Guk" id="WGO-Aa-RgT"/>
                         <outlet property="friday" destination="oaC-RP-a2v" id="fZA-r9-qdb"/>
                         <outlet property="hoursTextField" destination="Ghl-Ml-vQ7" id="Pox-cL-Fif"/>
                         <outlet property="lastBackupLabel" destination="Qsx-Lt-cqm" id="fnL-lI-lr1"/>
                         <outlet property="minutesTextField" destination="t0m-7S-pkp" id="o8v-BX-TWM"/>
                         <outlet property="monday" destination="QPi-FI-4zu" id="NNb-0J-HFJ"/>
                         <outlet property="notifyBackup" destination="3dc-wL-xeU" id="mar-fy-hfZ"/>
+                        <outlet property="notifyBackupLabel" destination="43U-OD-GQk" id="bgp-bX-Z1n"/>
                         <outlet property="rotateDests" destination="n1F-xG-edp" id="P2e-95-FcB"/>
-                        <outlet property="runUnderHighLoad" destination="uf3-76-qYe" id="4Nf-Mj-r2C"/>
+                        <outlet property="runUnderHighLoad" destination="uf3-76-qYe" id="A2Y-K3-zDN"/>
+                        <outlet property="runUnderHighLoadLabel" destination="qno-RB-Sgb" id="2rj-vx-Swu"/>
                         <outlet property="saturday" destination="J1T-vJ-rdn" id="hXg-Dg-nfo"/>
                         <outlet property="scheduleListTableView" destination="gXr-qK-QS3" id="oLc-PB-y7V"/>
                         <outlet property="searchDestinations" destination="9uq-za-pNF" id="VmK-A0-Ryc"/>
@@ -1686,15 +1676,15 @@ disable automatic backups</string>
             <objects>
                 <viewController id="2L6-ke-EQD" customClass="Settings" customModule="BackupSchedule" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="UhP-4b-y03">
-                        <rect key="frame" x="0.0" y="0.0" width="566" height="197"/>
+                        <rect key="frame" x="0.0" y="0.0" width="566" height="287"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OB7-0s-NN9" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="566" height="197"/>
+                                <rect key="frame" x="0.0" y="0.0" width="566" height="287"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sHO-c9-tux" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="426" y="92" width="60" height="26"/>
+                                        <rect key="frame" x="426" y="182" width="60" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <textField identifier="minutesTF" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S6Y-Eu-gWP" customClass="NumericalTextField" customModule="BackupSchedule" customModuleProvider="target">
@@ -1715,10 +1705,9 @@ disable automatic backups</string>
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="defaultString" value="1"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shouldDisplayAlert" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shouldResetContents" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="delegate" destination="YOy-JE-ZEq" id="cMo-Gg-5VC"/>
-                                                </connections>
                                             </textField>
                                         </subviews>
                                         <userDefinedRuntimeAttributes>
@@ -1735,7 +1724,7 @@ disable automatic backups</string>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeN-wy-QYW" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="48" y="96" width="373" height="18"/>
+                                        <rect key="frame" x="48" y="186" width="373" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="Automatically update when last backup is older than" id="AJp-E8-cEH">
                                             <font key="font" size="15" name="SFPro-Medium"/>
@@ -1744,7 +1733,7 @@ disable automatic backups</string>
                                         </textFieldCell>
                                     </textField>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4m4-cM-2Hj" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="492" y="96" width="53" height="18"/>
+                                        <rect key="frame" x="492" y="186" width="53" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="day(s)" id="A9S-tp-3B1">
                                             <font key="font" size="15" name="SFPro-Medium"/>
@@ -1753,7 +1742,7 @@ disable automatic backups</string>
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tDu-UL-PP6" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="23" y="96" width="19" height="19"/>
+                                        <rect key="frame" x="23" y="186" width="19" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="Awj-lo-8hW">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1773,12 +1762,9 @@ disable automatic backups</string>
                                                 <color key="value" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="enableAutoBackup:" target="2L6-ke-EQD" id="ecN-99-o8a"/>
-                                        </connections>
                                     </button>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NfG-Iz-CYf" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="48" y="47" width="273" height="18"/>
+                                        <rect key="frame" x="48" y="137" width="273" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="Automatically delete snapshots every" id="1iZ-RN-dR7">
                                             <font key="font" size="15" name="SFPro-Medium"/>
@@ -1787,7 +1773,7 @@ disable automatic backups</string>
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bom-2k-dbn" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="23" y="47" width="19" height="19"/>
+                                        <rect key="frame" x="23" y="137" width="19" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="g2R-91-2Tr">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1807,12 +1793,9 @@ disable automatic backups</string>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="autoDeleteSnapshot:" target="2L6-ke-EQD" id="fDR-CS-syS"/>
-                                        </connections>
                                     </button>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBx-rB-fc2">
-                                        <rect key="frame" x="-2" y="153" width="570" height="24"/>
+                                        <rect key="frame" x="-2" y="243" width="570" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" title="Settings" id="skm-Yj-k4I" customClass="CenterCell" customModule="BackupSchedule" customModuleProvider="target">
                                             <font key="font" size="20" name="SFPro-Bold"/>
@@ -1821,7 +1804,7 @@ disable automatic backups</string>
                                         </textFieldCell>
                                     </textField>
                                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LpL-Gk-IJv" customClass="BackgroundView" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="324" y="44" width="60" height="26"/>
+                                        <rect key="frame" x="324" y="134" width="60" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <textField identifier="minutesTF" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gae-T4-yKR" customClass="NumericalTextField" customModule="BackupSchedule" customModuleProvider="target">
@@ -1842,10 +1825,9 @@ disable automatic backups</string>
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="defaultString" value="1"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shouldDisplayAlert" value="NO"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shouldResetContents" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="delegate" destination="YOy-JE-ZEq" id="4tR-MM-pH7"/>
-                                                </connections>
                                             </textField>
                                         </subviews>
                                         <userDefinedRuntimeAttributes>
@@ -1862,7 +1844,7 @@ disable automatic backups</string>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTN-dS-nXR" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
-                                        <rect key="frame" x="390" y="48" width="53" height="18"/>
+                                        <rect key="frame" x="390" y="138" width="53" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="day(s)" id="GOU-f7-hfW">
                                             <font key="font" size="15" name="SFPro-Medium"/>
@@ -1870,6 +1852,22 @@ disable automatic backups</string>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SP3-Ey-FU3" customClass="DefaultButton" customModule="BackupSchedule" customModuleProvider="target">
+                                        <rect key="frame" x="240" y="38" width="86" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="bevel" title="Back" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="RQm-R8-I6W">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" size="14" name="SFPro-Bold"/>
+                                        </buttonCell>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isActive" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="canToggle" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="back:" target="2L6-ke-EQD" id="d5V-Nk-uXj"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="alphaComponent">
@@ -1886,19 +1884,46 @@ disable automatic backups</string>
                         <outlet property="autoBackupButton" destination="tDu-UL-PP6" id="p9A-NL-fr1"/>
                         <outlet property="autoBackupLabel1" destination="OeN-wy-QYW" id="FWz-7t-xUh"/>
                         <outlet property="autoBackupLabel2" destination="4m4-cM-2Hj" id="fuL-pg-aII"/>
+                        <outlet property="autoBackupTextField" destination="S6Y-Eu-gWP" id="bdR-6G-nsF"/>
                         <outlet property="autoBackupTextFieldContainer" destination="sHO-c9-tux" id="j6V-LI-HCU"/>
                         <outlet property="deleteSnapshotButton" destination="Bom-2k-dbn" id="9tz-Rj-mG0"/>
                         <outlet property="deleteSnapshotLabel1" destination="NfG-Iz-CYf" id="lfw-ZZ-dXB"/>
                         <outlet property="deleteSnapshotLabel2" destination="yTN-dS-nXR" id="zEU-n5-fiP"/>
+                        <outlet property="deleteSnapshotTextField" destination="Gae-T4-yKR" id="42M-qr-udY"/>
                         <outlet property="deleteSnapshotTextFieldContainer" destination="LpL-Gk-IJv" id="Ge8-jU-Ge6"/>
                     </connections>
                 </viewController>
                 <customObject id="rtJ-OX-Aw9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="-0.5"/>
+            <point key="canvasLocation" x="1440" y="38"/>
+        </scene>
+        <!--Loading-->
+        <scene sceneID="0mU-43-wnF">
+            <objects>
+                <viewController title="Loading" storyboardIdentifier="loading" id="NWU-gf-AIE" sceneMemberID="viewController">
+                    <view key="view" id="gse-tq-5n6">
+                        <rect key="frame" x="0.0" y="0.0" width="321" height="212"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3v-Mp-hm3">
+                                <rect key="frame" x="112" y="82" width="96" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="AppIcon128" id="s6V-5n-UZ1"/>
+                            </imageView>
+                            <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jcU-5L-RbH">
+                                <rect key="frame" x="33" y="33" width="255" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="fEx-jh-ER0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="874.5" y="75"/>
         </scene>
     </scenes>
     <resources>
+        <image name="AppIcon128" width="64" height="64"/>
         <image name="NSGoForwardTemplate" width="12" height="16"/>
         <image name="gear" width="81.640602111816406" height="81.679702758789062"/>
         <image name="magnifyingglass" width="25" height="25"/>

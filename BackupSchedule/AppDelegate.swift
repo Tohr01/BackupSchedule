@@ -42,8 +42,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             event?.eventID == kAEOpenApplication && event?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
         
         // Run application on Login
-        LaunchAtLogin.isEnabled = true
-
+        if !LaunchAtLogin.isEnabled {
+            LaunchAtLogin.isEnabled = true
+        }
+        
         ScheduleCoordinator.default.loadSchedules()
 
         do {
@@ -130,10 +132,10 @@ extension AppDelegate {
         }
     }
     
-    func openVC(title: String, storyboardID: String) {
+    func openVC(title: String, storyboardID: String, styleMask: NSWindow.StyleMask = [.closable, .miniaturizable, .titled]) {
         if window == nil || !window.isVisible {
             let contentRect = NSRect(x: 0, y: 0, width: 820, height: 498)
-            window = BackupWindow(contentRect: contentRect, styleMask: [.closable, .miniaturizable, .titled], backing: .buffered, defer: false)
+            window = BackupWindow(contentRect: contentRect, styleMask: styleMask, backing: .buffered, defer: false)
             
             window.isReleasedWhenClosed = false
             window.center()
