@@ -20,6 +20,7 @@
 		C32963DE29C61D9300DF624A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32963DC29C61D9300DF624A /* Main.storyboard */; };
 		C329640229C61DFD00DF624A /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329640129C61DFD00DF624A /* DefaultButton.swift */; };
 		C346A9F52B27D3DC00355DD6 /* ToggleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */; };
+		C34828AB2CA6091500545FE8 /* ReplacingSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34828AA2CA6091500545FE8 /* ReplacingSegue.swift */; };
 		C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3630A2E2A26891400AE3658 /* BackupWindow.swift */; };
 		C36C04442AA12B5400358C72 /* ScheduleSelectionIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36C04432AA12B5400358C72 /* ScheduleSelectionIndicator.swift */; };
 		C374D94529F70F2E0007F52C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C374D94429F70F2E0007F52C /* String.swift */; };
@@ -33,6 +34,7 @@
 		C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9389C29C654A300527264 /* DisableAutoBackup.swift */; };
 		C3AED32E2AF0238F008357B3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32D2AF0238F008357B3 /* Settings.swift */; };
 		C3AED3302AF038FB008357B3 /* SettingsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */; };
+		C3C83A412CA484AB00D4AB9D /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C83A402CA484AB00D4AB9D /* Loading.swift */; };
 		C3CC501D2AF331060026DF23 /* DriveUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC501C2AF331060026DF23 /* DriveUtil.swift */; };
 		C3D4B8152C63FEC30013652C /* NumericalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4B8142C63FEC30013652C /* NumericalTextField.swift */; };
 		C3D4B8172C63FFEB0013652C /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4B8162C63FFEB0013652C /* Window.swift */; };
@@ -69,6 +71,7 @@
 		C32963DF29C61D9300DF624A /* BackupSchedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BackupSchedule.entitlements; sourceTree = "<group>"; };
 		C329640129C61DFD00DF624A /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
 		C346A9F42B27D3DB00355DD6 /* ToggleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTextField.swift; sourceTree = "<group>"; };
+		C34828AA2CA6091500545FE8 /* ReplacingSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplacingSegue.swift; sourceTree = "<group>"; };
 		C3630A2E2A26891400AE3658 /* BackupWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupWindow.swift; sourceTree = "<group>"; };
 		C36C04432AA12B5400358C72 /* ScheduleSelectionIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleSelectionIndicator.swift; sourceTree = "<group>"; };
 		C374D94429F70F2E0007F52C /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		C3A9389C29C654A300527264 /* DisableAutoBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAutoBackup.swift; sourceTree = "<group>"; };
 		C3AED32D2AF0238F008357B3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C3AED32F2AF038FB008357B3 /* SettingsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStruct.swift; sourceTree = "<group>"; };
+		C3C83A402CA484AB00D4AB9D /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		C3CC501C2AF331060026DF23 /* DriveUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveUtil.swift; sourceTree = "<group>"; };
 		C3D4B8142C63FEC30013652C /* NumericalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericalTextField.swift; sourceTree = "<group>"; };
 		C3D4B8162C63FFEB0013652C /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				C3A9389C29C654A300527264 /* DisableAutoBackup.swift */,
 				C3FF7B072A58EBF600B370FD /* BackupScheduleInformation.swift */,
 				C3AED32D2AF0238F008357B3 /* Settings.swift */,
+				C3C83A402CA484AB00D4AB9D /* Loading.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				C3CC501C2AF331060026DF23 /* DriveUtil.swift */,
 				C30C20C829C7E7E0005F5D83 /* Regex.swift */,
 				C3A9389A29C652E500527264 /* TimeMachine.swift */,
+				C34828AA2CA6091500545FE8 /* ReplacingSegue.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -313,6 +319,7 @@
 				C30C20C929C7E7E0005F5D83 /* Regex.swift in Sources */,
 				C3A9389D29C654A300527264 /* DisableAutoBackup.swift in Sources */,
 				C3FF7B082A58EBF600B370FD /* BackupScheduleInformation.swift in Sources */,
+				C3C83A412CA484AB00D4AB9D /* Loading.swift in Sources */,
 				C3E75E9F29E60DC10062EA55 /* ScheduleCoordinator.swift in Sources */,
 				C374D94529F70F2E0007F52C /* String.swift in Sources */,
 				C3D4B8172C63FFEB0013652C /* Window.swift in Sources */,
@@ -328,6 +335,7 @@
 				C32963D729C61D9200DF624A /* AppDelegate.swift in Sources */,
 				C3D4B8152C63FEC30013652C /* NumericalTextField.swift in Sources */,
 				C3EAD9C22A9EC92100B8F81B /* DefaultSidebarTableCellView.swift in Sources */,
+				C34828AB2CA6091500545FE8 /* ReplacingSegue.swift in Sources */,
 				C3630A2F2A26891400AE3658 /* BackupWindow.swift in Sources */,
 				C36C04442AA12B5400358C72 /* ScheduleSelectionIndicator.swift in Sources */,
 			);

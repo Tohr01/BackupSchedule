@@ -55,7 +55,12 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     var newSchedule: Bool = true
     var currentScheduleIdx: Int?
     
+    // Transmitted by LoadingVC via Storyboard segue
     var tmTargets: [TMDestination] = []
+    var primaryDisk: TMDestination?
+    var volumeCount: Int = 1
+    var lastBackupString: String = "No latest Backup found"
+    
     var selectedDrive: TMDestination?
     
     override func viewDidLoad() {
@@ -63,7 +68,6 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         print("VIEW LOADING: \(Date.timeIntervalSinceReferenceDate)")
         refreshSchedules()
         dayButtons = [monday: "Monday", tuesday: "Tuesday", wednesday: "Wednesday", thursday: "Thursday", friday: "Friday", saturday: "Saturday", sunday: "Sunday"]
-        tmTargets = (try? AppDelegate.tm!.getDestinations()) ?? []
         
         configureSidebar()
         configureLastBackup()
@@ -174,6 +178,7 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     }
     
     @objc func tmeventHandler(_ aNotification: Notification) {
+        lastBackupString = AppDelegate.tm.getLatestBackupStr()
         configureLastBackup()
     }
     
@@ -241,11 +246,9 @@ extension ScheduleConfiguration {
     }
     
     func configureDiskNames() {
-        destNameLabel.stringValue = (try? AppDelegate.tm?.getPrimaryVolume()?.name) ?? "# Error #"
-        var volumeCount = (try? AppDelegate.tm?.getBackupVolumeCount()) ?? 1
-        volumeCount -= 1
+        destNameLabel.stringValue = primaryDisk?.name ?? "# Error #"
         
-        if volumeCount == 0 {
+        if volumeCount == 1 {
             destCountMoreLabel.isHidden = true
         } else {
             destCountMoreLabel.stringValue = "\(volumeCount) more"
@@ -253,11 +256,7 @@ extension ScheduleConfiguration {
     }
     
     func configureLastBackup() {
-        if let lastBackup = AppDelegate.tm!.getLatestKnownBackup() {
-            lastBackupLabel.stringValue = "Last Backup \(lastBackup.getLatestBackupString())"
-        } else {
-            lastBackupLabel.stringValue = "No last Backup found"
-        }
+        lastBackupLabel.stringValue = lastBackupString
     }
     
     func configureSettings() {

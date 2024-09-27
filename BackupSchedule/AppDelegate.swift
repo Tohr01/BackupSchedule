@@ -128,16 +128,17 @@ extension AppDelegate {
         if AppDelegate.tm!.isAutoBackupEnabled() {
             openVC(title: "Disable AutoBackup", storyboardID: "disableab")
         } else {
-            openVC(title: "Schedule Backups", storyboardID: "scheduleconfiguration")
+            openVC(title: "", storyboardID: "loading", styleMask: [.titled], titleBarTransparent: true)
         }
     }
     
-    func openVC(title: String, storyboardID: String, styleMask: NSWindow.StyleMask = [.closable, .miniaturizable, .titled]) {
+    func openVC(title: String, storyboardID: String, styleMask: NSWindow.StyleMask = [.closable, .miniaturizable, .titled], titleBarTransparent: Bool = false) {
         if window == nil || !window.isVisible {
             let contentRect = NSRect(x: 0, y: 0, width: 820, height: 498)
             window = BackupWindow(contentRect: contentRect, styleMask: styleMask, backing: .buffered, defer: false)
             
             window.isReleasedWhenClosed = false
+            window.titlebarAppearsTransparent = titleBarTransparent
             window.center()
             window.title = title
             window.orderFrontRegardless()

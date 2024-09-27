@@ -1895,31 +1895,35 @@ disable automatic backups</string>
                 </viewController>
                 <customObject id="rtJ-OX-Aw9" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="38"/>
+            <point key="canvasLocation" x="2307" y="467"/>
         </scene>
         <!--Loading-->
         <scene sceneID="0mU-43-wnF">
             <objects>
-                <viewController title="Loading" storyboardIdentifier="loading" id="NWU-gf-AIE" sceneMemberID="viewController">
+                <viewController title="Loading" storyboardIdentifier="loading" id="NWU-gf-AIE" customClass="Loading" customModule="BackupSchedule" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="gse-tq-5n6">
-                        <rect key="frame" x="0.0" y="0.0" width="321" height="212"/>
+                        <rect key="frame" x="0.0" y="0.0" width="820" height="490"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jcU-5L-RbH">
+                                <rect key="frame" x="312" y="180" width="196" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D3v-Mp-hm3">
-                                <rect key="frame" x="112" y="82" width="96" height="96"/>
+                                <rect key="frame" x="362" y="213" width="96" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="AppIcon128" id="s6V-5n-UZ1"/>
                             </imageView>
-                            <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jcU-5L-RbH">
-                                <rect key="frame" x="33" y="33" width="255" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </progressIndicator>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="progressIndicator" destination="jcU-5L-RbH" id="6i4-Ul-dv2"/>
+                        <segue destination="YOy-JE-ZEq" kind="custom" identifier="loadingToMain" customClass="ReplacingSegue" customModule="BackupSchedule" customModuleProvider="target" id="Nxg-7Z-Mgk"/>
+                    </connections>
                 </viewController>
                 <customObject id="fEx-jh-ER0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="874.5" y="75"/>
+            <point key="canvasLocation" x="1481" y="-67"/>
         </scene>
     </scenes>
     <resources>
