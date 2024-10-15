@@ -128,7 +128,7 @@ extension AppDelegate {
         if AppDelegate.tm!.isAutoBackupEnabled() {
             openVC(title: "Disable AutoBackup", storyboardID: "disableab")
         } else {
-            openVC(title: "", storyboardID: "loading", styleMask: [.titled], titleBarTransparent: true)
+            openVC(title: "BackupSchedule", storyboardID: "loading", styleMask: [.titled, .closable], titleBarTransparent: true)
         }
     }
     

@@ -56,8 +56,8 @@ class Settings: NSViewController {
             deleteSnapshotTextField.resetToDefault()
             return
         }
-        SettingsStruct.autoBackupTime = autoBackupTextField.getInt()!
-        SettingsStruct.deleteSnapshotTime = deleteSnapshotTextField.getInt()!
+        SettingsStruct.autoBackupTime = autoBackupTextField.getInt()
+        SettingsStruct.deleteSnapshotTime = deleteSnapshotTextField.getInt()
         NotificationCenter.default.post(Notification(name: Notification.Name("closeSettings")))
     }
 

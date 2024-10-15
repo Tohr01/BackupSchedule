@@ -72,8 +72,9 @@ class NumericalTextField: NSTextField {
         return true
     }
     
-    func getInt() -> Int? {
-        return Int(self.stringValue)
+    func getInt() -> Int {
+        if !isValid() { return lowerBound }
+        return Int(self.stringValue)!
     }
 }
 

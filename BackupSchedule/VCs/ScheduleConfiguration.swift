@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
+class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     @IBOutlet var destNameLabel: NSTextField!
     @IBOutlet var destCountMoreLabel: NSTextField!
     @IBOutlet var lastBackupLabel: NSTextField!
@@ -75,6 +75,9 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         configureSettings()
         configureSelectionProxies()
         loadTemplateSchedule()
+        
+        hoursTextField.delegate = self
+        minutesTextField.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleText(_:)), name: Notification.Name("updatedSchedule"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(selectedDestDrive(_:)), name: Notification.Name("selectedDestDrive"), object: nil)
@@ -189,6 +192,14 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @objc func closeSettings(_ aNotification: Notification) {
         hideSettings()
     }
+    
+    func controlTextDidChange(_ obj: Notification) {
+        guard let textField = obj.object as? NumericalTextField else {
+            return
+        }
+        backupDescriptionLabel.stringValue = getDisplayText()
+    }
+    
 }
 
 // MARK: -
@@ -288,10 +299,12 @@ extension ScheduleConfiguration {
         
         var timeText = ""
         
-        if let minutes = Int(minutesTextField.stringValue), minutes == 0 {
-            timeText = "\(Int(hoursTextField.stringValue) ?? 0) o'clock"
+        let hours = hoursTextField.getInt()
+        let minutes = minutesTextField.getInt()
+        if minutes == 0 {
+            timeText = "\(hours) o'clock"
         } else {
-            timeText = "\(hoursTextField.stringValue):\(minutesTextField.stringValue)"
+            timeText = "\(hours):\(minutes)"
         }
         
         return "\(dayText) at \(timeText)"
