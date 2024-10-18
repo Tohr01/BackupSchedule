@@ -65,7 +65,6 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("VIEW LOADING: \(Date.timeIntervalSinceReferenceDate)")
         refreshSchedules()
         dayButtons = [monday: "Monday", tuesday: "Tuesday", wednesday: "Wednesday", thursday: "Thursday", friday: "Friday", saturday: "Saturday", sunday: "Sunday"]
         
@@ -90,10 +89,6 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
         NotificationCenter.default.removeObserver(self, name: Notification.Name("selectedDestDrive"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("tmchanged"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("closeSettings"), object: nil)
-    }
-    
-    override func viewDidAppear() {
-        print("VIEW APPEAR: \(Date.timeIntervalSinceReferenceDate)")
     }
     
     @IBAction func save(_: Any) {
@@ -192,14 +187,6 @@ class ScheduleConfiguration: NSViewController, NSTableViewDataSource, NSTableVie
     @objc func closeSettings(_ aNotification: Notification) {
         hideSettings()
     }
-    
-    func controlTextDidChange(_ obj: Notification) {
-        guard let textField = obj.object as? NumericalTextField else {
-            return
-        }
-        backupDescriptionLabel.stringValue = getDisplayText()
-    }
-    
 }
 
 // MARK: -
@@ -345,7 +332,6 @@ extension ScheduleConfiguration {
 }
 
 // MARK: -
-
 // MARK: Table View
 
 extension ScheduleConfiguration {
@@ -421,6 +407,14 @@ extension ScheduleConfiguration {
             saveAllSchedules()
             NotificationCenter.default.post(Notification(name: Notification.Name("schedulesChanged")))
         }
+    }
+}
+
+// MARK: -
+// MARK: TextField delegate
+extension ScheduleConfiguration {
+    func controlTextDidChange(_ obj: Notification) {
+        backupDescriptionLabel.stringValue = getDisplayText()
     }
 }
 
