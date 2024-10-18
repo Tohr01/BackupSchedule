@@ -10,7 +10,7 @@ import Foundation
 
 func groups(for str: String, pattern: String, capture_group: [Int]?, regex_options: NSRegularExpression.Options = [.anchorsMatchLines]) -> [String]? {
     // Array containing the result of the regular expression. Has the following form: [0, 1, 2, ...] = [Match, CaptureGroup1, CaptureGroup2, ...]
-    var result = Array<String>.init()
+    var result = [String]()
     do {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: pattern, options: regex_options)
         let matches = regex.matches(in: str, range: NSRange(str.startIndex..., in: str))
@@ -44,5 +44,3 @@ func groups(for str: String, pattern: String, capture_group: [Int]?, regex_optio
     }
     return result.isEmpty ? nil : result
 }
-
-

@@ -109,12 +109,12 @@ class TimeMachine {
         } else if let savedDate = savedDate {
             return savedDate
         }
-        
+
         return nil
     }
-    
+
     func getLatestBackup() -> Date? {
-    latestBackupCheck: if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2, 3, 1, 4, 5]) {
+        latestBackupCheck: if let latestBackupStr = (try? tmutilRequest(args: "latestbackup")), let dateArr = groups(for: latestBackupStr, pattern: #"(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})\d*\.backup"#, capture_group: [2, 3, 1, 4, 5]) {
             let dateArrInt = dateArr.map { Int($0) }.compactMap { $0 }
             if dateArrInt.count < 5 { break latestBackupCheck }
             var dateComp = DateComponents()
@@ -127,7 +127,7 @@ class TimeMachine {
         }
         return getLatestKnownBackup()
     }
-    
+
     func getLatestBackupStr() -> String {
         if let latestBackup = getLatestBackup() {
             return "Last Backup: \(latestBackup.getLatestBackupString().capitalizeFirst)"
@@ -155,11 +155,11 @@ class TimeMachine {
 
                 if let destInfoDict = destInfoDict as? [String: Any], let destinations = destInfoDict["Destinations"] as? [[String: Any]] {
                     if let destination = destination {
-                        if let destDict = destinations.filter({$0["ID"] as! String == destination.id}).first {
+                        if let destDict = destinations.filter({ $0["ID"] as! String == destination.id }).first {
                             return destDict["MountPoint"] != nil
                         }
                     } else {
-                        return !destinations.filter({$0["MountPoint"] != nil}).isEmpty
+                        return !destinations.filter { $0["MountPoint"] != nil }.isEmpty
                     }
                 }
             }
@@ -168,7 +168,7 @@ class TimeMachine {
         }
         return false
     }
-    
+
     func getDestinations() throws -> [TMDestination]? {
         do {
             if let destinationInfo = try tmutilRequest(args: "destinationinfo", "-X"),
@@ -235,7 +235,7 @@ class TimeMachine {
     }
 
     // MARK: Snapshots
-    
+
     func getLocalSnapshotCount() throws -> Int {
         do {
             if let localSnapshotsStr = try tmutilRequest(args: "listlocalsnapshots", "/"), let matches = groups(for: localSnapshotsStr, pattern: #"^com\.apple\.TimeMachine.+$"#, capture_group: nil) {
@@ -246,7 +246,7 @@ class TimeMachine {
         }
         return 0
     }
-    
+
     func deleteLocalSnapshots() throws {
         do {
             try tmutilRequest(args: "deletelocalsnapshots", "/")
@@ -254,7 +254,7 @@ class TimeMachine {
             throw error
         }
     }
-    
+
     @discardableResult
     private func tmutilRequest(args: String...) throws -> String? {
         let process = Process()

@@ -5,7 +5,6 @@
 // Created by Tohr01 on 26.09.24
 // Copyright © 2024 Tohr01. All rights reserved.
 //
-        
 
 import Cocoa
 

@@ -6,25 +6,23 @@
 // Copyright © 2023 Tohr01. All rights reserved.
 //
 
-
 import Cocoa
 
 class Settings: NSViewController {
-    
-    @IBOutlet weak var autoBackupButton: DefaultButton!
-    @IBOutlet weak var autoBackupTextFieldContainer: BackgroundView!
-    @IBOutlet weak var autoBackupTextField: NumericalTextField!
-    @IBOutlet weak var autoBackupLabel1: ToggleTextField!
-    @IBOutlet weak var autoBackupLabel2: ToggleTextField!
+    @IBOutlet var autoBackupButton: DefaultButton!
+    @IBOutlet var autoBackupTextFieldContainer: BackgroundView!
+    @IBOutlet var autoBackupTextField: NumericalTextField!
+    @IBOutlet var autoBackupLabel1: ToggleTextField!
+    @IBOutlet var autoBackupLabel2: ToggleTextField!
     var autoBackupProxy: SelectionUIProxy!
-    
-    @IBOutlet weak var deleteSnapshotButton: DefaultButton!
-    @IBOutlet weak var deleteSnapshotTextFieldContainer: BackgroundView!
-    @IBOutlet weak var deleteSnapshotTextField: NumericalTextField!
-    @IBOutlet weak var deleteSnapshotLabel1: ToggleTextField!
-    @IBOutlet weak var deleteSnapshotLabel2: ToggleTextField!
+
+    @IBOutlet var deleteSnapshotButton: DefaultButton!
+    @IBOutlet var deleteSnapshotTextFieldContainer: BackgroundView!
+    @IBOutlet var deleteSnapshotTextField: NumericalTextField!
+    @IBOutlet var deleteSnapshotLabel1: ToggleTextField!
+    @IBOutlet var deleteSnapshotLabel2: ToggleTextField!
     var autoDeleteSnapshot: SelectionUIProxy!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         autoBackupTextField.stringValue = String(SettingsStruct.autoBackupTime)
@@ -36,7 +34,7 @@ class Settings: NSViewController {
             NotificationCenter.default.post(Notification(name: Notification.Name("settingsUpdated")))
         }
         autoBackupProxy = SelectionUIProxy(onClick: toggleAutoBackup, checkbox: autoBackupButton, toggleLabels: [autoBackupLabel1, autoBackupLabel2], textField: autoBackupTextField, active: SettingsStruct.autoBackupEnable)
-        
+
         // Toggle DeleteSnapshot
         let toggleDeleteSnapshot = {
             SettingsStruct.deleteSnapshotEnable.toggle()
@@ -44,8 +42,8 @@ class Settings: NSViewController {
         }
         autoDeleteSnapshot = SelectionUIProxy(onClick: toggleDeleteSnapshot, checkbox: deleteSnapshotButton, toggleLabels: [deleteSnapshotLabel1, deleteSnapshotLabel2], textField: deleteSnapshotTextField, active: SettingsStruct.deleteSnapshotEnable)
     }
-    
-    @IBAction func back(_ sender: Any) {
+
+    @IBAction func back(_: Any) {
         if !autoBackupTextField.isValid() {
             autoBackupTextField.displayAlert()
             autoBackupTextField.resetToDefault()
@@ -60,5 +58,4 @@ class Settings: NSViewController {
         SettingsStruct.deleteSnapshotTime = deleteSnapshotTextField.getInt()
         NotificationCenter.default.post(Notification(name: Notification.Name("closeSettings")))
     }
-
 }

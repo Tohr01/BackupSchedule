@@ -46,7 +46,7 @@ class BackgroundView: NSView {
             addTrackingArea(trackingArea)
         }
     }
-    
+
     /// On mouse Enter
     override func mouseEntered(with _: NSEvent) {
         NSAnimationContext.runAnimationGroup { context in
@@ -64,7 +64,7 @@ class BackgroundView: NSView {
             self.animator().layer?.backgroundColor = onlyVisibleOnHover ? .clear : defaultBackgroundColor.cgColor
         }
     }
-    
+
     override func mouseDown(with event: NSEvent) {
         // If enableClickthough is set to false remove default mouseDown functionality
         if enableClickthrough {

@@ -8,6 +8,7 @@
 
 import Cocoa
 import IOKit.ps
+
 class SystemInformation {
     static func isUnderHighLoad() -> Bool {
         let process = Process()

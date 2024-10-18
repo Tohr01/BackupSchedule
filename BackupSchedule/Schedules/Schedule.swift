@@ -23,7 +23,7 @@ struct BackupSchedule: Codable, Hashable {
     }
 
     func getNextExecDate(after date: Date = Date.now) -> Date? {
-        var validDays = activeDays.map({$0.rawValue.1}).sorted()
+        var validDays = activeDays.map(\.rawValue.1).sorted()
         let cal = Calendar.current
         let dateComps = cal.dateComponents([.weekday, .hour, .minute], from: date)
         let currentWeekday = dateComps.weekday!
@@ -41,26 +41,24 @@ struct BackupSchedule: Codable, Hashable {
                 return cal.date(from: nextExecDateComps)!
             } else {
                 // Time has passed
-                if let currentWeekdayIdx = validDays.firstIndex(where: {$0 == currentWeekday}){
-                    let nextWeekdayIdx = (currentWeekdayIdx+1)%validDays.count
+                if let currentWeekdayIdx = validDays.firstIndex(where: { $0 == currentWeekday }) {
+                    let nextWeekdayIdx = (currentWeekdayIdx + 1) % validDays.count
                     return Date.constructDate(from: validDays.sorted()[nextWeekdayIdx], hour: timeActive.hour!, minute: timeActive.minute!)
                 }
             }
         } else {
-            if currentWeekday < validDays.sorted()[validDays.count-1] {
+            if currentWeekday < validDays.sorted()[validDays.count - 1] {
                 return Date.constructDate(from: validDays.sorted()[0], hour: timeActive.hour!, minute: timeActive.minute!)
             } else {
                 validDays.append(currentWeekday)
-                let nextWeekdayIdx = validDays.sorted().firstIndex(of: currentWeekday)!+1
-                let nextWeekday = validDays[nextWeekdayIdx%validDays.count]
+                let nextWeekdayIdx = validDays.sorted().firstIndex(of: currentWeekday)! + 1
+                let nextWeekday = validDays[nextWeekdayIdx % validDays.count]
                 return Date.constructDate(from: nextWeekday, hour: timeActive.hour!, minute: timeActive.minute!)
             }
-            
         }
         return nil
     }
 
-    
     func getTimeString() -> String {
         let time = timeActive
         if let hour = time.hour, let minute = time.minute {
@@ -68,15 +66,15 @@ struct BackupSchedule: Codable, Hashable {
         }
         return "00:00"
     }
-    
-    func getHourString() -> String{
+
+    func getHourString() -> String {
         let time = timeActive
         if let hour = time.hour {
             return "\(hour < 10 ? "0\(hour)" : String(hour))"
         }
         return "00"
     }
-    
+
     func getMinuteString() -> String {
         let time = timeActive
         if let minute = time.minute {

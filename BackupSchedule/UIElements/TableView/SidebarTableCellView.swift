@@ -14,7 +14,6 @@ class SidebarTableCellView: NSTableCellView, DefaultSidebarTableCellView {
     @IBOutlet var runTime: NSTextField!
     @IBOutlet var deleteButton: DefaultButton!
     @IBOutlet var activityIndicator: NSImageView!
-    
 
     var scheduleID: UUID?
 
@@ -22,12 +21,12 @@ class SidebarTableCellView: NSTableCellView, DefaultSidebarTableCellView {
         super.draw(dirtyRect)
         deleteButton.alphaValue = 0.6
     }
-    
+
     func setActive() {
         activityIndicator.isHidden = false
     }
+
     func setInactive() {
         activityIndicator.isHidden = true
     }
-    
 }

@@ -1,5 +1,5 @@
 //
-// ViewController.swift
+// ConfigureTimeMachine.swift
 // BackupSchedule
 //
 // Created by Tohr01 on 18.03.23

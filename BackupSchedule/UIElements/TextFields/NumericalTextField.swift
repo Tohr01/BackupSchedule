@@ -6,7 +6,6 @@
 // Copyright © 2024 Tohr01. All rights reserved.
 //
 
-
 import Cocoa
 
 class NumericalTextField: NSTextField {
@@ -17,15 +16,15 @@ class NumericalTextField: NSTextField {
     @IBInspectable var defaultString: String = "00"
     @IBInspectable var shouldDisplayAlert: Bool = true
     @IBInspectable var shouldResetContents: Bool = true
-    
+
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override func textDidEndEditing(_ notification: Notification) {
         super.textDidEndEditing(notification)
         if !isValid() {
@@ -37,49 +36,49 @@ class NumericalTextField: NSTextField {
             }
         }
     }
-    
+
     override func performKeyEquivalent(with event: NSEvent) -> Bool {
-               if event.type == .keyDown, event.keyCode == 48 { // 48 is the key code for Tab
-                   self.window?.selectNextKeyView(self)
-                   return true
-               }
-               return super.performKeyEquivalent(with: event)
-           }
-    
+        if event.type == .keyDown, event.keyCode == 48 { // 48 is the key code for Tab
+            window?.selectNextKeyView(self)
+            return true
+        }
+        return super.performKeyEquivalent(with: event)
+    }
+
     func displayAlert() {
         var alertMessage: String
         if !(enableLower || enableUpper) {
             alertMessage = "Please input a valid number."
-        } else if enableLower && !enableUpper {
+        } else if enableLower, !enableUpper {
             alertMessage = "The number has to be bigger or equal than \(lowerBound)"
-        } else if !enableLower && enableUpper {
+        } else if !enableLower, enableUpper {
             alertMessage = "The number has to be lower or equal than \(upperBound)"
         } else {
             alertMessage = "The number has to be between \(lowerBound) and \(upperBound)"
         }
-        self.window?.defaultAlert(message: alertMessage)
+        window?.defaultAlert(message: alertMessage)
     }
-    
+
     func resetToDefault() {
-        self.stringValue = defaultString
+        stringValue = defaultString
     }
-    
+
     func isValid() -> Bool {
-        let num = Int(self.stringValue)
+        let num = Int(stringValue)
         if num == nil || (enableLower && num! < lowerBound) || (enableUpper && upperBound < num!) {
             return false
         }
         return true
     }
-    
+
     func getInt() -> Int {
         if !isValid() { return lowerBound }
-        return Int(self.stringValue)!
+        return Int(stringValue)!
     }
 }
 
-fileprivate class OnlyIntegerValFormatter: NumberFormatter {
-    override func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+private class OnlyIntegerValFormatter: NumberFormatter {
+    override func isPartialStringValid(_ partialString: String, newEditingString _: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription _: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         if partialString.isEmpty { return true }
         return Int(partialString) != nil
     }

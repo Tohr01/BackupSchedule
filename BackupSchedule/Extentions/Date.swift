@@ -24,7 +24,7 @@ extension Date {
         let nextExecDate = Calendar.current.nextDate(after: Date.now, matching: nextExecDateComps, matchingPolicy: .nextTime)
         return nextExecDate!
     }
-    
+
     func getLatestBackupString() -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
@@ -40,8 +40,8 @@ extension Date {
         formatter.timeStyle = .short
         return formatter.string(from: self)
     }
-    
-    func isBetween(startDate: Date, endDate: Date) -> Bool{
-        return startDate <= self && self <= endDate
+
+    func isBetween(startDate: Date, endDate: Date) -> Bool {
+        startDate <= self && self <= endDate
     }
 }
