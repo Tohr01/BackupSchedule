@@ -20,6 +20,9 @@ It fully replaces the Time Machine menu bar icon.
 <p align="center"><i>Supports light and dark mode</i></p>
 <br>
 </p>
+
+## 🖥️ System requirements
+macOS 10.14 or higher
   
 ## ⬇️ Installation
 - Download the latest compiled release from the [Releases](https://github.com/Tohr01/BackupSchedule/releases) tab
