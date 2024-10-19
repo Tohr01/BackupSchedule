@@ -127,13 +127,13 @@ class ScheduleCoordinator {
     }
 
     @objc func macWillGoToSleep() {
-        sleepStart = Date.now
+        sleepStart = Date()
     }
 
     @objc func macWillWakeUp() {
         if let sleepStartDate = sleepStart {
             // Get schedules that where missed when mac slept
-            let missedSchedules = ScheduleCoordinator.schedules.compactMap { $0.0.getNextExecDate(after: sleepStartDate) }.filter { $0.compare(Date.now) == .orderedAscending }
+            let missedSchedules = ScheduleCoordinator.schedules.compactMap { $0.0.getNextExecDate(after: sleepStartDate) }.filter { $0.compare(Date()) == .orderedAscending }
             if !missedSchedules.isEmpty {
                 let notificationCenter = UNUserNotificationCenter.current()
                 let content = UNMutableNotificationContent()

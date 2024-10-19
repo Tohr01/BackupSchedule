@@ -57,14 +57,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 try constructMenu()
             }
 
-            Task {
-                await requestNotificationAuth()
+            DispatchQueue.global(qos: .utility).async {
+                self.requestNotificationAuth()
             }
 
             autoTaskTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                 // Last backup ist too old. Starting new Backup
                 if SettingsStruct.autoBackupEnable, let lastBackup = AppDelegate.tm!.getLatestBackup(),
-                   lastBackup <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.autoBackupTime, to: Date.now)!
+                   lastBackup <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.autoBackupTime, to: Date())!
                 {
                     try? AppDelegate.tm!.startBackup()
                     let notification = UNMutableNotificationContent()
@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
 
                 if SettingsStruct.deleteSnapshotEnable,
-                   SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date.now)!
+                   SettingsStruct.lastSnapshotDeletionDate <= Calendar.current.date(byAdding: .day, value: -SettingsStruct.deleteSnapshotTime, to: Date())!
                 {
                     if let snapshotCount = try? AppDelegate.tm.getLocalSnapshotCount(), snapshotCount > 0 {
                         try? AppDelegate.tm.deleteLocalSnapshots()
@@ -183,9 +183,9 @@ extension AppDelegate {
 // MARK: User Notification handling
 
 extension AppDelegate {
-    func requestNotificationAuth() async {
+    func requestNotificationAuth() {
         let notificationCenter = UNUserNotificationCenter.current()
-        _ = try? await notificationCenter.requestAuthorization(options: [.alert, .sound])
+        notificationCenter.requestAuthorization(completionHandler: {_,_ in })
     }
 }
 

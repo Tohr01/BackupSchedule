@@ -408,6 +408,10 @@ extension ScheduleConfiguration {
             scheduleListTableView.reloadData()
             saveAllSchedules()
             NotificationCenter.default.post(Notification(name: Notification.Name("schedulesChanged")))
+            
+            if let addScheduleCell = scheduleListTableView.view(atColumn: 0, row: schedules.count, makeIfNecessary: false) as? AddScheduleCellView {
+                addScheduleCell.setActive()
+            }
         }
     }
 }

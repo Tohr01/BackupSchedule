@@ -22,7 +22,7 @@ struct BackupSchedule: Codable, Hashable {
         hasher.combine(settings)
     }
 
-    func getNextExecDate(after date: Date = Date.now) -> Date? {
+    func getNextExecDate(after date: Date = Date()) -> Date? {
         var validDays = activeDays.map(\.rawValue.1).sorted()
         let cal = Calendar.current
         let dateComps = cal.dateComponents([.weekday, .hour, .minute], from: date)
@@ -35,7 +35,7 @@ struct BackupSchedule: Codable, Hashable {
             // Time active e.g. 11:20 currentTime e.g. 10:56
             if currentHour < timeActive.hour! || (currentHour == timeActive.hour! && currentMinute <= timeActive.minute!) {
                 // Backup is upcoming today
-                var nextExecDateComps = cal.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: Date.now)
+                var nextExecDateComps = cal.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: Date())
                 nextExecDateComps.hour = timeActive.hour!
                 nextExecDateComps.minute = timeActive.minute!
                 return cal.date(from: nextExecDateComps)!

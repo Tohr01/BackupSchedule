@@ -47,7 +47,7 @@ enum SettingsStruct {
 
     static var lastSnapshotDeletionDate: Date {
         get {
-            (UserDefaults.standard.value(forKey: "lastSnapshotDeletionDate") as? Date) ?? Date.now
+            (UserDefaults.standard.value(forKey: "lastSnapshotDeletionDate") as? Date) ?? Date()
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "lastSnapshotDeletionDate")

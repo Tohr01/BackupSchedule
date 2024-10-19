@@ -21,7 +21,7 @@ extension Optional where Wrapped == Date {
 extension Date {
     static func constructDate(from weekday: Int, hour: Int, minute: Int) -> Date {
         let nextExecDateComps = DateComponents(hour: hour, minute: minute, weekday: weekday)
-        let nextExecDate = Calendar.current.nextDate(after: Date.now, matching: nextExecDateComps, matchingPolicy: .nextTime)
+        let nextExecDate = Calendar.current.nextDate(after: Date(), matching: nextExecDateComps, matchingPolicy: .nextTime)
         return nextExecDate!
     }
 
