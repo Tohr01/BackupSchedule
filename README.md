@@ -30,4 +30,4 @@ It fully replaces the Time Machine menu bar icon.
 - [LaunchAtLogin-Legacy](https://github.com/sindresorhus/LaunchAtLogin-Legacy) by sindresorhus
 
 ## 📑 License
-This project is licensed under the MIT License. See [License](LICENSE.md) for more information.
+This project is licensed under the MIT License. See [License](LICENSE) for more information.
