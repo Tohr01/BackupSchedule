@@ -36,24 +36,24 @@ class TimeMachine {
     }
 
     func isAutoBackupEnabled() -> Bool {
-        let task = Process()
-        task.launchPath = "/usr/bin/defaults"
-        task.arguments = ["read", "/Library/Preferences/com.apple.TimeMachine.plist", "AutoBackup"]
-        let pipe = Pipe()
-        task.standardOutput = pipe
-        task.launch()
-
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .newlines)
-
-        return output == "1"
+        var enabled = true
+        enabled = defaultsRead(plistPath: "/Library/Preferences/com.apple.TimeMachine.plist", key: "AutoBackup") == "1"
+        if #available(macOS 13, *) {
+            enabled = enabled || (defaultsRead(plistPath: "/Library/Preferences/com.apple.TimeMachine.plist", key: "AutoBackupInterval") != nil)
+        }
+        return enabled
     }
 
     @discardableResult
     func disableAutoBackup() -> AppleScriptExecutionResult {
         var err: NSDictionary?
-        NSAppleScript(source: "do shell script \"/usr/bin/sudo /usr/bin/tmutil disable\" with administrator " +
-            "privileges")!.executeAndReturnError(&err)
+        var applescript: String
+        if #available(macOS 13, *) {
+            applescript = "do shell script \"/usr/bin/sudo /usr/bin/tmutil disable && /usr/bin/sudo /usr/bin/defaults delete /Library/Preferences/com.apple.TimeMachine.plist AutoBackupInterval\" with administrator privileges"
+        } else {
+            applescript = "do shell script \"/usr/bin/sudo /usr/bin/tmutil disable\" with administrator privileges"
+        }
+        NSAppleScript(source: applescript)!.executeAndReturnError(&err)
         if err == nil {
             return .success
         }
@@ -296,5 +296,18 @@ class TimeMachine {
         }
         process.waitUntilExit()
         return output
+    }
+    
+    private func defaultsRead(plistPath: String, key: String) -> String? {
+        let task = Process()
+        task.launchPath = "/usr/bin/defaults"
+        task.arguments = ["read", plistPath, key]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.launch()
+        
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .newlines)
+        return output != "" ? output : nil
     }
 }
