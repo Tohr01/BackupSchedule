@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -691,7 +691,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="820" height="490"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBq-Qf-MzK">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBq-Qf-MzK">
                                 <rect key="frame" x="-2" y="325" width="824" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="👋" id="ArI-1J-J4r">
@@ -715,7 +715,7 @@
                                     <action selector="deactivateAB:" target="XfG-lQ-9wD" id="xrg-Tr-1KI"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bf5-oL-Qyn">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bf5-oL-Qyn">
                                 <rect key="frame" x="142" y="162" width="536" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" id="ECc-rr-Xyw">
@@ -760,7 +760,7 @@ disable automatic backups</string>
                                     <action selector="configureTM:" target="ooT-lN-BHG" id="8aW-Ja-Yri"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YsN-1t-p7P">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YsN-1t-p7P">
                                 <rect key="frame" x="154" y="164" width="512" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="center" title="Seems like TimeMachine is not configured on your Mac" id="HU5-Wz-ePi">
@@ -769,7 +769,7 @@ disable automatic backups</string>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adS-V8-YoW">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adS-V8-YoW">
                                 <rect key="frame" x="-2" y="325" width="824" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="⏰" id="Utt-u4-VKX">
@@ -805,7 +805,7 @@ disable automatic backups</string>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="timemachine_icon" id="QfZ-5s-4Ej"/>
                                     </imageView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OyE-g2-9fA">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OyE-g2-9fA">
                                         <rect key="frame" x="18" y="332" width="283" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" title="Backup" id="Nc8-5n-edV">
@@ -814,7 +814,7 @@ disable automatic backups</string>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rnF-5g-1Wl">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rnF-5g-1Wl">
                                         <rect key="frame" x="18" y="300" width="283" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" title="5 more" id="fsY-gd-tPk">
@@ -823,7 +823,7 @@ disable automatic backups</string>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qsx-Lt-cqm">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qsx-Lt-cqm">
                                         <rect key="frame" x="18" y="13" width="283" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" id="Asj-2a-e0G">
@@ -866,7 +866,7 @@ disable automatic backups</string>
                                                                             <rect key="frame" x="17" y="10" width="256" height="64"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <subviews>
-                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r26-eI-ZzE">
+                                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r26-eI-ZzE">
                                                                                     <rect key="frame" x="14" y="34" width="211" height="19"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Monday and Saturday" id="Yn6-uV-jdt">
@@ -880,7 +880,7 @@ disable automatic backups</string>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="tmicon" id="SEF-zq-fkS"/>
                                                                                 </imageView>
-                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmG-vy-iAD">
+                                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dmG-vy-iAD">
                                                                                     <rect key="frame" x="40" y="11" width="75" height="18"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="clipping" title="00:00" id="za9-Ya-iIg">
@@ -962,7 +962,7 @@ disable automatic backups</string>
                                                                             <rect key="frame" x="17" y="0.0" width="256" height="41"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <subviews>
-                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYR-TB-KHK">
+                                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYR-TB-KHK">
                                                                                     <rect key="frame" x="-2" y="12" width="260" height="18"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Add schedule" id="bbi-Ub-dDg">
@@ -1038,7 +1038,7 @@ disable automatic backups</string>
                                 <rect key="frame" x="319" y="409" width="501" height="81"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-1c-oay">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-1c-oay">
                                         <rect key="frame" x="18" y="10" width="465" height="54"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" title="&quot;Every day at 10 o' clock&quot;" id="bEG-Dt-WHe" customClass="CenterCell" customModule="BackupSchedule" customModuleProvider="target">
@@ -1057,7 +1057,7 @@ disable automatic backups</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXU-VH-dZ8">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXU-VH-dZ8">
                                 <rect key="frame" x="343" y="368" width="459" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Days active" id="DJS-nl-wl4">
@@ -1066,7 +1066,7 @@ disable automatic backups</string>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8kC-HX-Cv0">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8kC-HX-Cv0">
                                 <rect key="frame" x="343" y="267" width="64" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Time" id="qrU-rY-K1c">
@@ -1236,7 +1236,7 @@ disable automatic backups</string>
                                     <action selector="save:" target="YOy-JE-ZEq" id="84h-9U-bbN"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43U-OD-GQk" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="43U-OD-GQk" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="374" y="177" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Notify me when this Backup starts" id="pSd-LM-vXm">
@@ -1264,7 +1264,7 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOa-JR-Guk" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOa-JR-Guk" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="374" y="140" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Disable Backup when in battery mode" id="x3c-ur-ql1">
@@ -1292,7 +1292,7 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qno-RB-Sgb" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qno-RB-Sgb" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                 <rect key="frame" x="374" y="103" width="346" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Run Backup even when Mac is under high load" id="0uX-e5-lSG">
@@ -1319,9 +1319,6 @@ disable automatic backups</string>
                                                 <integer key="value" value="0"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="enableUpper" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="defaultNum">
-                                                <integer key="value" value="0"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="upperBound">
                                                 <integer key="value" value="60"/>
                                             </userDefinedRuntimeAttribute>
@@ -1366,9 +1363,6 @@ disable automatic backups</string>
                                             <userDefinedRuntimeAttribute type="number" keyPath="upperBound">
                                                 <integer key="value" value="23"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="defaultNum">
-                                                <integer key="value" value="0"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="shouldDisplayAlert" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -1389,7 +1383,7 @@ disable automatic backups</string>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0gf-8z-Few">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0gf-8z-Few">
                                 <rect key="frame" x="539" y="267" width="201" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title="Destination drive" id="dtL-AT-ahe">
@@ -1433,7 +1427,7 @@ disable automatic backups</string>
                                     <action selector="selectDestinationDrive:" target="YOy-JE-ZEq" id="P0j-lS-pQO"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-8W-QdB">
                                 <rect key="frame" x="419" y="236" width="8" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="left" title=":" id="tib-Nw-avN">
@@ -1551,7 +1545,7 @@ disable automatic backups</string>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="timemachine_icon" id="opx-dg-WJd"/>
                                                                         </imageView>
-                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yM2-nF-bEI">
+                                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yM2-nF-bEI">
                                                                             <rect key="frame" x="65" y="16" width="103" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Backup" id="4AV-VW-NtL">
@@ -1620,7 +1614,7 @@ disable automatic backups</string>
                 </viewController>
                 <customObject id="RDE-7s-cR6" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1513.5" y="1018"/>
+            <point key="canvasLocation" x="2126" y="831"/>
         </scene>
         <!--Information-->
         <scene sceneID="Ug9-Gd-0u7">
@@ -1630,7 +1624,7 @@ disable automatic backups</string>
                         <rect key="frame" x="0.0" y="0.0" width="820" height="490"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mXK-Ib-oW1">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mXK-Ib-oW1">
                                 <rect key="frame" x="-2" y="361" width="824" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="⚠️" id="Gkg-Lj-0WP">
@@ -1654,7 +1648,7 @@ disable automatic backups</string>
                                     <action selector="continue:" target="JmY-dy-TRz" id="vC2-sG-xEX"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-u3-lRQ">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfG-u3-lRQ">
                                 <rect key="frame" x="142" y="161" width="536" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" alignment="center" id="sTn-EP-vId">
@@ -1701,9 +1695,6 @@ disable automatic backups</string>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="lowerBound">
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="defaultNum">
-                                                        <integer key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="defaultString" value="1"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="shouldDisplayAlert" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="shouldResetContents" value="NO"/>
@@ -1723,7 +1714,7 @@ disable automatic backups</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeN-wy-QYW" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OeN-wy-QYW" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                         <rect key="frame" x="48" y="186" width="373" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="Automatically update when last backup is older than" id="AJp-E8-cEH">
@@ -1732,7 +1723,7 @@ disable automatic backups</string>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4m4-cM-2Hj" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4m4-cM-2Hj" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                         <rect key="frame" x="492" y="186" width="53" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="day(s)" id="A9S-tp-3B1">
@@ -1763,7 +1754,7 @@ disable automatic backups</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NfG-Iz-CYf" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NfG-Iz-CYf" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                         <rect key="frame" x="48" y="137" width="273" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="Automatically delete snapshots every" id="1iZ-RN-dR7">
@@ -1794,7 +1785,7 @@ disable automatic backups</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="toggleButtonOnly" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBx-rB-fc2">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBx-rB-fc2">
                                         <rect key="frame" x="-2" y="243" width="570" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="center" title="Settings" id="skm-Yj-k4I" customClass="CenterCell" customModule="BackupSchedule" customModuleProvider="target">
@@ -1821,9 +1812,6 @@ disable automatic backups</string>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="lowerBound">
                                                         <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="defaultNum">
-                                                        <integer key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="defaultString" value="1"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="shouldDisplayAlert" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="shouldResetContents" value="NO"/>
@@ -1843,7 +1831,7 @@ disable automatic backups</string>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="dropShadow" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </customView>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTN-dS-nXR" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTN-dS-nXR" customClass="ToggleTextField" customModule="BackupSchedule" customModuleProvider="target">
                                         <rect key="frame" x="390" y="138" width="53" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" alignment="left" title="day(s)" id="GOU-f7-hfW">
